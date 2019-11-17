@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Creating my own Checkbox
+inspiration from stackoverflow: https://bit.ly/2BMstmn
+-->
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item android:drawable="@drawable/blue_orb_no_64x64"
+
+            android:state_checked="false"/>
+        <item android:drawable="@drawable/blue_orb_yes_64x64"
+            android:state_checked="true"/>
+        <item android:drawable="@drawable/blue_orb_no_64x64"/>
+
+
+
+</selector>
