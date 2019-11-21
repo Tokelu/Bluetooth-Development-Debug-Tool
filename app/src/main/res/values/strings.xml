@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Bluetooth Development Debug Tool</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="buttonExit">Exit</string>
+    <string name="buttonHelp">Help</string>
+    <string name="buttonTerminal">Terminal</string>
+    <string name="buttonDisconnect">Disconnect</string>
+    <string name="buttonConnectDevice">Connect to Device</string>
+    <string name="textviewTitle">Bluetooth Development Debug Tool</string>
+    <string name="textviewConnected">Connected:</string>
+    <string name="textviewDeviceName">Device:</string>
+    <string name="textviewDeviceNameDisplay">Devicename</string>
+    <string name="textviewConnectHead">Pick a device to connect</string>
+    <string name="buttonScan">Scan for Device</string>
+    <string name="buttonBack">Back</string>
+    <string name="buttonSaveOutput">Save Output</string>
+    <string name="CmdInputText">Input command</string>
+    <string name="buttonSave">Save</string>
+    <string name="saveOutputTextViewSaveScr">Enter filename:</string>
+    <string name="editTextFilename">filename here</string>
+    <string name="extension">.log</string>
+    <string name="textViewChooseSaveLocation" >Choose save location:</string>
+    <string name="deviceListElementTextViewMac_address">MAC Address:</string>
+    <string name="deviceListElementTextViewDeviceName">Device Name:</string>
+    <string name="deviceListElementTextViewSignalStrength">Signal Strength:</string>
+    <string name="deviceListElementTextViewIsBonded">Not Bonded</string>
+    <string name="deviceListElementTextViewSignalDelay">Signal Delay:</string>
 </resources>
