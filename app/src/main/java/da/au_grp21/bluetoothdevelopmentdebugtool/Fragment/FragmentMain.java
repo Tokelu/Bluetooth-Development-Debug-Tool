@@ -1,4 +1,4 @@
-package da.au_grp21.bluetoothdevelopmentdebugtool;
+package da.au_grp21.bluetoothdevelopmentdebugtool.Fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,16 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentConnection.OnFragmentInteractionListener} interface
+ * {@link FragmentMain.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentConnection#newInstance} factory method to
+ * Use the {@link FragmentMain#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentConnection extends Fragment {
+public class FragmentMain extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +33,7 @@ public class FragmentConnection extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FragmentConnection() {
+    public FragmentMain() {
         // Required empty public constructor
     }
 
@@ -41,11 +43,11 @@ public class FragmentConnection extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentConnection.
+     * @return A new instance of fragment FragmentMain.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentConnection newInstance(String param1, String param2) {
-        FragmentConnection fragment = new FragmentConnection();
+    public static FragmentMain newInstance(String param1, String param2) {
+        FragmentMain fragment = new FragmentMain();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,7 +68,7 @@ public class FragmentConnection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_connection, container, false);
+        return inflater.inflate(R.layout.fragment_main, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
