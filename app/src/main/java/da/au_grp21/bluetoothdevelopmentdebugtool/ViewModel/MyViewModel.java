@@ -16,15 +16,11 @@ public class MyViewModel extends ViewModel {
         return devices;
     }
 
-    public void loadDevices() {
+    public void loadDevicesConneced() {
         //Do an asynchronous operation to fetch devices.
     }
 
     public void saveToDatabase() {
-
-    }
-
-    public void getConnection() {
 
     }
 

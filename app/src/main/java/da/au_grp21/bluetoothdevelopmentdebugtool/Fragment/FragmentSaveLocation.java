@@ -4,13 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
+import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 
 /**
@@ -32,6 +35,7 @@ public class FragmentSaveLocation extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private MyViewModel vm;
 
     public FragmentSaveLocation() {
         // Required empty public constructor
@@ -82,7 +86,8 @@ public class FragmentSaveLocation extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+           // mListener = (OnFragmentInteractionListener) context;
+            vm= ViewModelProviders.of((AppCompatActivity)context).get(MyViewModel.class);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
