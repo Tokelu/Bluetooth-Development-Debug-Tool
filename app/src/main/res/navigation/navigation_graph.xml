@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentConnection"
-        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.FragmentConnection"
+        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentConnection"
         android:label="fragment_connection"
         tools:layout="@layout/fragment_connection" >
         <action
@@ -21,7 +21,7 @@
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/fragmentMain"
-        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.FragmentMain"
+        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentMain"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentTerminalScr"
-        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.FragmentTerminalScr"
+        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentTerminalScr"
         android:label="fragment_terminal_scr"
         tools:layout="@layout/fragment_terminal_scr" >
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSaveOutput"
-        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.FragmentSaveOutput"
+        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentSaveOutput"
         android:label="fragment_save_output"
         tools:layout="@layout/fragment_save_output" >
         <action
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSaveLocation"
-        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.FragmentSaveLocation"
+        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentSaveLocation"
         android:label="fragment_save_location"
         tools:layout="@layout/fragment_save_location" />
 </navigation>
