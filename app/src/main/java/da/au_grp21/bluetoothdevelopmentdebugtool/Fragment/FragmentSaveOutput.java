@@ -86,7 +86,7 @@ private MyViewModel vm;
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             //mListener = (OnFragmentInteractionListener) context;
-            vm= ViewModelProviders.of((AppCompatActivity)context).get(MyViewModel.class);
+            vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
