@@ -4,13 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
+import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 
 /**
@@ -22,6 +28,10 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.R;
  * create an instance of this fragment.
  */
 public class FragmentTerminalScr extends Fragment {
+    Button btnBack;
+    Button btnSave;
+    Button btnDisconnet;
+    EditText editTxt;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,6 +42,7 @@ public class FragmentTerminalScr extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private MyViewModel vm;
 
     public FragmentTerminalScr() {
         // Required empty public constructor
@@ -68,7 +79,32 @@ public class FragmentTerminalScr extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_terminal_scr, container, false);
+        View v = inflater.inflate(R.layout.fragment_terminal_scr, container, false);
+
+        btnBack = v.findViewById(R.id.fragTerminalButtonBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        btnDisconnet = v.findViewById(R.id.fragTerminalButtonDisconnect);
+        btnDisconnet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.fragmentConnection);
+            }
+        });
+        btnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
+            }
+        });
+
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -82,7 +118,8 @@ public class FragmentTerminalScr extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            //mListener = (OnFragmentInteractionListener) context;
+            vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
