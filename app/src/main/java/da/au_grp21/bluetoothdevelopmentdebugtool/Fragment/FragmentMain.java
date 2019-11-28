@@ -7,10 +7,12 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
@@ -36,6 +38,8 @@ public class FragmentMain extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
+    Button mainBtnTerminal, mainBtnDisconnet, mainBtnConDev, mainBtnHelp, mainBtnExit;
+
 
     public FragmentMain() {
         // Required empty public constructor
@@ -72,7 +76,49 @@ public class FragmentMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_main, container, false);
+
+        mainBtnTerminal = v.findViewById(R.id.fragMainButtonTerminal);
+        mainBtnTerminal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
+            }
+        });
+        mainBtnDisconnet = v.findViewById(R.id.fragMainButtonDisconnect);
+        mainBtnDisconnet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: Disconnect device, not move to a frag
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        mainBtnConDev = v.findViewById(R.id.fragMainButtonConnectDevice);
+        mainBtnConDev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: connet device
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        mainBtnHelp = v.findViewById(R.id.fragMainButtonHelp);
+        mainBtnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: how do we make the help thingy?
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        mainBtnExit = v.findViewById(R.id.fragMainButtonExit);
+        mainBtnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: why doent it work?
+                //finish();
+            }
+        });
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -86,8 +132,8 @@ public class FragmentMain extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-           // mListener = (OnFragmentInteractionListener) context;
-            vm= ViewModelProviders.of((AppCompatActivity)context).get(MyViewModel.class);
+            // mListener = (OnFragmentInteractionListener) context;
+            vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");

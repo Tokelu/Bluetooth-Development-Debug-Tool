@@ -7,10 +7,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
@@ -36,6 +39,10 @@ public class FragmentSaveLocation extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
+
+    TextView saveLocTxtView;
+    Button saveLocBtnBack;
+    Button getSaveLocBtnOK;
 
     public FragmentSaveLocation() {
         // Required empty public constructor
@@ -72,7 +79,24 @@ public class FragmentSaveLocation extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_save_location, container, false);
+        View v = inflater.inflate(R.layout.fragment_save_location, container, false);
+        saveLocBtnBack = v.findViewById(R.id.fragSaveLocationButtonBack);
+        saveLocBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: Where to go?
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        getSaveLocBtnOK = v.findViewById(R.id.fragSaveLocationButtonOK);
+        getSaveLocBtnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: Where to go?
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -86,8 +110,8 @@ public class FragmentSaveLocation extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-           // mListener = (OnFragmentInteractionListener) context;
-            vm= ViewModelProviders.of((AppCompatActivity)context).get(MyViewModel.class);
+            // mListener = (OnFragmentInteractionListener) context;
+            vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
