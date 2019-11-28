@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyViewModel extends ViewModel {
 
     private MutableLiveData<String> devices = new MutableLiveData<>();
@@ -29,6 +32,10 @@ public class MyViewModel extends ViewModel {
     }
 
     public void terminal() {
+
+    }
+
+    public void loadNewData() {
 
     }
 }
