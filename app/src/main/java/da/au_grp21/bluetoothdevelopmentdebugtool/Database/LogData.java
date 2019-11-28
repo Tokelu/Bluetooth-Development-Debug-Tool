@@ -1,4 +1,4 @@
-package da.au_grp21.bluetoothdevelopmentdebugtool;
+package da.au_grp21.bluetoothdevelopmentdebugtool.Database;
 
 
 import java.io.Serializable;
