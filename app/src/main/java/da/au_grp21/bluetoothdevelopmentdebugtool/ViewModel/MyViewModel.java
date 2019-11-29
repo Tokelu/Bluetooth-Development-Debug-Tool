@@ -9,15 +9,33 @@ import java.util.List;
 
 public class MyViewModel extends ViewModel {
 
-    private MutableLiveData<String> devices = new MutableLiveData<>();
+    private MutableLiveData<String> devices;
+    //TODO: private ArrayList<Device> items;
+    //TODO: private MutableLiveData<List<Device>> numItems;
+    private MutableLiveData<List<String>> numItems;
+    private ArrayList<String> items;
     private String file = null;
     private boolean connet = false, disconneted = true;
 
     // TODO: Is our devices a string, or an obj?
     public LiveData<String> getDevices() {
+        // public LiveData<Device> getDevices() {
         if (devices == null) {
             devices = new MutableLiveData<String>();
+            // devices = new MutableLiveData<Device>();
 
+        }
+        return devices;
+    }
+
+    // TODO: Is our devices a string, or an obj?
+    public LiveData<String> getAllDevices() {
+        if (numItems == null) {
+            numItems = new MutableLiveData<List<String>>();
+            if (items == null) {
+                items = new ArrayList<>();
+            }
+            numItems.setValue(items);
         }
         return devices;
     }
@@ -79,6 +97,9 @@ public class MyViewModel extends ViewModel {
 
     // TODO: used in main activy, must load the new view I goes
     public void loadNewData() {
+        numItems = new MutableLiveData<List<String>>();
+        items = new ArrayList<String>();
+        numItems.setValue(items);
 
     }
 }
