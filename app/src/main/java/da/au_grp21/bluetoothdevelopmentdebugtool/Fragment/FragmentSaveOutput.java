@@ -21,7 +21,7 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 
-/**
+/*
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link FragmentSaveOutput.OnFragmentInteractionListener} interface
@@ -44,7 +44,7 @@ public class FragmentSaveOutput extends Fragment {
     Button saveOutputBtnBack;
     Button saveOutputBtnSave;
 
-    private OnFragmentInteractionListener mListener;
+    //  private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
 
     public FragmentSaveOutput() {
@@ -107,12 +107,12 @@ public class FragmentSaveOutput extends Fragment {
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+  /*  // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
+    }*/
 
     /*  @Override
       public void onAttach(Context context) {
@@ -133,7 +133,7 @@ public class FragmentSaveOutput extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        //  mListener = null;
     }
 
     /**
@@ -146,8 +146,8 @@ public class FragmentSaveOutput extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    /*public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
+    }*/
 }
