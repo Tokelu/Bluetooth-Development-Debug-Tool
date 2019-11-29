@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
@@ -28,10 +29,12 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
  * create an instance of this fragment.
  */
 public class FragmentTerminalScr extends Fragment {
-    Button btnBack;
-    Button btnSave;
-    Button btnDisconnet;
+    Button terBtnBack;
+    Button terBtnSave;
+    Button terBtnDisconnet;
     EditText editTxt;
+    TextView txtview;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,22 +84,22 @@ public class FragmentTerminalScr extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_terminal_scr, container, false);
 
-        btnBack = v.findViewById(R.id.fragTerminalButtonBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        terBtnBack = v.findViewById(R.id.fragTerminalButtonBack);
+        terBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
-        btnDisconnet = v.findViewById(R.id.fragTerminalButtonDisconnect);
-        btnDisconnet.setOnClickListener(new View.OnClickListener() {
+        terBtnDisconnet = v.findViewById(R.id.fragTerminalButtonDisconnect);
+        terBtnDisconnet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.fragmentConnection);
             }
         });
-        btnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        terBtnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);
+        terBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);

@@ -7,10 +7,14 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
@@ -33,9 +37,15 @@ public class FragmentSaveOutput extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    TextView saveOutputTxt;
+    TextView saveOutputTxtExtension;
+    EditText saveOutputEditTxt;
+    Button saveOutputBtnBack;
+    Button saveOutputBtnSave;
 
     private OnFragmentInteractionListener mListener;
-private MyViewModel vm;
+    private MyViewModel vm;
+
     public FragmentSaveOutput() {
         // Required empty public constructor
     }
@@ -71,7 +81,27 @@ private MyViewModel vm;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_save_output, container, false);
+        View v = inflater.inflate(R.layout.fragment_save_output, container, false);
+
+        saveOutputBtnBack = v.findViewById(R.id.fragSaveOutputButtonBack);
+        saveOutputBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: Where to go?
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        saveOutputBtnSave = v.findViewById(R.id.fragSaveOutputButtonSave);
+        saveOutputBtnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: Where to go?
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

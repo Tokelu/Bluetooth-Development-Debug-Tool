@@ -1,4 +1,4 @@
-package da.au_grp21.bluetoothdevelopmentdebugtool;
+package da.au_grp21.bluetoothdevelopmentdebugtool.Database;
 
 import android.app.IntentService;
 import android.content.Intent;

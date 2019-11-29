@@ -43,7 +43,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/fragSaveOutputEditText"
                     android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -75,8 +75,8 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginLeft="4dp"
                     android:text="@string/extension"
-                    app:layout_constraintBottom_toBottomOf="@+id/editText"
-                    app:layout_constraintStart_toEndOf="@+id/editText" />
+                    app:layout_constraintBottom_toBottomOf="@+id/fragSaveOutputEditText"
+                    app:layout_constraintStart_toEndOf="@+id/fragSaveOutputEditText" />
 
                 <Button
                     android:id="@+id/fragSaveOutputButtonSave"

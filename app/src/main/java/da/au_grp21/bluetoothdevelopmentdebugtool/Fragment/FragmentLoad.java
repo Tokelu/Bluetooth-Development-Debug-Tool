@@ -4,30 +4,23 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
-import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentSaveLocation.OnFragmentInteractionListener} interface
+ * {@link FragmentLoad.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentSaveLocation#newInstance} factory method to
+ * Use the {@link FragmentLoad#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentSaveLocation extends Fragment {
+public class FragmentLoad extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,13 +31,8 @@ public class FragmentSaveLocation extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private MyViewModel vm;
 
-    TextView saveLocTxtView;
-    Button saveLocBtnBack;
-    Button getSaveLocBtnOK;
-
-    public FragmentSaveLocation() {
+    public FragmentLoad() {
         // Required empty public constructor
     }
 
@@ -54,11 +42,11 @@ public class FragmentSaveLocation extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentSaveLocation.
+     * @return A new instance of fragment FragmentLoad.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentSaveLocation newInstance(String param1, String param2) {
-        FragmentSaveLocation fragment = new FragmentSaveLocation();
+    public static FragmentLoad newInstance(String param1, String param2) {
+        FragmentLoad fragment = new FragmentLoad();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,24 +67,7 @@ public class FragmentSaveLocation extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_save_location, container, false);
-        saveLocBtnBack = v.findViewById(R.id.fragSaveLocationButtonBack);
-        saveLocBtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: Where to go?
-                Navigation.findNavController(v).navigate(R.id.fragmentMain);
-            }
-        });
-        getSaveLocBtnOK = v.findViewById(R.id.fragSaveLocationButtonOK);
-        getSaveLocBtnOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: Where to go?
-                Navigation.findNavController(v).navigate(R.id.fragmentMain);
-            }
-        });
-        return v;
+        return inflater.inflate(R.layout.fragment_fragment_load, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -110,8 +81,7 @@ public class FragmentSaveLocation extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            // mListener = (OnFragmentInteractionListener) context;
-            vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
