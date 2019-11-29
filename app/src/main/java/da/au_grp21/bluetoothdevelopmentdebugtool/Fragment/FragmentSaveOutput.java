@@ -82,7 +82,7 @@ public class FragmentSaveOutput extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_save_output, container, false);
-
+        saveOutputEditTxt = v.findViewById(R.id.fragSaveOutputEditText);
         saveOutputBtnBack = v.findViewById(R.id.fragSaveOutputButtonBack);
         saveOutputBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,8 +95,10 @@ public class FragmentSaveOutput extends Fragment {
         saveOutputBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Where to go?
-                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+                // TODO: Where to go? how do we do this?
+                vm.saveFile(saveOutputEditTxt.getText().toString());
+                Navigation.findNavController(v).navigate(R.id.fragmentSaveLocation);
+
             }
         });
 

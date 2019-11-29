@@ -95,7 +95,8 @@ public class FragmentTerminalScr extends Fragment {
         terBtnDisconnet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.fragmentConnection);
+                // Navigation.findNavController(v).navigate(R.id.fragmentConnection);
+                vm.disconnect();
             }
         });
         terBtnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);
@@ -103,6 +104,7 @@ public class FragmentTerminalScr extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
+                //  vm.saveToDatabase();
             }
         });
 

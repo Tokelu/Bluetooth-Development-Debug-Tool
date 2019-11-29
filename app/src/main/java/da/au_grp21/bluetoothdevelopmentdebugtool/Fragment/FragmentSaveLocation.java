@@ -80,6 +80,7 @@ public class FragmentSaveLocation extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_save_location, container, false);
+        saveLocTxtView = v.findViewById(R.id.fragSaveLocationSpinnerChoseLocation);
         saveLocBtnBack = v.findViewById(R.id.fragSaveLocationButtonBack);
         saveLocBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +94,8 @@ public class FragmentSaveLocation extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: Where to go?
+                //How do we get the location?
+                vm.locationToSave(saveLocTxtView.getText().toString());
                 Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });

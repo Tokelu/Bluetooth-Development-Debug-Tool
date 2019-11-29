@@ -82,6 +82,7 @@ public class FragmentConnection extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: check for devices there can be conneted
+                vm.loadDevicesConneced();
 
             }
         });

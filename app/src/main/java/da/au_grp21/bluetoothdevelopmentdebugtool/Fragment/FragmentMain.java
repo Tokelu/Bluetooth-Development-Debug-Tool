@@ -82,7 +82,10 @@ public class FragmentMain extends Fragment {
         mainBtnTerminal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
+                if (vm.getconnect()) {
+                    Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
+                } else
+                    Navigation.findNavController(v).navigate(R.id.fragmentConnection);
             }
         });
         mainBtnDisconnet = v.findViewById(R.id.fragMainButtonDisconnect);
@@ -90,7 +93,9 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: Disconnect device, not move to a frag
-                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+                vm.setdisconnect(true);
+                vm.setconnect(false);
+                // Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
         mainBtnConDev = v.findViewById(R.id.fragMainButtonConnectDevice);
@@ -98,7 +103,9 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: connet device
-                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+                vm.setconnect(true);
+                vm.setdisconnect(false);
+                // Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
         mainBtnHelp = v.findViewById(R.id.fragMainButtonHelp);

@@ -10,6 +10,8 @@ import java.util.List;
 public class MyViewModel extends ViewModel {
 
     private MutableLiveData<String> devices = new MutableLiveData<>();
+    private String file = null;
+    private boolean connet = false, disconneted = true;
 
     // TODO: Is our devices a string, or an obj?
     public LiveData<String> getDevices() {
@@ -25,19 +27,49 @@ public class MyViewModel extends ViewModel {
 
     }
 
+    //TODO: chose save location:
+    public void locationToSave(String locationToSave) {
+        String fileToSave = getFileToSave();
+        saveToDatabase(fileToSave, locationToSave);
+    }
+
+    //TODO: file to save
+    public void saveFile(String fil) {
+        file = fil;
+
+    }
+
+    //TODO: get the file
+    public String getFileToSave() {
+        return file;
+    }
+
     // TODO: save the data to the database
-    public void saveToDatabase() {
+    public void saveToDatabase(String fileToSave, String saveFileHere) {
+
 
     }
 
     // TODO: disconnect the device
-    public void disconnect() {
+    public boolean getdisconnect() {
+
+        return disconneted;
+    }
+
+    // TODO: disconnect the device
+    public void setdisconnect(boolean disconnet) {
+        disconneted = disconnet;
 
     }
 
     // TODO: connect the device
-    public void connect() {
+    public boolean getconnect() {
+        return connet;
+    }
 
+    // TODO: connect the device
+    public void setconnect(boolean conneted) {
+        connet = conneted;
     }
 
     // TODO: check it a device is conneted before going from the main frag to termial frag
