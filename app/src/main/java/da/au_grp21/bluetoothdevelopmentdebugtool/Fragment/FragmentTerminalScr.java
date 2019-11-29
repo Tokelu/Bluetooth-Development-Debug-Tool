@@ -32,7 +32,7 @@ public class FragmentTerminalScr extends Fragment {
     Button terBtnBack;
     Button terBtnSave;
     Button terBtnDisconnet;
-    EditText editTxt;
+    EditText terEditTxtSave;
     TextView txtview;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -83,7 +83,7 @@ public class FragmentTerminalScr extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_terminal_scr, container, false);
-
+        terEditTxtSave = v.findViewById(R.id.fragTerminalLEditText);
         terBtnBack = v.findViewById(R.id.fragTerminalButtonBack);
         terBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,15 +96,17 @@ public class FragmentTerminalScr extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigation.findNavController(v).navigate(R.id.fragmentConnection);
-                vm.disconnect();
+                vm.setdisconnect(true);
+                vm.setconnect(false);
             }
         });
         terBtnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);
         terBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vm.saveFile(terEditTxtSave.getText().toString());
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
-                //  vm.saveToDatabase();
+
             }
         });
 

@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         vm = ViewModelProviders.of(this).get(MyViewModel.class);
         if (savedInstanceState == null) {
             vm.loadNewData();
