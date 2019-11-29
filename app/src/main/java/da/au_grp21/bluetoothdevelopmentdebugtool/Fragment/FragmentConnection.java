@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,7 +19,7 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 
-/**
+/*
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link FragmentConnection.OnFragmentInteractionListener} interface
@@ -38,7 +39,7 @@ public class FragmentConnection extends Fragment {
     private String mParam2;
     Button conBtnScan, conBtnBack;
 
-    private OnFragmentInteractionListener mListener;
+    // private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
 
     public FragmentConnection() {
@@ -98,28 +99,22 @@ public class FragmentConnection extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+  /*  public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
+    }*/
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            //mListener = (OnFragmentInteractionListener) context;
-            vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        //    mListener = null;
     }
 
     /**
@@ -132,8 +127,8 @@ public class FragmentConnection extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+   /* public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
+    }*/
 }

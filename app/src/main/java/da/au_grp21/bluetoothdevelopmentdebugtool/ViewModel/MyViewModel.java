@@ -94,6 +94,28 @@ public class MyViewModel extends ViewModel {
     public void terminal() {
 
     }
+   /* // TODO: disconnect the device
+    public String getDisconnectDevice() {
+
+        return disconnetedDevise;
+    }
+
+    // TODO: disconnect the device
+    public void setDisconnectDevise(String disconnet) {
+        disconnetedDevise = disconnet;
+
+    }
+
+    // TODO: connect the device
+    public String  getConnectDevice() {
+        return connetDevice;
+    }
+
+    // TODO: connect the device
+    public void setConnectDevice(String conneted) {
+        connetDevice = conneted;
+    }
+    */
 
     // TODO: used in main activy, must load the new view I goes
     public void loadNewData() {

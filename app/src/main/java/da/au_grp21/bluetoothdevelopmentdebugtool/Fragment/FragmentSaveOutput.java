@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -113,18 +114,22 @@ public class FragmentSaveOutput extends Fragment {
         }
     }
 
+    /*  @Override
+      public void onAttach(Context context) {
+          super.onAttach(context);
+          if (context instanceof OnFragmentInteractionListener) {
+              //mListener = (OnFragmentInteractionListener) context;
+              vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
+          } else {
+              throw new RuntimeException(context.toString()
+                      + " must implement OnFragmentInteractionListener");
+          }
+      }*/
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            //mListener = (OnFragmentInteractionListener) context;
-            vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
     }
-
     @Override
     public void onDetach() {
         super.onDetach();

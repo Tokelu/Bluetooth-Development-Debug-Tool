@@ -27,4 +27,6 @@
     <string name="deviceListElementTextViewSignalStrength">Signal Strength:</string>
     <string name="deviceListElementTextViewIsBonded">Not Bonded</string>
     <string name="deviceListElementTextViewSignalDelay">Signal Delay:</string>
+    <string name="deviesIsConneted">Conneted</string>
+    <string name="deviesIsNotConneted">Not Conneted</string>
 </resources>
