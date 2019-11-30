@@ -1,13 +1,15 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Database;
 
-
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 //Data class for representing the log files in the database
 public class LogData implements Serializable {
     private String filename, terminalLog, timestamp;
-
+    private TimeZone tz = TimeZone.getDefault();
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     public LogData () {}
 
     public String getFilename() {
@@ -35,7 +37,9 @@ public class LogData implements Serializable {
     }
 
     //Custom method for making the timestamp the current time
+    //These timestamps have the following format: "dd/mm/yyyy HH:mm:ss"
     public void setTimestampNow(){
-        timestamp = new Timestamp(System.currentTimeMillis()).toString();
+        sdf.setTimeZone(tz);
+        timestamp = sdf.format(new Timestamp(System.currentTimeMillis()));
     }
 }
