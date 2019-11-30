@@ -93,7 +93,7 @@ public class FragmentMain extends Fragment {
         mainBtnTerminal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (vm.getconnect()) {
+                if (vm.getconnect() == true) {
                     Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
                 } else
                     Navigation.findNavController(v).navigate(R.id.fragmentConnection);
@@ -137,7 +137,7 @@ public class FragmentMain extends Fragment {
         });
         connectionIndicator = v.findViewById(R.id.fragMainConnectionIndicator);
         //TODO: How do we check this?
-     
+
         connectionIndicator.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
