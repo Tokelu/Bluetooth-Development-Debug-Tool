@@ -15,7 +15,8 @@ public class MyViewModel extends ViewModel {
     private MutableLiveData<List<String>> numItems;
     private ArrayList<String> items;
     private String file = null;
-    private boolean connet = false, disconneted = true;
+    private boolean connet = false;
+    private boolean disconneted = true;
 
     // TODO: Is our devices a string, or an obj?
     public LiveData<String> getDevices() {

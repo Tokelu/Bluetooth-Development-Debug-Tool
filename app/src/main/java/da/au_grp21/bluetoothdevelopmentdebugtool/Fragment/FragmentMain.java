@@ -137,7 +137,7 @@ public class FragmentMain extends Fragment {
         });
         connectionIndicator = v.findViewById(R.id.fragMainConnectionIndicator);
         //TODO: How do we check this?
-        connectionIndicator.setText(vm.getconnect() ? getString(R.string.deviesIsConneted) : getString(R.string.deviesIsNotConneted));
+     
         connectionIndicator.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
