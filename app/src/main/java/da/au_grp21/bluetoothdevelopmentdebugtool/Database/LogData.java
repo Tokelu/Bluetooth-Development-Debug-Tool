@@ -10,7 +10,6 @@ public class LogData implements Serializable {
     private String filename, terminalLog, timestamp;
     private TimeZone tz = TimeZone.getDefault();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
     public LogData () {}
 
     public String getFilename() {
