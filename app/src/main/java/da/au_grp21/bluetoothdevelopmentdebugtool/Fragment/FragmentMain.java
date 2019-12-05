@@ -94,6 +94,9 @@ public class FragmentMain extends Fragment {
         fragMainTextViewDevice = v.findViewById(R.id.fragMainTextViewDevice);
         fragMainTextViewDeviceName = v.findViewById(R.id.fragMainTextViewDeviceName);
 
+        fragMainTextViewDevice.setText(getString(R.string.macAdress));
+        
+
         mainBtnTerminal = v.findViewById(R.id.fragMainButtonTerminal);
         mainBtnTerminal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,7 +183,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onChanged(Device device) {
                 fragMainTextViewConnected.setText(device.getConnected() ? getString(R.string.deviesIsConneted) : getString(R.string.deviesIsNotConneted));
-                fragMainTextViewDevice.setText("MAC Adress " + device.getMac());
+                fragMainTextViewDevice.setText(getString(R.string.macAdress) + device.getMac());
                 fragMainTextViewDeviceName.setText(device.getName());
             }
         });
