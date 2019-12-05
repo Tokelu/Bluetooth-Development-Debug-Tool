@@ -71,7 +71,7 @@ public class MyViewModel extends ViewModel {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         //arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, deviceList);
-        //recyclerView =   //findViewById(R.id.fragConnectRecyclerView);
+        //recyclerView = findViewById(R.id.fragConnectRecyclerView);
         //recyclerView.setAdapter(arrayAdapter);
 
 
@@ -169,14 +169,22 @@ public class MyViewModel extends ViewModel {
     private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback(){
         @Override
         public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes){
-            if (bluetoothDevice != null){
-                if (!deviceList.contains(bluetoothDevice.getAddress())){
-                    deviceList.add(bluetoothDevice.getAddress());
-                }
-                else {
-                    deviceList.remove(bluetoothDevice.getAddress());
-                    deviceList.add(bluetoothDevice.getAddress());
+            Device device = new Device();
 
+            if (bluetoothDevice != null){
+
+                    // When scanning, check if device list contains a device with a specific mac address and add it if it does not.
+                if (deviceList.contains((bluetoothDevice.getAddress())) == deviceList.contains(device.getMac())){
+                    device.setMac(bluetoothDevice.getAddress());
+                    device.setName(bluetoothDevice.getName());
+                    device.setConnected(false);
+
+                    deviceList.add(device);
+                }
+                    // if device is no longer in scanning range, remove device from list.
+                else {
+                    deviceList.remove(device.getMac());
+                    deviceList.add(device.getMac());
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
