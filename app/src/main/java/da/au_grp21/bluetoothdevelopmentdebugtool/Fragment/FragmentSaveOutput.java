@@ -100,7 +100,6 @@ public class FragmentSaveOutput extends Fragment {
                 //vm.saveFile(saveOutputEditTxt.getText().toString());
                 vm.saveToDatabase(FragmentSaveOutput.this.getActivity(), saveOutputEditTxt.getText().toString(), vm.getTerminalDataInformation());
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveLocation);
-
             }
         });
 
