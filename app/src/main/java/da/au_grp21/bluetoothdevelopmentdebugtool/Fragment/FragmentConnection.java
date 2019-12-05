@@ -1,5 +1,6 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Fragment;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ public class FragmentConnection extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private boolean isSearchingForDevices = false;
+    private BluetoothAdapter bluetoothAdapter;
 
 
     // TODO: Rename and change types of parameters
@@ -82,6 +85,12 @@ public class FragmentConnection extends Fragment {
         conBtnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!isSearchingForDevices){
+                   //bluetoothAdapter.startLeScan(btScanCallback);
+                    isSearchingForDevices = !isSearchingForDevices;
+                }
+
                 // TODO: check for devices there can be conneted
                 vm.loadDevicesConneced();
 
@@ -117,6 +126,12 @@ public class FragmentConnection extends Fragment {
         //    mListener = null;
     }
 
+/*    private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback(){
+        @Override
+
+
+    }
+*/
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

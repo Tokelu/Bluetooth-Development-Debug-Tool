@@ -97,17 +97,15 @@ public class FragmentTerminalScr extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigation.findNavController(v).navigate(R.id.fragmentConnection);
-                vm.setdisconnect(true);
-                vm.setconnect(false);
+                vm.setDeviseDisconnect();
             }
         });
         terBtnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);
         terBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vm.saveFile(terEditTxtSave.getText().toString());
+                vm.saveTerminalDataInformation(terEditTxtSave.getText().toString());
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
-
             }
         });
 

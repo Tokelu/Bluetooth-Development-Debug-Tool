@@ -95,7 +95,7 @@ public class FragmentSaveLocation extends Fragment {
             public void onClick(View v) {
                 // TODO: Where to go?
                 //How do we get the location?
-                vm.locationToSave(saveLocTxtView.getText().toString());
+                //  vm.locationToSave(saveLocTxtView.getText().toString());
                 Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
