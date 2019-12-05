@@ -66,7 +66,6 @@ public class MyViewModel extends ViewModel {
     // TODO: save the data to the database
     public void saveToDatabase(String fileToSave, String saveFileHere) {
 
-
     }
 
     // TODO: disconnect the device
@@ -91,11 +90,15 @@ public class MyViewModel extends ViewModel {
         connet = conneted;
     }
 
-    // TODO: check it a device is conneted before going from the main frag to termial frag
+    // TODO: -- no need -- check it a device is conneted before going from the main frag to termial frag
     public void terminal() {
 
     }
-   /* // TODO: disconnect the device
+
+    public void help() {
+    }
+
+  /* // TODO: disconnect the device
     public String getDisconnectDevice() {
 
         return disconnetedDevise;
@@ -103,6 +106,8 @@ public class MyViewModel extends ViewModel {
 
     // TODO: disconnect the device
     public void setDisconnectDevise(String disconnet) {
+        setdisconnect(true);
+        setconnect(false);
         disconnetedDevise = disconnet;
 
     }
@@ -114,6 +119,8 @@ public class MyViewModel extends ViewModel {
 
     // TODO: connect the device
     public void setConnectDevice(String conneted) {
+        setconnect(true);
+        setdisconnect(false);
         connetDevice = conneted;
     }
     */

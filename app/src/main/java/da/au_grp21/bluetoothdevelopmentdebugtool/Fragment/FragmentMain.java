@@ -104,6 +104,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: Disconnect device, not move to a frag
+                //vm.setDisconnectDevise();
                 vm.setdisconnect(true);
                 vm.setconnect(false);
                 // Navigation.findNavController(v).navigate(R.id.fragmentMain);
@@ -113,6 +114,7 @@ public class FragmentMain extends Fragment {
         mainBtnConDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // vm.setConnectDevice();
                 // TODO: connet device
                 vm.setconnect(true);
                 vm.setdisconnect(false);
@@ -124,19 +126,20 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: how do we make the help thingy?
-                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+                vm.help();
+                // Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
         mainBtnExit = v.findViewById(R.id.fragMainButtonExit);
         mainBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: why doent it work?
+                // TODO: why don't it work?
                 //finish();
             }
         });
         connectionIndicator = v.findViewById(R.id.fragMainConnectionIndicator);
-        //TODO: How do we check this?
+        //TODO: How do we check this? By a
 
         connectionIndicator.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
