@@ -1,11 +1,8 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -97,7 +94,7 @@ public class FragmentTerminalScr extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigation.findNavController(v).navigate(R.id.fragmentConnection);
-                vm.setDeviseDisconnect();
+                vm.setDeviceDisconnect();
             }
         });
         terBtnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);

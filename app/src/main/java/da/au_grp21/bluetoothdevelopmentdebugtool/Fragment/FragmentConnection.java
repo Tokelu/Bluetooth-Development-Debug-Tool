@@ -2,6 +2,7 @@ package da.au_grp21.bluetoothdevelopmentdebugtool.Fragment;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,12 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
+import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
+import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
@@ -41,6 +47,11 @@ public class FragmentConnection extends Fragment {
     private String mParam1;
     private String mParam2;
     Button conBtnScan, conBtnBack;
+
+    //Fields for the recycler view
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private DeviceListAdapter myAdapter;
 
     // private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
@@ -80,7 +91,7 @@ public class FragmentConnection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_connection, container, false);
+        final View v = inflater.inflate(R.layout.fragment_connection, container, false);
         conBtnScan = v.findViewById(R.id.fragConnectButtonScan);
         conBtnScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +115,19 @@ public class FragmentConnection extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
+
+        myAdapter = new DeviceListAdapter(null); //TODO: Insert proper list of devices based on the view models list of devices
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+        myAdapter.setClickListener(new DeviceListAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int position) {
+                vm.ConnectToDevice(myAdapter.GetItem(position));
+                Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
+            }
+        });
+
+
         return v;
     }
 

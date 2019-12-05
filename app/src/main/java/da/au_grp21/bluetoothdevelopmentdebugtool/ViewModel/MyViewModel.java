@@ -51,6 +51,7 @@ public class MyViewModel extends ViewModel {
     }
 
     // TODO: this function is meant to o an asynchronous operation to fetch devices.
+    // Please make it return the list of devices
     public void loadDevicesConneced() {
 
     }
@@ -109,7 +110,7 @@ public class MyViewModel extends ViewModel {
     }
 
     // TODO: disconnect the device
-    public void setDeviseDisconnect() {
+    public void setDeviceDisconnect() {
         currentDevice.setConnected(false);
     }
 
@@ -121,7 +122,12 @@ public class MyViewModel extends ViewModel {
     // TODO: connect the device
     public void setDeviceConnect() {
         currentDevice.setConnected(true);
+    }
 
+    //Sets the input item as the current connected device
+    public void ConnectToDevice(Device device){
+        currentDevice = device;
+        setDeviceConnect();
     }
 
 
@@ -130,7 +136,6 @@ public class MyViewModel extends ViewModel {
         numItems = new MutableLiveData<List<Device>>();
         items = new ArrayList<Device>();
         numItems.setValue(items);
-
     }
 }
 
