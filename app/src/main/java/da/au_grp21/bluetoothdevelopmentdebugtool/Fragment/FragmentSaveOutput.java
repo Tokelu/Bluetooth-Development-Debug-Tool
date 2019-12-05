@@ -99,7 +99,6 @@ public class FragmentSaveOutput extends Fragment {
                 // TODO: Where to go? how do we do this?
                 vm.saveFile(saveOutputEditTxt.getText().toString());
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveLocation);
-
             }
         });
 
