@@ -179,7 +179,7 @@ public class FragmentMain extends Fragment {
         vm.getDevices().observe(this, new Observer<Device>() {
             @Override
             public void onChanged(Device device) {
-                fragMainTextViewConnected.setText((device.getConnected().toString()));
+                fragMainTextViewConnected.setText(device.getConnected() ? getString(R.string.deviesIsConneted) : getString(R.string.deviesIsNotConneted));
                 fragMainTextViewDevice.setText("MAC Adress " + device.getMac());
                 fragMainTextViewDeviceName.setText(device.getName());
             }
