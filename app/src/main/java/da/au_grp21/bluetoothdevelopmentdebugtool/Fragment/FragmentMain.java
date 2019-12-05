@@ -113,7 +113,7 @@ public class FragmentMain extends Fragment {
             public void onClick(View v) {
                 // TODO: Disconnect device, not move to a frag
                 //vm.setDisconnectDevise();
-                vm.setDeviseDisconnect();
+                vm.setDeviceDisconnect();
 
                 // Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
