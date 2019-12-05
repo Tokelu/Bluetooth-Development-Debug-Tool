@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -14,12 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 
-/**
+/*
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link FragmentTerminalScr.OnFragmentInteractionListener} interface
@@ -28,10 +30,12 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
  * create an instance of this fragment.
  */
 public class FragmentTerminalScr extends Fragment {
-    Button btnBack;
-    Button btnSave;
-    Button btnDisconnet;
-    EditText editTxt;
+    Button terBtnBack;
+    Button terBtnSave;
+    Button terBtnDisconnet;
+    EditText terEditTxtSave;
+    TextView txtview;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,7 +45,7 @@ public class FragmentTerminalScr extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    // private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
 
     public FragmentTerminalScr() {
@@ -80,26 +84,30 @@ public class FragmentTerminalScr extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_terminal_scr, container, false);
-
-        btnBack = v.findViewById(R.id.fragTerminalButtonBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        terEditTxtSave = v.findViewById(R.id.fragTerminalLEditText);
+        terBtnBack = v.findViewById(R.id.fragTerminalButtonBack);
+        terBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
-        btnDisconnet = v.findViewById(R.id.fragTerminalButtonDisconnect);
-        btnDisconnet.setOnClickListener(new View.OnClickListener() {
+        terBtnDisconnet = v.findViewById(R.id.fragTerminalButtonDisconnect);
+        terBtnDisconnet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.fragmentConnection);
+                // Navigation.findNavController(v).navigate(R.id.fragmentConnection);
+                vm.setdisconnect(true);
+                vm.setconnect(false);
             }
         });
-        btnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        terBtnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);
+        terBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vm.saveFile(terEditTxtSave.getText().toString());
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
+
             }
         });
 
@@ -107,32 +115,37 @@ public class FragmentTerminalScr extends Fragment {
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
+    /* // TODO: Rename method, update argument and hook method into UI event
+     public void onButtonPressed(Uri uri) {
+         if (mListener != null) {
+          //   mListener.onFragmentInteraction(uri);
+         }
+     }
+ */
+    /* @Override
+     public void onAttach(Context context) {
+         super.onAttach(context);
+         if (context instanceof OnFragmentInteractionListener) {
+             //mListener = (OnFragmentInteractionListener) context;
+             vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
+         } else {
+             throw new RuntimeException(context.toString()
+                     + " must implement OnFragmentInteractionListener");
+         }
+     }*/
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            //mListener = (OnFragmentInteractionListener) context;
-            vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        //  mListener = null;
     }
 
-    /**
+    /*
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -142,8 +155,8 @@ public class FragmentTerminalScr extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+  /*  public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
+    }*/
 }

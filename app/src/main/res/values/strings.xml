@@ -21,10 +21,12 @@
     <string name="saveOutputTextViewSaveScr">Enter filename:</string>
     <string name="editTextFilename">filename here</string>
     <string name="extension">.log</string>
-    <string name="textViewChooseSaveLocation" >Choose save location:</string>
+    <string name="textViewChooseSaveLocation">Choose save location:</string>
     <string name="deviceListElementTextViewMac_address">MAC Address:</string>
     <string name="deviceListElementTextViewDeviceName">Device Name:</string>
     <string name="deviceListElementTextViewSignalStrength">Signal Strength:</string>
     <string name="deviceListElementTextViewIsBonded">Not Bonded</string>
     <string name="deviceListElementTextViewSignalDelay">Signal Delay:</string>
+    <string name="deviesIsConneted">Conneted</string>
+    <string name="deviesIsNotConneted">Not Conneted</string>
 </resources>

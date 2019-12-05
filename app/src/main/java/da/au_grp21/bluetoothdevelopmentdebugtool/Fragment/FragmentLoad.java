@@ -4,45 +4,35 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
-import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
-
 
 /*
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentConnection.OnFragmentInteractionListener} interface
+ * {@link FragmentLoad.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentConnection#newInstance} factory method to
+ * Use the {@link FragmentLoad#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentConnection extends Fragment {
+public class FragmentLoad extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Button conBtnScan, conBtnBack;
 
-    // private OnFragmentInteractionListener mListener;
-    private MyViewModel vm;
 
-    public FragmentConnection() {
+
+    public FragmentLoad() {
         // Required empty public constructor
     }
 
@@ -52,11 +42,11 @@ public class FragmentConnection extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentConnection.
+     * @return A new instance of fragment FragmentLoad.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentConnection newInstance(String param1, String param2) {
-        FragmentConnection fragment = new FragmentConnection();
+    public static FragmentLoad newInstance(String param1, String param2) {
+        FragmentLoad fragment = new FragmentLoad();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,44 +67,16 @@ public class FragmentConnection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_connection, container, false);
-        conBtnScan = v.findViewById(R.id.fragConnectButtonScan);
-        conBtnScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: check for devices there can be conneted
-                vm.loadDevicesConneced();
-
-            }
-        });
-        conBtnBack = v.findViewById(R.id.fragConnectButtonBack);
-        conBtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: how do we make the small pop ups?
-                Navigation.findNavController(v).navigate(R.id.fragmentMain);
-            }
-        });
-        return v;
+        return inflater.inflate(R.layout.fragment_fragment_load, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-  /*  public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }*/
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
-    }
+
 
     @Override
     public void onDetach() {
         super.onDetach();
-        //    mListener = null;
+
     }
 
     /**

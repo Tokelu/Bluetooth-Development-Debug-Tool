@@ -4,19 +4,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 
-/**
+/*
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link FragmentMain.OnFragmentInteractionListener} interface
@@ -33,9 +41,16 @@ public class FragmentMain extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    // LinearLayout FragMainLayoutHead, mainFragLayoutConnectionStatus, linearLayout2;
+    TextView mainFragTextViewTitle, fragMainTextViewConnected, fragMainTextViewDevice, fragMainTextViewDeviceName;
+    CheckBox connectionIndicator;
+    //  View divider, divider2;
 
-    private OnFragmentInteractionListener mListener;
+
+    //  private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
+    Button mainBtnTerminal, mainBtnDisconnet, mainBtnConDev, mainBtnHelp, mainBtnExit;
+
 
     public FragmentMain() {
         // Required empty public constructor
@@ -72,32 +87,100 @@ public class FragmentMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_main, container, false);
+
+        mainBtnTerminal = v.findViewById(R.id.fragMainButtonTerminal);
+        mainBtnTerminal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (vm.getconnect()) {
+                    Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
+                } else
+                    Navigation.findNavController(v).navigate(R.id.fragmentConnection);
+            }
+        });
+        mainBtnDisconnet = v.findViewById(R.id.fragMainButtonDisconnect);
+        mainBtnDisconnet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: Disconnect device, not move to a frag
+                vm.setdisconnect(true);
+                vm.setconnect(false);
+                // Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        mainBtnConDev = v.findViewById(R.id.fragMainButtonConnectDevice);
+        mainBtnConDev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: connet device
+                vm.setconnect(true);
+                vm.setdisconnect(false);
+                // Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        mainBtnHelp = v.findViewById(R.id.fragMainButtonHelp);
+        mainBtnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: how do we make the help thingy?
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        mainBtnExit = v.findViewById(R.id.fragMainButtonExit);
+        mainBtnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: why doent it work?
+                //finish();
+            }
+        });
+        connectionIndicator = v.findViewById(R.id.fragMainConnectionIndicator);
+        //TODO: How do we check this?
+     
+        connectionIndicator.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //connectionIndicator.setText(isChecked ? getString(R.string.deviesIsConneted) : getString(R.string.deviesIsNotConneted));
+            }
+        });
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+   /* public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-           // mListener = (OnFragmentInteractionListener) context;
-            vm= ViewModelProviders.of((AppCompatActivity)context).get(MyViewModel.class);
+            // mListener = (OnFragmentInteractionListener) context;
+            vm = ViewModelProviders.of((AppCompatActivity) context).get(MyViewModel.class);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }*/
+
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
+        vm.getDevices().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+
+            }
+        });
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        // mListener = null;
     }
 
     /**
@@ -110,8 +193,8 @@ public class FragmentMain extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+  /*  public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
+    }*/
 }
