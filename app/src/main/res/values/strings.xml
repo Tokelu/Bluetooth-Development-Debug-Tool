@@ -30,4 +30,5 @@
     <string name="deviceListElementTextViewSignalDelay">Signal Delay:</string>
     <string name="deviesIsConneted">Conneted</string>
     <string name="deviesIsNotConneted">Not Conneted</string>
+    <string name="seekButton">Søg</string>
 </resources>
