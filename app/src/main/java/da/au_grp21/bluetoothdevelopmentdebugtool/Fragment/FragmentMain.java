@@ -96,7 +96,6 @@ public class FragmentMain extends Fragment {
 
         fragMainTextViewDevice.setText(getString(R.string.macAdress));
 
-
         mainBtnTerminal = v.findViewById(R.id.fragMainButtonTerminal);
         mainBtnTerminal.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,7 +4,7 @@ public class Device {
 
     private String mac;
     private String name;
-    private Boolean connected;
+    private Boolean connected, paired;
     private String save;
     private String data;
 
@@ -48,5 +48,13 @@ public class Device {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public Boolean getPaired() {
+        return paired;
+    }
+
+    public void setPaired(Boolean paired) {
+        this.paired = paired;
     }
 }

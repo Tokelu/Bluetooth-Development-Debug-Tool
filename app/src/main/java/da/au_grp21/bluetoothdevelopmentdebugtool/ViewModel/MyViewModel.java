@@ -35,7 +35,7 @@ public class MyViewModel extends ViewModel {
     private Device currentDevice;
 
     private String file = null;
-    //private boolean connect = false;
+    private boolean connect = false;
     //   private boolean disconneted = true;
 
     private boolean isSearchingForDevices = false;
@@ -65,6 +65,7 @@ public class MyViewModel extends ViewModel {
     }
 
     // TODO: this function is meant to o an asynchronous operation to fetch devices.
+    // Please make it return the list of devices
     public void loadDevicesConneced() {
 
         deviceList = new ArrayList();
@@ -164,7 +165,6 @@ public class MyViewModel extends ViewModel {
         numItems = new MutableLiveData<List<Device>>();
         items = new ArrayList<Device>();
         numItems.setValue(items);
-
     }
 
     // inspiration: https://bit.ly/2OOVepH
