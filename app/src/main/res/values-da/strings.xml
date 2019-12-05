@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bluetooth Development Debug Tool</string>
+    <string name="notSupported_Bluetooth">Bluetooth is not supported on this device.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="buttonExit">Afslut</string>
+    <string name="buttonHelp">Hjælp</string>
+    <string name="buttonTerminal">Terminal</string>
+    <string name="buttonDisconnect">Afbryd</string>
+    <string name="buttonConnectDevice">Forbind til Enhed</string>
+    <string name="textviewTitle">Bluetooth Development Debug Tool</string>
+    <string name="textviewConnected">Forbind:</string>
+    <string name="textviewDeviceName">Enhed:</string>
+    <string name="textviewDeviceNameDisplay">Enhedsnavn</string>
+    <string name="textviewConnectHead">Vælg en enhed at forbinde med</string>
+    <string name="buttonScan">Søg efter enheder</string>
+    <string name="buttonBack">Tilbage</string>
+    <string name="buttonSaveOutput">Gemt Output</string>
+    <string name="CmdInputText">Input command</string>
+    <string name="buttonSave">Gemt</string>
+    <string name="saveOutputTextViewSaveScr">Indtast filenavn:</string>
+    <string name="editTextFilename">Filenavn her</string>
+    <string name="extension">.log</string>
+    <string name="textViewChooseSaveLocation">Choose save location:</string>
+    <string name="deviceListElementTextViewMac_address">MAC Adresse:</string>
+    <string name="deviceListElementTextViewDeviceName">Enheds navn:</string>
+    <string name="deviceListElementTextViewSignalStrength">Signal Strength:</string>
+    <string name="deviceListElementTextViewIsBonded">Not Bonded</string>
+    <string name="deviceListElementTextViewSignalDelay">Signal Delay:</string>
+    <string name="deviesIsConneted">Enhed er forbundet</string>
+    <string name="deviesIsNotConneted">Enhed er ikke forbundet</string>
+    <string name="min_sdk_req">MIN. SDK level: 18 (To support BLE)</string>
+    <string name="seekButton">SØG</string>
+    <string name="Load">Hent</string>
+</resources>

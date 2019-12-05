@@ -182,7 +182,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onChanged(Device device) {
                 fragMainTextViewConnected.setText(device.getConnected() ? getString(R.string.deviesIsConneted) : getString(R.string.deviesIsNotConneted));
-                fragMainTextViewDevice.setText(getString(R.string.macAdress) + device.getMac());
+                fragMainTextViewDevice.setText(getString(R.string.deviceListElementTextViewMac_address) + device.getMac());
                 fragMainTextViewDeviceName.setText(device.getName());
             }
         });
