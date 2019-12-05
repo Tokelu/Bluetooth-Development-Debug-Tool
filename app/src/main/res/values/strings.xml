@@ -2,6 +2,7 @@
     <string name="app_name">Bluetooth Development Debug Tool</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="notSupported_Bluetooth">Bluetooth is not supported on this device.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="buttonExit">Exit</string>
     <string name="buttonHelp">Help</string>
