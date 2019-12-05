@@ -35,7 +35,7 @@ public class MyViewModel extends ViewModel {
     private Device currentDevice;
 
     private String file = null;
-    private boolean connect = false;
+    //private boolean connect = false;
     //   private boolean disconneted = true;
 
     private boolean isSearchingForDevices = false;

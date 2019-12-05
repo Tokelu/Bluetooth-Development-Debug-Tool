@@ -124,8 +124,8 @@ public class FragmentMain extends Fragment {
             public void onClick(View v) {
                 // vm.setConnectDevice();
                 // TODO: connet device
-                vm.setDeviceConnect();
-                // Navigation.findNavController(v).navigate(R.id.fragmentMain);
+                //vm.setDeviceConnect();
+                Navigation.findNavController(v).navigate(R.id.fragmentConnection);
             }
         });
         mainBtnHelp = v.findViewById(R.id.fragMainButtonHelp);
@@ -141,7 +141,6 @@ public class FragmentMain extends Fragment {
         mainBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: why don't it work?
                 System.exit(0);
             }
         });
