@@ -124,6 +124,9 @@ public class MyViewModel extends ViewModel {
 
     }
 
+    public boolean getconnection() {
+        return currentDevice.getConnected();
+    }
 
     // TODO: used in main activy, must load the new view I goes
     public void loadNewData() {
