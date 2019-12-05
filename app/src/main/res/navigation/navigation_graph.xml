@@ -56,5 +56,5 @@
         android:id="@+id/fragmentLoad"
         android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentLoad"
         android:label="fragment_fragment_load"
-        tools:layout="@layout/fragment_fragment_load" />
+        tools:layout="@layout/fragment_load_data" />
 </navigation>
