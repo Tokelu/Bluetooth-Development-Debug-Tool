@@ -1,11 +1,20 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 
+import android.content.Context;
+import android.content.Intent;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService;
+
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_DATA;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_NAME;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SAVE;
 
 public class MyViewModel extends ViewModel {
 
@@ -47,25 +56,29 @@ public class MyViewModel extends ViewModel {
     }
 
     //TODO: chose save location:
-    public void locationToSave(String locationToSave) {
-        String fileToSave = getFileToSave();
-        saveToDatabase(fileToSave, locationToSave);
-    }
+//    public void locationToSave(String locationToSave) { //This might be redundant
+//        String fileToSave = getFileToSave();
+//        saveToDatabase(fileToSave, locationToSave);
+//    }
 
-    //TODO: file to save
-    public void saveFile(String fil) {
-        file = fil;
+    //TODO: terminalData to member data
+    public void saveTerminalDataInformation(String terminalData) {
+        file = terminalData;
 
     }
 
     //TODO: get the file
-    public String getFileToSave() {
+    public String getTerminalDataInformation() {
         return file;
     }
 
     // TODO: save the data to the database
-    public void saveToDatabase(String fileToSave, String saveFileHere) {
-
+    public void saveToDatabase(Context context, String fileName, String terminalData) {
+        Intent log = new Intent(context, DatabaseService.class)
+                .setAction(SAVE)
+                .putExtra(LOG_NAME, fileName)
+                .putExtra(LOG_DATA, terminalData);
+        context.startService(log);
     }
 
     // TODO: disconnect the device

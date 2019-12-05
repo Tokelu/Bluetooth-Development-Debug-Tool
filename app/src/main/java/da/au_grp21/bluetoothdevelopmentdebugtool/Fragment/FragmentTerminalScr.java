@@ -105,9 +105,8 @@ public class FragmentTerminalScr extends Fragment {
         terBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vm.saveFile(terEditTxtSave.getText().toString());
+                vm.saveInformationOnFile(terEditTxtSave.getText().toString());
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
-
             }
         });
 
