@@ -1,11 +1,19 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
 
@@ -15,8 +23,14 @@ public class MyViewModel extends ViewModel {
     private MutableLiveData<List<String>> numItems;
     private ArrayList<String> items;
     private String file = null;
-    private boolean connet = false;
+    private boolean connect = false;
     private boolean disconneted = true;
+
+    private boolean isSearchingForDevices = false;
+    private BluetoothAdapter bluetoothAdapter;
+    private ArrayList deviceList;
+    private ArrayAdapter arrayAdapter;
+
 
     // TODO: Is our devices a string, or an obj?
     public LiveData<String> getDevices() {
@@ -43,6 +57,22 @@ public class MyViewModel extends ViewModel {
 
     // TODO: this function is meant to o an asynchronous operation to fetch devices.
     public void loadDevicesConneced() {
+
+        deviceList = new ArrayList();
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, deviceList);
+        recyclerView =   //findViewById(R.id.fragConnectRecyclerView);
+        recyclerView.setAdapter(arrayAdapter);
+
+
+
+
+
+        if (!isSearchingForDevices){
+            bluetoothAdapter.startLeScan(btScanCallback);
+            isSearchingForDevices = !isSearchingForDevices;
+        }
 
     }
 
@@ -83,12 +113,12 @@ public class MyViewModel extends ViewModel {
 
     // TODO: connect the device
     public boolean getconnect() {
-        return connet;
+        return connect;
     }
 
     // TODO: connect the device
     public void setconnect(boolean conneted) {
-        connet = conneted;
+        connect = conneted;
     }
 
     // TODO: check it a device is conneted before going from the main frag to termial frag
@@ -125,5 +155,22 @@ public class MyViewModel extends ViewModel {
         numItems.setValue(items);
 
     }
+        // inspiration: https://bit.ly/2OOVepH
+    private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback(){
+        @Override
+        public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes){
+            if (bluetoothDevice != null){
+                if (!deviceList.contains(bluetoothDevice.getAddress())){
+                    deviceList.add(bluetoothDevice.getAddress());
+                }
+                else {
+                    deviceList.remove(bluetoothDevice.getAddress());
+                    deviceList.add(bluetoothDevice.getAddress());
+
+                }
+                arrayAdapter.notifyDataSetChanged();
+            }
+        }
+    };
 }
 

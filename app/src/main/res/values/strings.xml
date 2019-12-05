@@ -31,4 +31,5 @@
     <string name="deviesIsConneted">Conneted</string>
     <string name="deviesIsNotConneted">Not Conneted</string>
     <string name="seekButton">Søg</string>
+    <string name="min_sdk_req">MIN. SDK level: 18 (To support BLE)</string>
 </resources>
