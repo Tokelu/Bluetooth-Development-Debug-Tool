@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService;
+import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_DATA;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_NAME;
@@ -18,30 +19,29 @@ import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService
 
 public class MyViewModel extends ViewModel {
 
-    private MutableLiveData<String> devices;
-    //TODO: private ArrayList<Device> items;
-    //TODO: private MutableLiveData<List<Device>> numItems;
-    private MutableLiveData<List<String>> numItems;
-    private ArrayList<String> items;
+    private MutableLiveData<Device> devices;
+    //TODO:
+    private ArrayList<Device> items;
+    //TODO:
+    private MutableLiveData<List<Device>> numItems;
+    private Device currentDevice;
+
     private String file = null;
     private boolean connet = false;
-    private boolean disconneted = true;
+    //   private boolean disconneted = true;
 
     // TODO: Is our devices a string, or an obj?
-    public LiveData<String> getDevices() {
-        // public LiveData<Device> getDevices() {
+    public LiveData<Device> getDevices() {
         if (devices == null) {
-            devices = new MutableLiveData<String>();
-            // devices = new MutableLiveData<Device>();
-
+            devices = new MutableLiveData<Device>();
         }
         return devices;
     }
 
     // TODO: Is our devices a string, or an obj?
-    public LiveData<String> getAllDevices() {
+    public LiveData<Device> getAllDevices() {
         if (numItems == null) {
-            numItems = new MutableLiveData<List<String>>();
+            numItems = new MutableLiveData<List<Device>>();
             if (items == null) {
                 items = new ArrayList<>();
             }
@@ -63,7 +63,8 @@ public class MyViewModel extends ViewModel {
 
     //TODO: terminalData to member data
     public void saveTerminalDataInformation(String terminalData) {
-        file = terminalData;
+        // file = terminalData;
+        currentDevice.setData(terminalData);
 
     }
 
@@ -81,7 +82,11 @@ public class MyViewModel extends ViewModel {
         context.startService(log);
     }
 
-    // TODO: disconnect the device
+    //TODO: get from database
+    public void getFromDatabase() {
+
+    }
+   /* // TODO: disconnect the device
     public boolean getdisconnect() {
 
         return disconneted;
@@ -91,17 +96,9 @@ public class MyViewModel extends ViewModel {
     public void setdisconnect(boolean disconnet) {
         disconneted = disconnet;
 
-    }
+    }*/
 
-    // TODO: connect the device
-    public boolean getconnect() {
-        return connet;
-    }
 
-    // TODO: connect the device
-    public void setconnect(boolean conneted) {
-        connet = conneted;
-    }
 
     // TODO: -- no need -- check it a device is conneted before going from the main frag to termial frag
     public void terminal() {
@@ -111,37 +108,27 @@ public class MyViewModel extends ViewModel {
     public void help() {
     }
 
-  /* // TODO: disconnect the device
-    public String getDisconnectDevice() {
-
-        return disconnetedDevise;
-    }
-
     // TODO: disconnect the device
-    public void setDisconnectDevise(String disconnet) {
-        setdisconnect(true);
-        setconnect(false);
-        disconnetedDevise = disconnet;
-
+    public void setDeviseDisconnect() {
+        currentDevice.setConnected(false);
     }
 
     // TODO: connect the device
-    public String  getConnectDevice() {
-        return connetDevice;
+    public String getDeviceThatIsConnect() {
+        return currentDevice.getName();
     }
 
     // TODO: connect the device
-    public void setConnectDevice(String conneted) {
-        setconnect(true);
-        setdisconnect(false);
-        connetDevice = conneted;
+    public void setDeviceConnect() {
+        currentDevice.setConnected(true);
+
     }
-    */
+
 
     // TODO: used in main activy, must load the new view I goes
     public void loadNewData() {
-        numItems = new MutableLiveData<List<String>>();
-        items = new ArrayList<String>();
+        numItems = new MutableLiveData<List<Device>>();
+        items = new ArrayList<Device>();
         numItems.setValue(items);
 
     }
