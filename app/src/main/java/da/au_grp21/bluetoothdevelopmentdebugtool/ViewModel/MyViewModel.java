@@ -1,11 +1,17 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import android.content.Context;
 import android.content.Intent;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +23,8 @@ import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_NAME;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SAVE;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.R;
+
 public class MyViewModel extends ViewModel {
 
     private MutableLiveData<Device> devices;
@@ -27,8 +35,14 @@ public class MyViewModel extends ViewModel {
     private Device currentDevice;
 
     private String file = null;
-    private boolean connet = false;
+    private boolean connect = false;
     //   private boolean disconneted = true;
+
+    private boolean isSearchingForDevices = false;
+    private BluetoothAdapter bluetoothAdapter;
+    private ArrayList deviceList;
+    private ArrayAdapter arrayAdapter;
+
 
     // TODO: Is our devices a string, or an obj?
     public LiveData<Device> getDevices() {
@@ -53,6 +67,19 @@ public class MyViewModel extends ViewModel {
     // TODO: this function is meant to o an asynchronous operation to fetch devices.
     // Please make it return the list of devices
     public void loadDevicesConneced() {
+
+        deviceList = new ArrayList();
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        //arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, deviceList);
+        //recyclerView =   //findViewById(R.id.fragConnectRecyclerView);
+        //recyclerView.setAdapter(arrayAdapter);
+
+
+        if (!isSearchingForDevices) {
+            bluetoothAdapter.startLeScan(btScanCallback);
+            isSearchingForDevices = !isSearchingForDevices;
+        }
 
     }
 
@@ -130,6 +157,9 @@ public class MyViewModel extends ViewModel {
         setDeviceConnect();
     }
 
+    public boolean getconnection() {
+        return currentDevice.getConnected();
+    }
 
     // TODO: used in main activy, must load the new view I goes
     public void loadNewData() {
@@ -137,5 +167,22 @@ public class MyViewModel extends ViewModel {
         items = new ArrayList<Device>();
         numItems.setValue(items);
     }
+
+    // inspiration: https://bit.ly/2OOVepH
+    private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback() {
+        @Override
+        public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
+            if (bluetoothDevice != null) {
+                if (!deviceList.contains(bluetoothDevice.getAddress())) {
+                    deviceList.add(bluetoothDevice.getAddress());
+                } else {
+                    deviceList.remove(bluetoothDevice.getAddress());
+                    deviceList.add(bluetoothDevice.getAddress());
+
+                }
+                arrayAdapter.notifyDataSetChanged();
+            }
+        }
+    };
 }
 

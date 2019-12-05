@@ -20,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
@@ -89,11 +90,18 @@ public class FragmentMain extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
+        fragMainTextViewConnected = v.findViewById(R.id.fragMainConnectionIndicator);
+        fragMainTextViewDevice = v.findViewById(R.id.fragMainTextViewDevice);
+        fragMainTextViewDeviceName = v.findViewById(R.id.fragMainTextViewDeviceName);
+
+        fragMainTextViewDevice.setText(getString(R.string.macAdress));
+
+
         mainBtnTerminal = v.findViewById(R.id.fragMainButtonTerminal);
         mainBtnTerminal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (vm.getconnect() == true) {
+                if (vm.getconnection() == true) {
                     Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
                 } else
                     Navigation.findNavController(v).navigate(R.id.fragmentConnection);
@@ -105,8 +113,8 @@ public class FragmentMain extends Fragment {
             public void onClick(View v) {
                 // TODO: Disconnect device, not move to a frag
                 //vm.setDisconnectDevise();
-                vm.setdisconnect(true);
-                vm.setconnect(false);
+                vm.setDeviseDisconnect();
+
                 // Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
@@ -116,8 +124,7 @@ public class FragmentMain extends Fragment {
             public void onClick(View v) {
                 // vm.setConnectDevice();
                 // TODO: connet device
-                vm.setconnect(true);
-                vm.setdisconnect(false);
+                vm.setDeviceConnect();
                 // Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
@@ -135,7 +142,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: why don't it work?
-                //finish();
+                System.exit(0);
             }
         });
         connectionIndicator = v.findViewById(R.id.fragMainConnectionIndicator);
@@ -172,10 +179,12 @@ public class FragmentMain extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
-        vm.getDevices().observe(this, new Observer<String>() {
+        vm.getDevices().observe(this, new Observer<Device>() {
             @Override
-            public void onChanged(String s) {
-
+            public void onChanged(Device device) {
+                fragMainTextViewConnected.setText(device.getConnected() ? getString(R.string.deviesIsConneted) : getString(R.string.deviesIsNotConneted));
+                fragMainTextViewDevice.setText(getString(R.string.macAdress) + device.getMac());
+                fragMainTextViewDeviceName.setText(device.getName());
             }
         });
     }

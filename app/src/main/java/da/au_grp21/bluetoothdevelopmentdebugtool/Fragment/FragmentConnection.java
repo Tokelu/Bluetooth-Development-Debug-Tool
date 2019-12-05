@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -39,8 +41,6 @@ public class FragmentConnection extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private boolean isSearchingForDevices = false;
-    private BluetoothAdapter bluetoothAdapter;
 
 
     // TODO: Rename and change types of parameters
@@ -97,10 +97,6 @@ public class FragmentConnection extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (!isSearchingForDevices){
-                   //bluetoothAdapter.startLeScan(btScanCallback);
-                    isSearchingForDevices = !isSearchingForDevices;
-                }
 
                 // TODO: check for devices there can be conneted
                 vm.loadDevicesConneced();
@@ -150,12 +146,7 @@ public class FragmentConnection extends Fragment {
         //    mListener = null;
     }
 
-/*    private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback(){
-        @Override
 
-
-    }
-*/
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -171,3 +162,4 @@ public class FragmentConnection extends Fragment {
         void onFragmentInteraction(Uri uri);
     }*/
 }
+
