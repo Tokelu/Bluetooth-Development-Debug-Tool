@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <service android:name=".Database.DatabaseService"></service>
+        <service android:name=".Bluetooth.BluetoothConnectionService" />
     </application>
 
 </manifest>

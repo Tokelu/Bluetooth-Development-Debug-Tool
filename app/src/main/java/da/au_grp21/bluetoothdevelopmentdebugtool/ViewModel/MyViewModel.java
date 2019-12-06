@@ -23,6 +23,7 @@ import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_NAME;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SAVE;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
@@ -37,9 +38,7 @@ public class MyViewModel extends ViewModel {
     //   private boolean disconneted = true;
 
     private boolean isSearchingForDevices = false;
-    private BluetoothAdapter bluetoothAdapter;
-    private ArrayList deviceList;
-    private ArrayAdapter arrayAdapter;
+
 
 
     // TODO: Mette will make this part of all fragments
@@ -62,20 +61,15 @@ public class MyViewModel extends ViewModel {
         return devices;
     }
 
+
+
+
+
     // TODO: this function is meant to o an asynchronous operation to fetch devices.
     // Please make it return the list of devices
     public void loadDevicesConneced() {
-
-        deviceList = new ArrayList();
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        //arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, deviceList);
-        //recyclerView = findViewById(R.id.fragConnectRecyclerView);
-        //recyclerView.setAdapter(arrayAdapter);
-
-
         if (!isSearchingForDevices) {
-            bluetoothAdapter.startLeScan(btScanCallback);
+
             isSearchingForDevices = !isSearchingForDevices;
         }
 
@@ -156,30 +150,6 @@ public class MyViewModel extends ViewModel {
     public void seachForOldData() {
     }
 
-    // inspiration: https://bit.ly/2OOVepH
-    private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback() {
-        @Override
-        public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
-            Device device = new Device();
 
-            if (bluetoothDevice != null) {
-
-                // When scanning, check if device list contains a device with a specific mac address and add it if it does not.
-                if (deviceList.contains((bluetoothDevice.getAddress())) == deviceList.contains(device.getMac())) {
-                    device.setMac(bluetoothDevice.getAddress());
-                    device.setName(bluetoothDevice.getName());
-                    device.setConnected(false);
-
-                    deviceList.add(device);
-                }
-                // if device is no longer in scanning range, remove device from list.
-                else {
-                    deviceList.remove(device.getMac());
-                    deviceList.add(device.getMac());
-                }
-                arrayAdapter.notifyDataSetChanged();
-            }
-        }
-    };
 }
 
