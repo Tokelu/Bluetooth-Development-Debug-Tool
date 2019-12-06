@@ -61,8 +61,8 @@ public class MyViewModel extends ViewModel {
 
     private boolean isSearchingForDevices = false;
 
-    public LiveData<List<LogData>> getLogs(){
-        if (logs == null){
+    public LiveData<List<LogData>> getLogs() {
+        if (logs == null) {
             logs = new MutableLiveData<>();
         }
         return logs;
@@ -176,20 +176,23 @@ public class MyViewModel extends ViewModel {
     //TODO: to find the old logs
     public void seachForOldData(Context context, String searchString) {
         Date mightBe = LogData.sdf.parse(searchString, new ParsePosition(0));
-        if (mightBe != null){
+        if (mightBe != null) {
             Intent retriever = new Intent(context, DatabaseService.class)
                     .setAction(FIND_BY_DATE)
-                    .putExtra(DATE,searchString);
+                    .putExtra(DATE, searchString);
             context.startService(retriever);
-        }
-        else {
+        } else {
             Intent retriever = new Intent(context, DatabaseService.class)
                     .setAction(FIND_BY_NAME)
-                    .putExtra(LOG_NAME,searchString);
+                    .putExtra(LOG_NAME, searchString);
             context.startService(retriever);
         }
     }
 
+    public boolean chechIfDataIsSaved() {
+
+        return true;
+    }
     public static void showToast(Context context, int stringId) {
         Toast t = Toast.makeText(context, context.getString(stringId), Toast.LENGTH_SHORT);
         View toastView = t.getView();
@@ -206,7 +209,7 @@ public class MyViewModel extends ViewModel {
     public BroadcastReceiver onDatabaseResponse = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()){
+            switch (intent.getAction()) {
                 case SINGLE_BROADCAST:
                     logList.add((LogData) intent.getSerializableExtra(RETURN_LOG));
                     logs.setValue(logList);
