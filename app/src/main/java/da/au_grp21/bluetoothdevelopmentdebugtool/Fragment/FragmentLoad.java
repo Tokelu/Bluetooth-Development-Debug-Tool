@@ -2,13 +2,19 @@ package da.au_grp21.bluetoothdevelopmentdebugtool.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
+import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 /*
  * A simple {@link Fragment} subclass.
@@ -27,7 +33,9 @@ public class FragmentLoad extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    Button loadBtnBack, loadBtnSearch;
+    EditText loadSeachtxt;
+    private MyViewModel vm;
 
 
     public FragmentLoad() {
@@ -52,6 +60,7 @@ public class FragmentLoad extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +74,36 @@ public class FragmentLoad extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_load_data, container, false);
+        View v = inflater.inflate(R.layout.fragment_load_data, container, false);
+
+        initializeUI(v);
+        loadBtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                vm.seachForOldData();
+            }
+        });
+        loadBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+            }
+        });
+        return v;
     }
 
+    private void initializeUI(View view) {
+        loadBtnBack = view.findViewById(R.id.fragLoadBtnBack);
+        loadBtnSearch = view.findViewById(R.id.fragLoadBtnSearch);
+        loadSeachtxt = view.findViewById(R.id.fragLoadSeachtxt);
+    }
 
-
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
+    }
 
     @Override
     public void onDetach() {

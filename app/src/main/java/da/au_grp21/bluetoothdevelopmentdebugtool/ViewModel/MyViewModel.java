@@ -44,7 +44,7 @@ public class MyViewModel extends ViewModel {
     private ArrayAdapter arrayAdapter;
 
 
-    // TODO: Is our devices a string, or an obj?
+    // TODO: Mette will make this part of all fragments
     public LiveData<Device> getDevices() {
         if (devices == null) {
             devices = new MutableLiveData<Device>();
@@ -52,7 +52,7 @@ public class MyViewModel extends ViewModel {
         return devices;
     }
 
-    // TODO: Is our devices a string, or an obj?
+    // TODO:
     public LiveData<Device> getAllDevices() {
         if (numItems == null) {
             numItems = new MutableLiveData<List<Device>>();
@@ -83,8 +83,8 @@ public class MyViewModel extends ViewModel {
 
     }
 
-    //TODO: chose save location:
-//    public void locationToSave(String locationToSave) { //This might be redundant
+    //TODO: chose save location: This might(WILL) be redundant
+//    public void locationToSave(String locationToSave) { //
 //        String fileToSave = getFileToSave();
 //        saveToDatabase(fileToSave, locationToSave);
 //    }
@@ -114,19 +114,6 @@ public class MyViewModel extends ViewModel {
     public void getFromDatabase() {
 
     }
-   /* // TODO: disconnect the device
-    public boolean getdisconnect() {
-
-        return disconneted;
-    }
-
-    // TODO: disconnect the device
-    public void setdisconnect(boolean disconnet) {
-        disconneted = disconnet;
-
-    }*/
-
-
 
     // TODO: -- no need -- check it a device is conneted before going from the main frag to termial frag
     public void terminal() {
@@ -150,9 +137,8 @@ public class MyViewModel extends ViewModel {
     public void setDeviceConnect() {
         currentDevice.setConnected(true);
     }
-
     //Sets the input item as the current connected device
-    public void ConnectToDevice(Device device){
+    public void ConnectToDevice(Device device) {
         currentDevice = device;
         setDeviceConnect();
     }
@@ -168,23 +154,27 @@ public class MyViewModel extends ViewModel {
         numItems.setValue(items);
     }
 
+    //TODO: to find the old logs
+    public void seachForOldData() {
+    }
+
     // inspiration: https://bit.ly/2OOVepH
     private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
-        public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes){
+        public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
             Device device = new Device();
 
-            if (bluetoothDevice != null){
+            if (bluetoothDevice != null) {
 
-                    // When scanning, check if device list contains a device with a specific mac address and add it if it does not.
-                if (deviceList.contains((bluetoothDevice.getAddress())) == deviceList.contains(device.getMac())){
+                // When scanning, check if device list contains a device with a specific mac address and add it if it does not.
+                if (deviceList.contains((bluetoothDevice.getAddress())) == deviceList.contains(device.getMac())) {
                     device.setMac(bluetoothDevice.getAddress());
                     device.setName(bluetoothDevice.getName());
                     device.setConnected(false);
 
                     deviceList.add(device);
                 }
-                    // if device is no longer in scanning range, remove device from list.
+                // if device is no longer in scanning range, remove device from list.
                 else {
                     deviceList.remove(device.getMac());
                     deviceList.add(device.getMac());

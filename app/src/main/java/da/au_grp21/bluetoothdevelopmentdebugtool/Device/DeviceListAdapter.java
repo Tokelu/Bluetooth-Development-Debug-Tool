@@ -17,21 +17,23 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     private OnItemClickListener clickListener; //Click listner
     private OnItemLongClickListner longClickListner; //Long click listner
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void OnItemClick(int position);
     }
 
-    public interface OnItemLongClickListner{
+    public interface OnItemLongClickListner {
         void OnItemLongClick(int position);
     }
 
-    public DeviceListAdapter(ArrayList<Device> devices) {deviceArrayList = devices;}
+    public DeviceListAdapter(ArrayList<Device> devices) {
+        deviceArrayList = devices;
+    }
 
-    public void setClickListener(OnItemClickListener listener){
+    public void setClickListener(OnItemClickListener listener) {
         clickListener = listener;
     }
 
-    public void setLongClickListner(OnItemLongClickListner listner){
+    public void setLongClickListner(OnItemLongClickListner listner) {
         longClickListner = listner;
     }
 
@@ -49,7 +51,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(listner != null){
+                    if (listner != null) {
                         listner.OnItemClick(getAdapterPosition());
                     }
                 }
@@ -58,7 +60,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if(longlistner != null){
+                    if (longlistner != null) {
                         longlistner.OnItemLongClick(getAdapterPosition());
                     }
                     return true;
@@ -67,7 +69,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         }
     }
 
-    public DeviceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public DeviceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.device_list_element, parent, false);
         MyViewHolder vh = new MyViewHolder(v, clickListener, longClickListner);
         return vh;
@@ -82,7 +84,11 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     }
 
     @Override
-    public int getItemCount() {return deviceArrayList.size();}
+    public int getItemCount() {
+        return deviceArrayList.size();
+    }
 
-    public Device GetItem(int position) {return  deviceArrayList.get(position);}
+    public Device GetItem(int position) {
+        return deviceArrayList.get(position);
+    }
 }
