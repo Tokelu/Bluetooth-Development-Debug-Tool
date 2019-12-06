@@ -95,8 +95,10 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 if (vm.getconnection() == true) {
+                    vm.showToast(FragmentMain.this.getActivity(), R.string.deviceConneted);
                     Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
                 } else
+                    vm.showToast(FragmentMain.this.getActivity(), R.string.noDeviceConneted);
                     Navigation.findNavController(v).navigate(R.id.fragmentConnection);
             }
         });
