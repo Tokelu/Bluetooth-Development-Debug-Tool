@@ -1,11 +1,13 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Fragment;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -18,11 +20,12 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LIST_BROADCAST;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SINGLE_BROADCAST;
+
 /*
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentLoad.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link FragmentLoad#newInstance} factory method to
  * create an instance of this fragment.
  */
@@ -62,7 +65,6 @@ public class FragmentLoad extends Fragment {
         return fragment;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,16 @@ public class FragmentLoad extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(SINGLE_BROADCAST);
+        filter.addAction(LIST_BROADCAST);
+        LocalBroadcastManager.getInstance(FragmentLoad.this.getActivity()).registerReceiver(vm.onDatabaseResponse, filter);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(FragmentLoad.this.getActivity()).unregisterReceiver(vm.onDatabaseResponse);
     }
 
     @Override
@@ -83,7 +95,7 @@ public class FragmentLoad extends Fragment {
             @Override
             public void onClick(View v) {
 
-                vm.seachForOldData();
+                vm.seachForOldData(FragmentLoad.this.getActivity(), loadSeachtxt.getText().toString());
             }
         });
         loadBtnBack.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +117,7 @@ public class FragmentLoad extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
-        vm.getDevices().observe(this, new Observer<Device>() {
+        vm.getDevice().observe(this, new Observer<Device>() {
             @Override
             public void onChanged(Device device) {
                 //TODO: This function should get what?
@@ -116,21 +128,6 @@ public class FragmentLoad extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
     }
 
-    /*
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-   /* public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 }

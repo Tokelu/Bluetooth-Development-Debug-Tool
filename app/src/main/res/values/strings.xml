@@ -33,4 +33,9 @@
     <string name="min_sdk_req">MIN. SDK level: 18 (To support BLE)</string>
     <string name="seekButton">SEARCH</string>
     <string name="Load">Load</string>
+    <string name="logName">Log name:</string>
+    <string name="logTimestamp">Created at:</string>
+    <!-- Toast call-->
+    <string name="deviceConneted">There is a device connected, navigating to the Terminal view</string>
+    <string name="noDeviceConneted">There isn\'t a device connected, navigating to the Connetion view</string>
 </resources>
