@@ -28,7 +28,7 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
 
-    private MutableLiveData<Device> devices;
+    public MutableLiveData<Device> devices;
     //TODO:
     private ArrayList<Device> items;
     //TODO:
