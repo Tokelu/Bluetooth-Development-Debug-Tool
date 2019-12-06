@@ -115,7 +115,6 @@ public class FragmentMain extends Fragment {
         mainBtnConDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Navigation.findNavController(v).navigate(R.id.fragmentConnection);
             }
         });
@@ -124,7 +123,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: how do we make the help thingy?
-                vm.help();
+                Navigation.findNavController(v).navigate(R.id.fragmentHelp);
 
             }
         });
@@ -163,6 +162,7 @@ public class FragmentMain extends Fragment {
                 fragMainTextViewConnected.setText(device.getConnected() ? getString(R.string.deviesIsConneted) : getString(R.string.deviesIsNotConneted));
                 fragMainTextViewDevice.setText(getString(R.string.deviceListElementTextViewMac_address) + device.getMac());
                 fragMainTextViewDeviceName.setText(device.getName());
+                connectionIndicator.setChecked(device.getConnected());
             }
         });
     }

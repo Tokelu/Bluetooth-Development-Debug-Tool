@@ -1,7 +1,10 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.content.BroadcastReceiver;
 import android.content.BroadcastReceiver;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParsePosition;
@@ -41,6 +45,8 @@ import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SINGLE_BROADCAST;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
+import da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentTerminalScr;
+
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
@@ -63,8 +69,8 @@ public class MyViewModel extends ViewModel {
 
     private boolean isSearchingForDevices = false;
 
-    public LiveData<List<LogData>> getLogs(){
-        if (logs == null){
+    public LiveData<List<LogData>> getLogs() {
+        if (logs == null) {
             logs = new MutableLiveData<>();
         }
         return logs;
@@ -89,9 +95,6 @@ public class MyViewModel extends ViewModel {
         }
         return numItems;
     }
-
-
-
 
 
     // TODO: this function is meant to o an asynchronous operation to fetch devices.
@@ -136,11 +139,8 @@ public class MyViewModel extends ViewModel {
 
     }
 
-    // TODO: -- no need -- check it a device is conneted before going from the main frag to termial frag
-    public void terminal() {
 
-    }
-
+    //TODO: What should this do??
     public void help() {
     }
 
@@ -158,6 +158,7 @@ public class MyViewModel extends ViewModel {
     public void setDeviceConnect() {
         currentDevice.setConnected(true);
     }
+
     //Sets the input item as the current connected device
     public void ConnectToDevice(Device device) {
         currentDevice = device;
@@ -178,18 +179,21 @@ public class MyViewModel extends ViewModel {
     //TODO: to find the old logs
     public void seachForOldData(Context context, String searchString) {
         Date mightBe = LogData.sdf.parse(searchString, new ParsePosition(0));
-        if (mightBe != null){
+        if (mightBe != null) {
             Intent retriever = new Intent(context, DatabaseService.class)
                     .setAction(FIND_BY_DATE)
-                    .putExtra(DATE,searchString);
+                    .putExtra(DATE, searchString);
             context.startService(retriever);
-        }
-        else {
+        } else {
             Intent retriever = new Intent(context, DatabaseService.class)
                     .setAction(FIND_BY_NAME)
-                    .putExtra(LOG_NAME,searchString);
+                    .putExtra(LOG_NAME, searchString);
             context.startService(retriever);
         }
+    }
+
+    public Boolean chechIfDataIsSaved() {
+        return currentDevice.getSave();
     }
 
     public static void showToast(Context context, int stringId) {
@@ -208,7 +212,7 @@ public class MyViewModel extends ViewModel {
     public BroadcastReceiver onDatabaseResponse = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()){
+            switch (intent.getAction()) {
                 case SINGLE_BROADCAST:
                     logList.add((LogData) intent.getSerializableExtra(RETURN_LOG));
                     logs.setValue(logList);

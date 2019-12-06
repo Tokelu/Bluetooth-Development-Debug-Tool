@@ -17,7 +17,7 @@
     <string name="buttonBack">Tilbage</string>
     <string name="buttonSaveOutput">Gemt Output</string>
     <string name="CmdInputText">Input command</string>
-    <string name="buttonSave">Gemt</string>
+    <string name="buttonSave">Gem</string>
     <string name="saveOutputTextViewSaveScr">Indtast filenavn:</string>
     <string name="editTextFilename">Filenavn her</string>
     <string name="extension">.log</string>
@@ -35,6 +35,15 @@
     <!-- Toast call-->
     <string name="deviceConneted">Der er en enhed forbundet, navigere til Terminal vinduet</string>
     <string name="noDeviceConneted">Der er ikke en enhed forbundet, navigere til Forbindelse vinduet</string>
+    <string name="dataSaveOnDatabase"> Data er gemt i Databasen</string>
     <string name="logName">Log navn:</string>
     <string name="logTimestamp">Oprettet:</string>
+
+    <!-- Textboxes call-->
+    <!-- pop up -->
+    <string name="notSavedDataFromTer"> Du er ved at gå tilbage til hovde vinduet uden at gemme. Er du sikker på at du ønsker dette? Klik OK for dette. Dataen bliver ikke gemt </string>
+    <!-- Help view-->
+    <string name="Help">Help</string>
+    <string name="HelpTxt">Help</string>
+
 </resources>
