@@ -155,6 +155,10 @@ public class MyViewModel extends ViewModel {
     public void seachForOldData() {
     }
 
+    public boolean chechIfDataIsSaved() {
+
+        return true;
+    }
     public static void showToast(Context context, int stringId) {
         Toast t = Toast.makeText(context, context.getString(stringId), Toast.LENGTH_SHORT);
         View toastView = t.getView();

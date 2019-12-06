@@ -35,4 +35,9 @@
     <!-- Toast call-->
     <string name="deviceConneted">Der er en enhed forbundet, navigere til Terminal vinduet</string>
     <string name="noDeviceConneted">Der er ikke en enhed forbundet, navigere til Forbindelse vinduet</string>
+    <string name="dataSaveOnDatabase"> Data er gemt i Databasen</string>
+
+    <!-- Textboxes call-->
+    <!-- pop up view-->
+    <string name="notSavedDataFromTer"> Du er ved at gør tilbage til hovde vinduet uden at gemme. Er du sikker på at du ønsker dette? Dataen bliver ikke gemt </string>
 </resources>
