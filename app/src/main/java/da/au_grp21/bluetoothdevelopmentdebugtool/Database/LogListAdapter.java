@@ -9,11 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogViewHolder> {
-    private ArrayList<LogData> logArrayList;
+    private ArrayList<LogData> logArrayList = new ArrayList<>();
     private LogListAdapter.OnItemClickListener clickListener; //Click listner
     private LogListAdapter.OnItemLongClickListner longClickListner; //Long click listner
 
@@ -25,16 +26,18 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogViewH
         void OnItemLongClick(int position);
     }
 
-    public LogListAdapter(ArrayList<LogData> logs) {
-        logArrayList = logs;
-    }
-
     public void setClickListener(LogListAdapter.OnItemClickListener listener) {
         clickListener = listener;
     }
 
     public void setLongClickListner(LogListAdapter.OnItemLongClickListner listner) {
         longClickListner = listner;
+    }
+
+    public void SetLogList(List<LogData> logs){
+        logArrayList.clear();
+        logArrayList.addAll(logs);
+        notifyDataSetChanged();
     }
 
     public static class LogViewHolder extends RecyclerView.ViewHolder {

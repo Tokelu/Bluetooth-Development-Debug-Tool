@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
@@ -108,7 +110,11 @@ public class FragmentConnection extends Fragment {
             }
         });
 
-        myAdapter = new DeviceListAdapter(null); //TODO: Insert proper list of devices based on the view models list of devices
+        recyclerView = this.getActivity().findViewById(R.id.fragConnectRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this.getActivity());
+
+        myAdapter = new DeviceListAdapter();
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(layoutManager);
         myAdapter.setClickListener(new DeviceListAdapter.OnItemClickListener() {
@@ -127,10 +133,10 @@ public class FragmentConnection extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
-        vm.getAllDevices().observe(this, new Observer<Device>() {
+        vm.getAllDevices().observe(this, new Observer<List<Device>>() {
             @Override
-            public void onChanged(Device device) {
-                //TODO: This function should get what?
+            public void onChanged(List<Device> devices) {
+                myAdapter.SetDeviceList(devices);
             }
         });
     }

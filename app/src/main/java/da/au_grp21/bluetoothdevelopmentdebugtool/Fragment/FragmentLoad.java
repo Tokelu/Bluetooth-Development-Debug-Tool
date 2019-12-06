@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.List;
+
+import da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogData;
+import da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogListAdapter;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
@@ -41,6 +47,11 @@ public class FragmentLoad extends Fragment {
     Button loadBtnBack, loadBtnSearch;
     EditText loadSeachtxt;
     private MyViewModel vm;
+
+    //Fields for the recycler view
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private LogListAdapter myAdapter;
 
 
     public FragmentLoad() {
@@ -72,6 +83,8 @@ public class FragmentLoad extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //Setting up intent filter and using this to subscribe to the local broadcast manager
         IntentFilter filter = new IntentFilter();
         filter.addAction(SINGLE_BROADCAST);
         filter.addAction(LIST_BROADCAST);
@@ -104,23 +117,38 @@ public class FragmentLoad extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
+
         return v;
     }
 
-    private void initializeUI(View view) {
+    private void initializeUI(final View view) {
         loadBtnBack = view.findViewById(R.id.fragLoadBtnBack);
         loadBtnSearch = view.findViewById(R.id.fragLoadBtnSearch);
         loadSeachtxt = view.findViewById(R.id.fragLoadSeachtxt);
+        recyclerView = this.getActivity().findViewById(R.id.fragLoadRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this.getActivity());
+
+        myAdapter = new LogListAdapter(); //TODO: Steen will find out how to do this mutable live data in recycler view shit
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+        myAdapter.setClickListener(new LogListAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int position) {
+                vm.setChosenLog(myAdapter.GetItem(position));
+                Navigation.findNavController(view).navigate(R.id.fragmentTerminalScr);
+            }
+        });
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
-        vm.getDevice().observe(this, new Observer<Device>() {
+        vm.getLogs().observe(this, new Observer<List<LogData>>() {
             @Override
-            public void onChanged(Device device) {
-                //TODO: This function should get what?
+            public void onChanged(List<LogData> logData) {
+                myAdapter.SetLogList(logData);
             }
         });
     }
