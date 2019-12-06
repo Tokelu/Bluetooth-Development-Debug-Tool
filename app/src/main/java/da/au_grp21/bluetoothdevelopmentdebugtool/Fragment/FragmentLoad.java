@@ -1,11 +1,13 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Fragment;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -17,6 +19,9 @@ import android.widget.EditText;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
+
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LIST_BROADCAST;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SINGLE_BROADCAST;
 
 /*
  * A simple {@link Fragment} subclass.
@@ -62,7 +67,6 @@ public class FragmentLoad extends Fragment {
         return fragment;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +74,16 @@ public class FragmentLoad extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(SINGLE_BROADCAST);
+        filter.addAction(LIST_BROADCAST);
+        LocalBroadcastManager.getInstance(FragmentLoad.this.getActivity()).registerReceiver(vm.onDatabaseResponse, filter);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(FragmentLoad.this.getActivity()).unregisterReceiver(vm.onDatabaseResponse);
     }
 
     @Override
@@ -83,7 +97,7 @@ public class FragmentLoad extends Fragment {
             @Override
             public void onClick(View v) {
 
-                vm.seachForOldData();
+                vm.seachForOldData(FragmentLoad.this.getActivity(), loadSeachtxt.getText().toString());
             }
         });
         loadBtnBack.setOnClickListener(new View.OnClickListener() {

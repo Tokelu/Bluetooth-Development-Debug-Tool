@@ -2,6 +2,7 @@ package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -13,15 +14,27 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService;
+import da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogData;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.DATE;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.FIND_BY_DATE;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.FIND_BY_NAME;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LIST_BROADCAST;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOAD;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_DATA;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_NAME;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.RETURN_LOG;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.RETURN_LOG_LIST;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SAVE;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SINGLE_BROADCAST;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
@@ -33,13 +46,23 @@ public class MyViewModel extends ViewModel {
     private MutableLiveData<List<Device>> numItems;
     private Device currentDevice;
 
+    //Fields for the list of logs used in FragmentLoad
+    private ArrayList<LogData> logList;
+    private MutableLiveData<List<LogData>> logs;
+    private LogData chosenLog;
+
     private String file = null;
     private boolean connect = false;
     //   private boolean disconneted = true;
 
     private boolean isSearchingForDevices = false;
 
-
+    public LiveData<List<LogData>> getLogs(){
+        if (logs == null){
+            logs = new MutableLiveData<>();
+        }
+        return logs;
+    }
 
     // TODO: Mette will make this part of all fragments
     public LiveData<Device> getDevices() {
@@ -103,7 +126,7 @@ public class MyViewModel extends ViewModel {
     }
 
     //TODO: get from database
-    public void getFromDatabase() {
+    public void getFromDatabase(){
 
     }
 
@@ -147,9 +170,36 @@ public class MyViewModel extends ViewModel {
     }
 
     //TODO: to find the old logs
-    public void seachForOldData() {
+    public void seachForOldData(Context context, String searchString) {
+        Date mightBe = LogData.sdf.parse(searchString, new ParsePosition(0));
+        if (mightBe != null){
+            Intent retriever = new Intent(context, DatabaseService.class)
+                    .setAction(FIND_BY_DATE)
+                    .putExtra(DATE,searchString);
+            context.startService(retriever);
+        }
+        else {
+            Intent retriever = new Intent(context, DatabaseService.class)
+                    .setAction(FIND_BY_NAME)
+                    .putExtra(LOG_NAME,searchString);
+            context.startService(retriever);
+        }
     }
 
-
+    public BroadcastReceiver onDatabaseResponse = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()){
+                case SINGLE_BROADCAST:
+                    logList.add((LogData) intent.getSerializableExtra(RETURN_LOG));
+                    logs.setValue(logList);
+                    break;
+                case LIST_BROADCAST:
+                    logList.addAll((List<LogData>) intent.getSerializableExtra(RETURN_LOG_LIST));
+                    logs.setValue(logList);
+                    break;
+            }
+        }
+    };
 }
 

@@ -32,4 +32,6 @@
     <string name="min_sdk_req">MIN. SDK level: 18 (To support BLE)</string>
     <string name="seekButton">SØG</string>
     <string name="Load">Hent</string>
+    <string name="logName">Log navn:</string>
+    <string name="logTimestamp">Oprettet:</string>
 </resources>

@@ -36,7 +36,8 @@ public class DatabaseService extends IntentService {
     public static final String LOAD = "LOAD";
     public static final String FIND_BY_NAME = "FIND_BY_NAME";
     public static final String RETURN_LOG = "RETURN_LOG";
-    public static final String BROADCAST = "BROADCAST";
+    public static final String SINGLE_BROADCAST = "SINGLE_BROADCAST";
+    public static final String LIST_BROADCAST = "LIST_BROADCAST";
     public static final String COLLECTION_PATH = "logs";
     public static final String FIND_BY_DATE = "FIND_BY_DATE";
     public static final String RETURN_LOG_LIST = "RETURN_LOG_LIST";
@@ -130,7 +131,7 @@ public class DatabaseService extends IntentService {
                     if(documentSnapshot.exists()){
                         Intent message = new Intent();
                         message.putExtra(RETURN_LOG, documentSnapshot.toObject(LogData.class));
-                        message.setAction(BROADCAST);
+                        message.setAction(SINGLE_BROADCAST);
                         LocalBroadcastManager.getInstance(DatabaseService.this).sendBroadcast(message);
                         //TODO: Find appropriate place to subscribe a broadcast listner to this
                     }
@@ -170,7 +171,7 @@ public class DatabaseService extends IntentService {
                         LogData returnLog = queryResult.get(1);
                         Intent message = new Intent();
                         message.putExtra(RETURN_LOG, returnLog);
-                        message.setAction(BROADCAST);
+                        message.setAction(SINGLE_BROADCAST);
                         LocalBroadcastManager.getInstance(DatabaseService.this).sendBroadcast(message);
                         //TODO: Find appropriate place to subscribe a broadcast listner to this
                     }
@@ -208,7 +209,7 @@ public class DatabaseService extends IntentService {
                         List<LogData> queryResult = document.toObjects(LogData.class);
                         Intent message = new Intent();
                         message.putExtra(RETURN_LOG_LIST, (Serializable) queryResult);
-                        message.setAction(BROADCAST);
+                        message.setAction(LIST_BROADCAST);
                         LocalBroadcastManager.getInstance(DatabaseService.this).sendBroadcast(message);
                         //TODO: Find appropriate place to subscribe a broadcast listner to this
                     }
