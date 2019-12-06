@@ -5,18 +5,23 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
+import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 public class BluetoothConnectionService extends IntentService{
 
 
     private BluetoothAdapter bluetoothAdapter;
     private ArrayList deviceList;
-
+//    private LiveData mutableLiveData;
+    private MutableLiveData<Device> devices;
 
     public BluetoothConnectionService(){super("BluetoothConnectionService");}
 
@@ -26,6 +31,7 @@ public class BluetoothConnectionService extends IntentService{
         deviceList = new ArrayList();
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         bluetoothAdapter.startLeScan(btScanCallback);
+
 
     }
 
@@ -50,7 +56,7 @@ public class BluetoothConnectionService extends IntentService{
                     device.setName(bluetoothDevice.getName());
                     device.setConnected(false);
 
-//                    devices.postValue(device);
+                    devices.postValue(device);
 //                    deviceList.add(device);
                 }
                 // if device is no longer in scanning range, remove device from list.
