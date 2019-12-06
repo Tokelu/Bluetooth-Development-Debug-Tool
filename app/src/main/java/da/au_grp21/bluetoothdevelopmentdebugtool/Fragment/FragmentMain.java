@@ -123,7 +123,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: how do we make the help thingy?
-                vm.help();
+                Navigation.findNavController(v).navigate(R.id.fragmentHelp);
 
             }
         });

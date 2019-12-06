@@ -45,6 +45,9 @@
     <!-- Textboxes call-->
     <!-- pop up view-->
     <string name="notSavedDataFromTer"> You are about to return to the main window without saving. Are you sure you want this? Check OK to confirm you don't want to save the data The data will not be saved </string>
+    <!-- Help view-->
+    <string name="Help">Help</string>
+    <string name="HelpTxt">Help</string>
 
     <!-- Button call-->
 

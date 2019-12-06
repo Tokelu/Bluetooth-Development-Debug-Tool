@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_fragmentMain_to_fragmentLoad"
             app:destination="@id/fragmentLoad" />
+        <action
+            android:id="@+id/action_fragmentMain_to_fragmentHelp"
+            app:destination="@id/fragmentHelp" />
     </fragment>
     <fragment
         android:id="@+id/fragmentTerminalScr"
@@ -53,4 +56,9 @@
         android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentNotSaved"
         android:label="fragment_not_saved_fragment"
         tools:layout="@layout/fragment_not_saved_fragment" />
+    <fragment
+        android:id="@+id/fragmentHelp"
+        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentHelp"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
 </navigation>
