@@ -42,16 +42,7 @@
         android:id="@+id/fragmentSaveOutput"
         android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentSaveOutput"
         android:label="fragment_save_output"
-        tools:layout="@layout/fragment_save_output" >
-        <action
-            android:id="@+id/action_fragmentSaveOutput_to_fragmentSaveLocation"
-            app:destination="@id/fragmentSaveLocation" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragmentSaveLocation"
-        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentSaveLocation"
-        android:label="fragment_save_location"
-        tools:layout="@layout/fragment_save_location" />
+        tools:layout="@layout/fragment_save_output" />
     <fragment
         android:id="@+id/fragmentLoad"
         android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentLoad"
