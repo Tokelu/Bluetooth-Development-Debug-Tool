@@ -137,11 +137,8 @@ public class MyViewModel extends ViewModel {
 
     }
 
-    // TODO: -- no need -- check it a device is conneted before going from the main frag to termial frag
-    public void terminal() {
 
-    }
-
+    //TODO: What should this do??
     public void help() {
     }
 
