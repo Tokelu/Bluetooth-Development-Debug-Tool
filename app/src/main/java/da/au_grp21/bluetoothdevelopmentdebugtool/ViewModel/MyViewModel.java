@@ -2,12 +2,16 @@ package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.view.View;
+import android.content.BroadcastReceiver;
 import android.content.BroadcastReceiver;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -65,7 +69,7 @@ public class MyViewModel extends ViewModel {
     }
 
     // TODO: Mette will make this part of all fragments
-    public LiveData<Device> getDevices() {
+    public LiveData<Device> getDevice() {
         if (devices == null) {
             devices = new MutableLiveData<Device>();
         }
@@ -126,7 +130,7 @@ public class MyViewModel extends ViewModel {
     }
 
     //TODO: get from database
-    public void getFromDatabase(){
+    public void getFromDatabase() {
 
     }
 
@@ -186,6 +190,19 @@ public class MyViewModel extends ViewModel {
         }
     }
 
+    public static void showToast(Context context, int stringId) {
+        Toast t = Toast.makeText(context, context.getString(stringId), Toast.LENGTH_SHORT);
+        View toastView = t.getView();
+        toastView.setBackground(context.getResources().getDrawable(R.drawable.toast));
+
+        TextView text = toastView.findViewById(android.R.id.message);
+        text.setTextColor(context.getResources().getColor(R.color.textOrange));
+        text.setBackgroundColor(context.getResources().getColor(R.color.toast));
+
+        t.setView(toastView);
+        t.show();
+    }
+
     public BroadcastReceiver onDatabaseResponse = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -201,5 +218,6 @@ public class MyViewModel extends ViewModel {
             }
         }
     };
+
 }
 
