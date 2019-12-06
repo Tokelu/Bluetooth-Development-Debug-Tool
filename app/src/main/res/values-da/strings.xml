@@ -40,7 +40,7 @@
     <string name="logTimestamp">Oprettet:</string>
 
     <!-- Textboxes call-->
-    <!-- pop up view-->
+    <!-- pop up -->
     <string name="notSavedDataFromTer"> Du er ved at gå tilbage til hovde vinduet uden at gemme. Er du sikker på at du ønsker dette? Klik OK for dette. Dataen bliver ikke gemt </string>
 
 </resources>
