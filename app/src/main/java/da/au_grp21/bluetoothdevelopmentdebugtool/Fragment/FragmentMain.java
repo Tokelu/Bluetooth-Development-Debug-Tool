@@ -115,7 +115,6 @@ public class FragmentMain extends Fragment {
         mainBtnConDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Navigation.findNavController(v).navigate(R.id.fragmentConnection);
             }
         });

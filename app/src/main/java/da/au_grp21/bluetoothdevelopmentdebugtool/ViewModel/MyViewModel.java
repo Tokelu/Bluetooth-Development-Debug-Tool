@@ -1,7 +1,10 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.content.BroadcastReceiver;
 import android.content.BroadcastReceiver;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParsePosition;
@@ -41,6 +45,8 @@ import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SINGLE_BROADCAST;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
+import da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentTerminalScr;
+
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
@@ -87,9 +93,6 @@ public class MyViewModel extends ViewModel {
         }
         return devices;
     }
-
-
-
 
 
     // TODO: this function is meant to o an asynchronous operation to fetch devices.
@@ -156,6 +159,7 @@ public class MyViewModel extends ViewModel {
     public void setDeviceConnect() {
         currentDevice.setConnected(true);
     }
+
     //Sets the input item as the current connected device
     public void ConnectToDevice(Device device) {
         currentDevice = device;
@@ -189,10 +193,10 @@ public class MyViewModel extends ViewModel {
         }
     }
 
-    public boolean chechIfDataIsSaved() {
-
-        return true;
+    public Boolean chechIfDataIsSaved() {
+        return currentDevice.getSave();
     }
+
     public static void showToast(Context context, int stringId) {
         Toast t = Toast.makeText(context, context.getString(stringId), Toast.LENGTH_SHORT);
         View toastView = t.getView();

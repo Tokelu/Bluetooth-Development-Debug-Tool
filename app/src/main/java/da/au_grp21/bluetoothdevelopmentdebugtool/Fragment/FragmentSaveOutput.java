@@ -86,9 +86,7 @@ public class FragmentSaveOutput extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: missing saved check
-                if (vm.chechIfDataIsSaved() == true) {
-                    Navigation.findNavController(v).navigate(R.id.fragmentMain);
-                }
+                Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
             }
         });
         saveOutputBtnSave = v.findViewById(R.id.fragSaveOutputButtonSave);
@@ -99,6 +97,7 @@ public class FragmentSaveOutput extends Fragment {
                 //vm.saveFile(saveOutputEditTxt.getText().toString());
                 vm.showToast(FragmentSaveOutput.this.getActivity(), R.string.dataSaveOnDatabase);
                 vm.saveToDatabase(FragmentSaveOutput.this.getActivity(), saveOutputEditTxt.getText().toString(), vm.getTerminalDataInformation());
+
                 Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
 
             }

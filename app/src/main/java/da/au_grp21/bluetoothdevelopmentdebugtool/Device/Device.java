@@ -5,7 +5,7 @@ public class Device {
     private String mac;
     private String name;
     private Boolean connected, paired;
-    private String save;
+    private Boolean save;
     private String data;
 
     public String getMac() {
@@ -32,11 +32,11 @@ public class Device {
         this.connected = connected;
     }
 
-    public String getSave() {
+    public Boolean getSave() {
         return save;
     }
 
-    public void setSave(String save) {
+    public void setSave(Boolean save) {
         this.save = save;
     }
 

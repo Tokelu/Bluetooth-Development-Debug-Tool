@@ -48,4 +48,9 @@
         android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentLoad"
         android:label="fragment_fragment_load"
         tools:layout="@layout/fragment_load_data" />
+    <fragment
+        android:id="@+id/fragmentNotSaved"
+        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentNotSaved"
+        android:label="fragment_not_saved_fragment"
+        tools:layout="@layout/fragment_not_saved_fragment" />
 </navigation>

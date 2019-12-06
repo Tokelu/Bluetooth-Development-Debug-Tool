@@ -86,7 +86,10 @@ public class FragmentTerminalScr extends Fragment {
         terBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.fragmentMain);
+                if (vm.chechIfDataIsSaved() == false) {
+                    Navigation.findNavController(v).navigate(R.id.fragmentNotSaved);
+                } else
+                    Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
         terBtnDisconnet = v.findViewById(R.id.fragTerminalButtonDisconnect);
