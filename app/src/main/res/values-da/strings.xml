@@ -17,7 +17,7 @@
     <string name="buttonBack">Tilbage</string>
     <string name="buttonSaveOutput">Gemt Output</string>
     <string name="CmdInputText">Input command</string>
-    <string name="buttonSave">Gemt</string>
+    <string name="buttonSave">Gem</string>
     <string name="saveOutputTextViewSaveScr">Indtast filenavn:</string>
     <string name="editTextFilename">Filenavn her</string>
     <string name="extension">.log</string>
@@ -41,6 +41,6 @@
 
     <!-- Textboxes call-->
     <!-- pop up view-->
-    <string name="notSavedDataFromTer"> Du er ved at gør tilbage til hovde vinduet uden at gemme. Er du sikker på at du ønsker dette? Dataen bliver ikke gemt </string>
+    <string name="notSavedDataFromTer"> Du er ved at gå tilbage til hovde vinduet uden at gemme. Er du sikker på at du ønsker dette? Klik OK for dette. Dataen bliver ikke gemt </string>
 
 </resources>

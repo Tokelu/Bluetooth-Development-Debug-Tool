@@ -162,6 +162,7 @@ public class FragmentMain extends Fragment {
                 fragMainTextViewConnected.setText(device.getConnected() ? getString(R.string.deviesIsConneted) : getString(R.string.deviesIsNotConneted));
                 fragMainTextViewDevice.setText(getString(R.string.deviceListElementTextViewMac_address) + device.getMac());
                 fragMainTextViewDeviceName.setText(device.getName());
+                connectionIndicator.setChecked(device.getConnected());
             }
         });
     }
