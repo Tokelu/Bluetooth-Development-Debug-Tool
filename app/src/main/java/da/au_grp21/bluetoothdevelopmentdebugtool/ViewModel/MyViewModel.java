@@ -44,7 +44,7 @@ public class MyViewModel extends ViewModel {
 
 
     // TODO: Mette will make this part of all fragments
-    public LiveData<Device> getDevices() {
+    public LiveData<Device> getDevice() {
         if (devices == null) {
             devices = new MutableLiveData<Device>();
         }

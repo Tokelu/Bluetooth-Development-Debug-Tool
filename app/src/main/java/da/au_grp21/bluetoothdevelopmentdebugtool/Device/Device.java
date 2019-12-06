@@ -32,7 +32,6 @@ public class Device {
         this.connected = connected;
     }
 
-
     public String getSave() {
         return save;
     }
@@ -40,7 +39,6 @@ public class Device {
     public void setSave(String save) {
         this.save = save;
     }
-
 
     public String getData() {
         return data;

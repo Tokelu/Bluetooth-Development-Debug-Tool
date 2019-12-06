@@ -1,11 +1,8 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -113,7 +110,7 @@ public class FragmentSaveOutput extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
-        vm.getDevices().observe(this, new Observer<Device>() {
+        vm.getDevice().observe(this, new Observer<Device>() {
             @Override
             public void onChanged(Device device) {
                 //TODO: This function should get what?

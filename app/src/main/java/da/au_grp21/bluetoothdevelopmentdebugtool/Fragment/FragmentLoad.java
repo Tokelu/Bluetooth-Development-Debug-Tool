@@ -103,7 +103,7 @@ public class FragmentLoad extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
-        vm.getDevices().observe(this, new Observer<Device>() {
+        vm.getDevice().observe(this, new Observer<Device>() {
             @Override
             public void onChanged(Device device) {
                 //TODO: This function should get what?
