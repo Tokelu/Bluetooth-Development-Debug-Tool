@@ -58,18 +58,18 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/fragLoadButtonBack"
+                    android:id="@+id/fragLoadBtnBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginLeft="32dp"
                     android:text="@string/buttonBack"
-                    app:layout_constraintBottom_toBottomOf="@+id/button2"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragLoadBtnSearch"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/button2" />
+                    app:layout_constraintTop_toTopOf="@+id/fragLoadBtnSearch" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/fragLoadBtnSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
@@ -80,7 +80,7 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/fragLoadSeachtxt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -92,7 +92,7 @@
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine"
-                    app:layout_constraintBottom_toTopOf="@+id/fragLoadButtonBack"
+                    app:layout_constraintBottom_toTopOf="@+id/fragLoadBtnBack"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

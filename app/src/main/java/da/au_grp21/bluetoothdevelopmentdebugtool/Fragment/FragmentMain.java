@@ -50,7 +50,7 @@ public class FragmentMain extends Fragment {
 
     //  private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
-    Button mainBtnTerminal, mainBtnDisconnet, mainBtnConDev, mainBtnHelp, mainBtnExit;
+    Button mainBtnTerminal, mainBtnDisconnet, mainBtnConDev, mainBtnHelp, mainBtnExit, mainBtnLoad;
 
 
     public FragmentMain() {
@@ -90,12 +90,11 @@ public class FragmentMain extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
-        fragMainTextViewConnected = v.findViewById(R.id.fragMainConnectionIndicator);
+        fragMainTextViewConnected = v.findViewById(R.id.fragMainTextViewConnected);
         fragMainTextViewDevice = v.findViewById(R.id.fragMainTextViewDevice);
         fragMainTextViewDeviceName = v.findViewById(R.id.fragMainTextViewDeviceName);
 
-        fragMainTextViewDevice.setText(getString(R.string.macAdress));
-
+        fragMainTextViewDevice.setText(getString(R.string.deviceListElementTextViewMac_address));
 
         mainBtnTerminal = v.findViewById(R.id.fragMainButtonTerminal);
         mainBtnTerminal.setOnClickListener(new View.OnClickListener() {
@@ -112,20 +111,16 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: Disconnect device, not move to a frag
-                //vm.setDisconnectDevise();
                 vm.setDeviceDisconnect();
 
-                // Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
         mainBtnConDev = v.findViewById(R.id.fragMainButtonConnectDevice);
         mainBtnConDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // vm.setConnectDevice();
-                // TODO: connet device
-                vm.setDeviceConnect();
-                // Navigation.findNavController(v).navigate(R.id.fragmentMain);
+
+                Navigation.findNavController(v).navigate(R.id.fragmentConnection);
             }
         });
         mainBtnHelp = v.findViewById(R.id.fragMainButtonHelp);
@@ -134,15 +129,21 @@ public class FragmentMain extends Fragment {
             public void onClick(View v) {
                 // TODO: how do we make the help thingy?
                 vm.help();
-                // Navigation.findNavController(v).navigate(R.id.fragmentMain);
+
             }
         });
         mainBtnExit = v.findViewById(R.id.fragMainButtonExit);
         mainBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: why don't it work?
                 System.exit(0);
+            }
+        });
+
+        mainBtnLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.fragmentLoad);
             }
         });
         connectionIndicator = v.findViewById(R.id.fragMainConnectionIndicator);
@@ -183,7 +184,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onChanged(Device device) {
                 fragMainTextViewConnected.setText(device.getConnected() ? getString(R.string.deviesIsConneted) : getString(R.string.deviesIsNotConneted));
-                fragMainTextViewDevice.setText(getString(R.string.macAdress) + device.getMac());
+                fragMainTextViewDevice.setText(getString(R.string.deviceListElementTextViewMac_address) + device.getMac());
                 fragMainTextViewDeviceName.setText(device.getName());
             }
         });
