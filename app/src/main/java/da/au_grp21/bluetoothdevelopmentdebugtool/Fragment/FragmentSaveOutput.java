@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
@@ -131,6 +133,12 @@ public class FragmentSaveOutput extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
+        vm.getDevices().observe(this, new Observer<Device>() {
+            @Override
+            public void onChanged(Device device) {
+                //TODO: This function should get what?
+            }
+        });
     }
     @Override
     public void onDetach() {
