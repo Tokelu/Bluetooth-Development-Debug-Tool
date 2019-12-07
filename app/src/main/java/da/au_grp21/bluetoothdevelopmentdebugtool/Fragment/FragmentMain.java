@@ -44,7 +44,7 @@ public class FragmentMain extends Fragment {
 
     //  private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
-    Button mainBtnTerminal, mainBtnDisconnet, mainBtnConDev, mainBtnHelp, mainBtnExit, mainBtnLoad;
+    private Button mainBtnTerminal, mainBtnDisconnet, mainBtnConDev, mainBtnHelp, mainBtnExit, mainBtnLoad;
 
 
     public FragmentMain() {
@@ -134,6 +134,7 @@ public class FragmentMain extends Fragment {
                 System.exit(0);
             }
         });
+
         mainBtnLoad = v.findViewById(R.id.fragMainButtonLoad);
         mainBtnLoad.setOnClickListener(new View.OnClickListener() {
             @Override

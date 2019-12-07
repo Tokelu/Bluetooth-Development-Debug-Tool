@@ -120,11 +120,6 @@ public class MyViewModel extends ViewModel {
 
     }
 
-    //TODO: get the file
-    public String getTerminalDataInformation() {
-        return file;
-    }
-
     // TODO: save the data to the database
     public void saveToDatabase(Context context, String fileName, String terminalData) {
         Intent log = new Intent(context, DatabaseService.class)
@@ -147,6 +142,11 @@ public class MyViewModel extends ViewModel {
     // TODO: disconnect the device
     public void setDeviceDisconnect() {
         currentDevice.setConnected(false);
+    }
+
+    // TODO: connect the device
+    public Device getDeviceThatIsConnect() {
+        return currentDevice;
     }
 
     // TODO: connect the device
@@ -189,6 +189,10 @@ public class MyViewModel extends ViewModel {
 
     public Boolean chechIfDataIsSaved() {
         return currentDevice.getSave();
+    }
+
+    public void SetDeviceSaved() {
+        currentDevice.setSave(true);
     }
 
     public static void showToast(Context context, int stringId) {
