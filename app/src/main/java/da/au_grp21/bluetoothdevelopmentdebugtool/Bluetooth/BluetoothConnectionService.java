@@ -43,7 +43,8 @@ public class BluetoothConnectionService extends IntentService{
     private ArrayList deviceList;
 //    private LiveData mutableLiveData;
     private MutableLiveData<Device> devices;
-    private String deviceAddress = "cc:42:32:9D:49:f6";
+//    private String bluetoothDeviceAddress = "cc:42:32:9D:49:f6";
+    private String bluetoothDeviceAddress;
 
     public static final UUID TX_CHAR_UUID = UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");    //  Nordic UART RX Characteristic: https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/include/bluetooth/services/nus.html
     public static final UUID RX_CHAR_UUID = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");    //  Nordic UART RX Characteristic
@@ -110,11 +111,7 @@ public class BluetoothConnectionService extends IntentService{
         }
     };
 
-    public void Connect(){
-        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
-        bluetoothGatt = device.connectGatt(this, true, gattCallback);
 
-    }
 
         //  This is a callback method for gatt event that we're looking for (like services discovered, and connection change)
     private final BluetoothGattCallback gattCallback = new BluetoothGattCallback() {
@@ -331,7 +328,86 @@ public class BluetoothConnectionService extends IntentService{
         return true;
     }
 
+        //  This is the method for connecting to a device - deviceAddress is a string containing a MAC address
+    public boolean connect(final String deviceAddress){
+        if (bluetoothAdapter == null){  //  Checking if we have an initialized adapter to connect through
+            Log.i(TAG, "BluetoothAdapter is not initialized.");
+            return false;
+        }
+        if (deviceAddress == null){ //  checking if an (MAC) address was given
+            Log.i(TAG, "Unspecified MAC address.");
+            return false;
+        }
+
+            //  Reconnecting to device we have had connection last
+        if (bluetoothDeviceAddress != null && deviceAddress.equals(bluetoothDeviceAddress) && bluetoothGatt != null){
+            Log.i(TAG, "Trying to reconnect using an existing bluetoothBatt.");
+            if (bluetoothGatt.connect()){    // if connection is successfull
+                connectionState = STATE_CONNECTING;
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+            //  Checking if a given device can be found.
+        final BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+        if (device == null){
+            Log.i(TAG, "The specified Device was not found.");
+            return false;
+        }
+            //  Connecting to the specified device.
+            //  NOTE:  NOT sure if we want the autoConnect parameter to be true or false
+        bluetoothGatt = device.connectGatt(this,false, gattCallback);
+        Log.i(TAG, "Setting up connection");
+        bluetoothDeviceAddress = deviceAddress;
+        connectionState = STATE_CONNECTED;
+        return true;
+    }
+
+        //  Method to disconnect from connected device.
+    public void disconnect(){
+        if (bluetoothGatt == null || bluetoothAdapter == null){
+            Log.i(TAG, "No Bluetooth adapter, nothing to disconnect");
+            return;
+        }
+        bluetoothGatt.disconnect();
+    }
+
     
 
 
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
