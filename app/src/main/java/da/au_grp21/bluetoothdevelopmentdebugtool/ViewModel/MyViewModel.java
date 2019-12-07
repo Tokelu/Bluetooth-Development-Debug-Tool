@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogData;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
@@ -103,10 +104,21 @@ public class MyViewModel extends ViewModel {
     // TODO: this function is meant to o an asynchronous operation to fetch devices.
     // Please make it return the list of devices
     public void loadDevicesConneced() {
+
+        BluetoothConnectionService bluetoothConnectionService = new BluetoothConnectionService();
+
         if (!isSearchingForDevices) {
+            if (!bluetoothConnectionService.initialize()) {
+                Log.i(TAG, "Initializing Bluetooth adapter");
+                bluetoothConnectionService.initialize();
+            }
+
+            //NOTE: Not done yet
+
 
             isSearchingForDevices = !isSearchingForDevices;
         }
+
 
     }
 
