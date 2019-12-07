@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.content.BroadcastReceiver;
 import android.content.BroadcastReceiver;
@@ -50,6 +51,8 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentTerminalScr;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
+
+    private final static String TAG = MyViewModel.class.getSimpleName();
 
     private MutableLiveData<Device> devices;
     private ArrayList<Device> items;

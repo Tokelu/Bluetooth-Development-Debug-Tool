@@ -1,5 +1,6 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth;
 
+import android.Manifest;
 import android.app.IntentService;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -12,11 +13,13 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.ListView;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -46,9 +49,10 @@ public class BluetoothConnectionService extends IntentService{
 //    private String bluetoothDeviceAddress = "cc:42:32:9D:49:f6";
     private String bluetoothDeviceAddress;
 
-    public static final UUID TX_CHAR_UUID = UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");    //  Nordic UART RX Characteristic: https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/include/bluetooth/services/nus.html
+    public static final UUID TX_CHAR_UUID = UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");    //  Nordic UART TX Characteristic: https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/include/bluetooth/services/nus.html
     public static final UUID RX_CHAR_UUID = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");    //  Nordic UART RX Characteristic
     public static final UUID RX_SERVICE_UUID = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e"); //  Nordic UART RX Service
+    public static final UUID CCCD = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");            //  https://www.oreilly.com/library/view/getting-started-with/9781491900550/ch04.html
 
 //    public final static String ACTION_DATA_AVAILABLE = "da.au_grp21.bluetoothdevelopmentdebugtool.ACTION_DATA_AVAILABLE";
 //    public static String EXTRA_DATA = "da.au_grp21.bluetoothdevelopmentdebugtool.EXTRA_DATA";
@@ -72,6 +76,15 @@ public class BluetoothConnectionService extends IntentService{
     @Override
     public void onCreate(){
         super.onCreate();
+        //  kindly borrowed from https://developer.android.com/training/permissions/requesting#java
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            //TODO: some kind of message to the user that we do not have bluetooth permissions.
+
+            //TODO: some method to ask user for permissions
+            // getPermissions() {}
+        }
         deviceList = new ArrayList();
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         bluetoothAdapter.startLeScan(btScanCallback);
@@ -164,7 +177,6 @@ public class BluetoothConnectionService extends IntentService{
 
 
 
-
         //  Broadcaster for intent actions like connected / disconnected etc.
     private void broadcastUpdate(final String action) {
         final Intent intent = new Intent(action);
@@ -186,6 +198,13 @@ public class BluetoothConnectionService extends IntentService{
         else {}
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
+
+        //  Returns List of services provided by the gatt server (the device) we're connected to.
+    public List<BluetoothGattService> getGattServices(){
+        if (bluetoothGatt == null) {return null;}   //  If we have no Bluetooth gatt server, there is no service either.
+        return bluetoothGatt.getServices();
+    }
+
 
 
 
@@ -284,14 +303,57 @@ public class BluetoothConnectionService extends IntentService{
             bluetoothGatt.close();
             bluetoothGatt = null;
     }
+        //  Reading the characteristic
+    public void readCharacteristic(BluetoothGattCharacteristic characteristic) {
+        if (bluetoothAdapter == null || bluetoothGatt == null) {
+                Log.w(TAG, "Nothing to read: BluetoothAdapter is not initialized");
+                return;
+        }
+        bluetoothGatt.readCharacteristic(characteristic);
+    }
 
-//    public void readCharacteristic(BluetoothGattCharacteristic characteristic) {
-//        if (bluetoothAdapter == null || bluetoothGatt == null) {
-//                Log.w(TAG, "BluetoothAdapter not initialized");
-//                return;
-//        }
-//        mBluetoothGatt.readCharacteristic(characteristic);
-//    }
+    public void enableTXNotification() {
+
+        BluetoothGattService RxService = bluetoothGatt.getService(RX_SERVICE_UUID);
+        if (RxService == null) {
+            Log.e(TAG, "Did not find Tx Service.");
+            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            return;
+        }
+        BluetoothGattCharacteristic TxChar = RxService.getCharacteristic(TX_CHAR_UUID);
+        if (TxChar == null) {
+            Log.e(TAG, "Did not find Tx Characteristic.");
+            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            return;
+        }
+        bluetoothGatt.setCharacteristicNotification(TxChar, true);
+            //  I'm not entirely sure as to why we need the CCCD UUID, but several tutorials and helpsites prescribe its necessity: https://www.oreilly.com/library/view/getting-started-with/9781491900550/ch04.html
+        BluetoothGattDescriptor descriptor = TxChar.getDescriptor(CCCD);
+        descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+        bluetoothGatt.writeDescriptor(descriptor);
+    }
+
+    public void writeRXCharacteristic(byte[] value) {
+
+
+        BluetoothGattService RxService = bluetoothGatt.getService(RX_SERVICE_UUID);
+        Log.e(TAG, "BluetoothGatt null:" + bluetoothGatt);
+        if (RxService == null) {
+            Log.e(TAG, "Did not find Rx Service.");
+            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            return;
+        }
+        BluetoothGattCharacteristic RxChar = RxService.getCharacteristic(RX_CHAR_UUID);
+        if (RxChar == null) {
+            Log.e(TAG, "Did not find Rx Characteristic.");
+            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            return;
+        }
+        RxChar.setValue(value);
+        boolean status = bluetoothGatt.writeCharacteristic(RxChar);
+
+        Log.d(TAG, "write TXchar - status = " + status);
+    }
 
 
 
