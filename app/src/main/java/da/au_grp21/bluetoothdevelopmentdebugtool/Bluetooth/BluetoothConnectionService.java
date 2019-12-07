@@ -29,6 +29,7 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 public class BluetoothConnectionService extends IntentService{
 
+    //change for branching
 
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothGatt bluetoothGatt;
