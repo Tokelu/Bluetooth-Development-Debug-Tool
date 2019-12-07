@@ -134,7 +134,7 @@ public class FragmentMain extends Fragment {
                 System.exit(0);
             }
         });
-
+        mainBtnLoad = v.findViewById(R.id.fragMainButtonLoad);
         mainBtnLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
