@@ -10,6 +10,7 @@ import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothProfile;
 import android.content.Intent;
+import android.os.Binder;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -129,14 +130,15 @@ public class BluetoothConnectionService extends IntentService{
             List<BluetoothGattCharacteristic> gattCharacteristics;
             String uuid;
 
-
             for (BluetoothGattService gattService : services){
                 gattCharacteristics = gattService.getCharacteristics();
                 characteristics = new ArrayList<>();
+
                 for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics ){
                     characteristics.add(gattCharacteristic);
                     uuid = gattCharacteristic.getUuid().toString();
                         //  BLE data Notify
+
                     if (uuid.equals("0000fff4-0000-1000-8000-00805f9b34fb")){
                         final int characteristicsProps = gattCharacteristic.getProperties();
                         if ((characteristicsProps | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0){
@@ -147,6 +149,28 @@ public class BluetoothConnectionService extends IntentService{
                 }
             }
         }
+
+
+//        public void setCharacteristicNotification(final BluetoothGattCharacteristic characteristic,
+//                                                  boolean enabled) {
+//            if (bluetoothAdapter == null || bluetoothGatt == null) {
+//                return;
+//            }
+//            bluetoothGatt.setCharacteristicNotification(characteristic, enabled);
+//
+//            Log.e("uuid service", characteristic.getUuid() + "");
+//            String uuid = "0000fff2-0000-1000-8000-00805f9b34fb";
+//
+//            if (uuid.equals(characteristic.getUuid().toString())) {
+//                Log.e("uuid service2", characteristic.getUuid() + "");
+//                BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
+//                        UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
+//                if (descriptor != null) {
+//                    descriptor.setValue(enabled ? BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE : new byte[]{0x00, 0x00});
+//                    bluetoothGatt.writeDescriptor(descriptor);
+//                }
+//            }
+//        }
 
 
         public void setCharacteristicNotification(final BluetoothGattCharacteristic characteristic, Boolean isEnabled){
@@ -161,11 +185,15 @@ public class BluetoothConnectionService extends IntentService{
 
             if (uuid.equals(characteristic.getUuid().toString())){
                 Log.e("UUID Service 2:", characteristic.getUuid().toString()+ "");
-                //BluetoothGattDescriptor descriptor = characteristic.getDescriptor(UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
+//                BluetoothGattDescriptor descriptor = characteristic.getDescriptor(UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
+//
+//
+//                if (descriptor != null) {
+//                    descriptor.setValue(isEnabled ? BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE : new byte[]{0x00, 0x00});
+//                    bluetoothGatt.writeDescriptor(descriptor);
+//                }
             }
-
         }
-
     };
 
     // Get the serial data out of the characteristic.
@@ -180,6 +208,10 @@ public class BluetoothConnectionService extends IntentService{
 
 
     }
+
+    public class LocalBinder extends Binder {
+        BluetoothConnectionService getService() {return BluetoothConnectionService.this;}
+        }
 
 
 
