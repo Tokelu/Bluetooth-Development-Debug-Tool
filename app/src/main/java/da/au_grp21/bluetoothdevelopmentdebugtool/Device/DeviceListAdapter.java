@@ -9,11 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.MyViewHolder> {
-    private ArrayList<Device> deviceArrayList;
+    private ArrayList<Device> deviceArrayList = new ArrayList<>();
     private OnItemClickListener clickListener; //Click listner
     private OnItemLongClickListner longClickListner; //Long click listner
 
@@ -25,16 +26,18 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
         void OnItemLongClick(int position);
     }
 
-    public DeviceListAdapter(ArrayList<Device> devices) {
-        deviceArrayList = devices;
-    }
-
     public void setClickListener(OnItemClickListener listener) {
         clickListener = listener;
     }
 
     public void setLongClickListner(OnItemLongClickListner listner) {
         longClickListner = listner;
+    }
+
+    public void SetDeviceList(List<Device> devices){
+        deviceArrayList.clear();
+        deviceArrayList.addAll(devices);
+        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

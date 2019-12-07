@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_fragmentMain_to_fragmentLoad"
             app:destination="@id/fragmentLoad" />
+        <action
+            android:id="@+id/action_fragmentMain_to_fragmentHelp"
+            app:destination="@id/fragmentHelp" />
     </fragment>
     <fragment
         android:id="@+id/fragmentTerminalScr"
@@ -37,6 +40,9 @@
         <action
             android:id="@+id/action_fragmentTerminalScr_to_fragmentSaveOutput"
             app:destination="@id/fragmentSaveOutput" />
+        <action
+            android:id="@+id/action_fragmentTerminalScr_to_fragmentNotSaved"
+            app:destination="@id/fragmentNotSaved" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSaveOutput"
@@ -48,4 +54,18 @@
         android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentLoad"
         android:label="fragment_fragment_load"
         tools:layout="@layout/fragment_load_data" />
+    <fragment
+        android:id="@+id/fragmentNotSaved"
+        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentNotSaved"
+        android:label="fragment_not_saved_fragment"
+        tools:layout="@layout/fragment_not_saved_fragment">
+        <action
+            android:id="@+id/action_fragmentNotSaved_to_fragmentSaveOutput2"
+            app:destination="@id/fragmentSaveOutput" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHelp"
+        android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentHelp"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
 </navigation>

@@ -39,9 +39,17 @@
     <string name="deviceConneted">There is a device connted, navigating to the Terminal view</string>
     <string name="noDeviceConneted">There is not a device connted, navigating to the Connetion view</string>
     <string name="dataSaveOnDatabase"> Data is saved on the Database</string>
+    <string name="willNotSave">You have chosen not to save</string>
+    <string name="willSave">You have chosen to save</string>
 
     <!-- Textboxes call-->
     <!-- pop up view-->
-    <string name="notSavedDataFromTer"> You are about to return to the main window without saving. Are you sure you want this? The data will not be saved </string>
+    <string name="notSavedDataFromTer"> You are about to return to the main window without saving. Are you sure you want this? Check OK to confirm you don't want to save the data The data will not be saved </string>
+    <!-- Help view-->
+    <string name="Help">Help</string>
+    <string name="HelpTxt">Help</string>
+
+    <!-- Button call-->
+
 
 </resources>
