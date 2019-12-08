@@ -2,6 +2,7 @@ package da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth;
 
 import android.Manifest;
 import android.app.IntentService;
+import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -33,7 +34,7 @@ import javax.annotation.Nullable;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
-public class BluetoothConnectionService extends IntentService{
+public class BluetoothConnectionService extends Service{ //IntentService {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //change for branching
@@ -71,7 +72,7 @@ public class BluetoothConnectionService extends IntentService{
     private static final int STATE_CONNECTED    = 2;
 
 
-    public BluetoothConnectionService(){super("BluetoothConnectionService");}
+//    public BluetoothConnectionService(){super("BluetoothConnectionService");}
 
     @Override
     public void onCreate(){
@@ -90,10 +91,10 @@ public class BluetoothConnectionService extends IntentService{
         bluetoothAdapter.startLeScan(btScanCallback);
     }
 
-    @Override
-    public void onHandleIntent(@Nullable Intent intent){
-
-    }
+//    @Override
+//    public void onHandleIntent(@Nullable Intent intent){
+//
+//    }
 
     // inspiration: https://bit.ly/2OOVepH
     private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback() {
