@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,12 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionSe
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 import static android.content.Intent.CATEGORY_DEFAULT;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_DATA_AVAILABLE;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_GATT_CONNECTED;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_GATT_DISCONNECTED;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_GATT_SERVICES_DISCOVERED;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.DEVICE_DOES_NOT_SUPPORT_UART;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.EXTRA_DATA;
 
 
 public class MainActivity extends AppCompatActivity
@@ -105,4 +112,66 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(intent, Bluetooth_Enable_Request);
         }
     }
+
+    public void fetchData(Intent intent){
+
+//        intent.getAction()
+
+//        service.readCharacteristic(intent);
+
+    }
+
+
+    public void setConnectedStatus(Intent intent) {
+        if (intent.getAction() == ACTION_GATT_CONNECTED ){
+
+            //TODO: set connected status to Connected
+        }
+        else if (intent.getAction() == ACTION_GATT_DISCONNECTED){
+            //TODO: Set connected status to Not Connected.
+        }
+
+
+
+    }
+
+    public void readDataFromBle(Intent intent){
+
+        String bleDeviceData = intent.getExtras().toString();
+
+        // for at teste kan vi sætte teksten manuelt:
+//        bleDeviceData = "Log data would appear here";
+
+    }
+
+
+
+    public BroadcastReceiver onBluetoothChange = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
+
+
+                case ACTION_GATT_SERVICES_DISCOVERED:   //  informerer om at der er fundet BLE enheder
+
+                case ACTION_GATT_CONNECTED:     //  Denne her informerer blot om at vi er connected.
+
+                case ACTION_GATT_DISCONNECTED:  //  Denne her informerer blot om at vi er connected.
+                    setConnectedStatus(intent);
+
+                case ACTION_DATA_AVAILABLE:     //  Informerer om at data er klar fra BLE
+                    fetchData(intent);
+
+                case EXTRA_DATA:                //  Indeholder data
+                    readDataFromBle(intent);
+
+                case DEVICE_DOES_NOT_SUPPORT_UART:  //  I tilfælde af at der forbindes til en enhed der har annonceret at den har uart men alligevel ikke har det.
+
+            }
+
+        }
+    };
+
+
 }

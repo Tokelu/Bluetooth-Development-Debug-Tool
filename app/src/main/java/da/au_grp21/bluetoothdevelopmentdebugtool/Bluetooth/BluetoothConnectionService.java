@@ -112,18 +112,18 @@ public class BluetoothConnectionService extends Service { //IntentService {
     }
 
     public void startLeScanWrapper(){
-        new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                if (!(bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON))
+//        new Thread(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                if (!(bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON))
                 {
                     deviceList.clear();
                     bluetoothAdapter.startLeScan(btScanCallback);
                 }
-            }
-        }).start();
+//            }
+//        }).start();
     }
 
 

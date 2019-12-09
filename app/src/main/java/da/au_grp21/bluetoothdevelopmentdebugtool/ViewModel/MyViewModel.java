@@ -200,40 +200,9 @@ public class MyViewModel extends ViewModel {
     }
 
 
-    public void fetchData( /* Karakteristik fra BLE */ ){
-
-    }
-
-    public void setConnectedStatus(/* Karakteristik fra BLE */) {
 
 
-    }
 
-    public BroadcastReceiver onBluetoothChange = new BroadcastReceiver()
-    {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()) {
-
-
-                case ACTION_GATT_SERVICES_DISCOVERED:   //  informerer om at der er fundet BLE enheder
-
-                case ACTION_GATT_CONNECTED:     //  Denne her informerer blot om at vi er connected.
-
-                case ACTION_GATT_DISCONNECTED:  //  Denne her informerer blot om at vi er connected.
-
-                case ACTION_DATA_AVAILABLE:     //  Informerer om at data er klar fra BLE
-//                    fetchData(intent.getAction());
-
-                case EXTRA_DATA:                //  Indeholder data
-//                    readDataFromBle();
-
-                case DEVICE_DOES_NOT_SUPPORT_UART:  //  I tilfælde af at der forbindes til en enhed der har annonceret at den har uart men alligevel ikke har det.
-
-            }
-
-        }
-    };
 
     public BroadcastReceiver onDatabaseResponse = new BroadcastReceiver() {
         @Override
