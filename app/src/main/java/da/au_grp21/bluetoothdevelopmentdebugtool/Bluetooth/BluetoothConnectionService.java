@@ -25,6 +25,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.common.util.concurrent.Runnables;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -110,15 +112,21 @@ public class BluetoothConnectionService extends Service { //IntentService {
     }
 
     public void startLeScanWrapper(){
-
-
-        if (!(bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON))
+        new Thread(new Runnable()
         {
-            deviceList.clear();
-            bluetoothAdapter.startLeScan(btScanCallback);
-        }
-
+            @Override
+            public void run()
+            {
+                if (!(bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON))
+                {
+                    deviceList.clear();
+                    bluetoothAdapter.startLeScan(btScanCallback);
+                }
+            }
+        }).start();
     }
+
+
 
 
 
