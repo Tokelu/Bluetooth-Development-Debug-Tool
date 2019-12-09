@@ -171,7 +171,6 @@ public class MyViewModel extends ViewModel {
         currentDevice = device;
         setDeviceConnect();
         bluetoothConnectionService.connect(device.getMac());
-
     }
 
     //This function disconnects the bluetooth device
