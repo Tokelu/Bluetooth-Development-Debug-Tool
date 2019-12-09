@@ -91,10 +91,20 @@ public class BluetoothConnectionService extends Service { //IntentService {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
+    @Override
+    public void onDestroy() {
+
+        close();
+        super.onDestroy();
     public MutableLiveData<List<Device>> getDevices(){
         return devices;
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+
+        return super.onStartCommand(intent, flags, startId);
     public void startLeScanWrapper(){
         deviceList.clear();
         bluetoothAdapter.startLeScan(btScanCallback);
@@ -315,7 +325,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
         }
 
 
-        //  Reading the characteristic
+    //  Reading the characteristic
         public void readCharacteristic(BluetoothGattCharacteristic characteristic) {
             if (bluetoothAdapter == null || bluetoothGatt == null) {
                 Log.w(TAG, "Nothing to read: BluetoothAdapter is not initialized");

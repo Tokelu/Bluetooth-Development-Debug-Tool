@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
+import da.au_grp21.bluetoothdevelopmentdebugtool.Help.myToast;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
@@ -41,7 +42,7 @@ public class FragmentMain extends Fragment {
     CheckBox connectionIndicator;
     //  View divider, divider2;
 
-
+    private myToast testToast;
     //  private OnFragmentInteractionListener mListener;
     private MyViewModel vm;
     private Button mainBtnTerminal, mainBtnDisconnet, mainBtnConDev, mainBtnHelp, mainBtnExit, mainBtnLoad;
@@ -95,10 +96,10 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 if (vm.getconnection() == true) {
-                    vm.showToast(FragmentMain.this.getActivity(), R.string.deviceConneted);
+                    testToast.showToast(FragmentMain.this.getActivity(), R.string.deviceConneted);
                     Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);
                 } else
-                    vm.showToast(FragmentMain.this.getActivity(), R.string.noDeviceConneted);
+                    testToast.showToast(FragmentMain.this.getActivity(), R.string.noDeviceConneted);
                     Navigation.findNavController(v).navigate(R.id.fragmentConnection);
             }
         });
@@ -107,7 +108,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: Disconnect device, not move to a frag
-                vm.setDeviceDisconnect();
+                vm.disconnectDevice();
 
             }
         });
