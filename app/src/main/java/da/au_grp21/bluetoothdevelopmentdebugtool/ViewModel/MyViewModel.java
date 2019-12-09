@@ -59,6 +59,7 @@ public class MyViewModel extends ViewModel {
     private ArrayList<Device> items;
     private MutableLiveData<List<Device>> numItems;
     private Device currentDevice;
+    BluetoothConnectionService bluetoothConnectionService;
 
     //Fields for the list of logs used in FragmentLoad
     private ArrayList<LogData> logList;
@@ -141,7 +142,7 @@ public class MyViewModel extends ViewModel {
 
     }
 
-    // TODO: save the data to the database
+    // Save the data to the database
     public void saveToDatabase(Context context, String fileName, String terminalData) {
         Intent log = new Intent(context, DatabaseService.class)
                 .setAction(SAVE)
@@ -150,27 +151,17 @@ public class MyViewModel extends ViewModel {
         context.startService(log);
     }
 
-    //TODO: get from database
-    public void getFromDatabase() {
-
-    }
-
-
-    //TODO: What should this do??
-    public void help() {
-    }
-
-    // TODO: disconnect the device
+    //This function sets the device attribut connected to false
     public void setDeviceDisconnect() {
         currentDevice.setConnected(false);
     }
 
-    // TODO: connect the device
+    //This function gets the device
     public Device getDeviceThatIsConnect() {
         return currentDevice;
     }
 
-    // TODO: connect the device
+    //This function sets the device attribut connected to true
     public void setDeviceConnect() {
         currentDevice.setConnected(true);
     }
@@ -179,12 +170,17 @@ public class MyViewModel extends ViewModel {
     public void ConnectToDevice(Device device) {
         currentDevice = device;
         setDeviceConnect();
+        bluetoothConnectionService.connect(device.getMac());
+
     }
 
+    //This function disconnects the bluetooth device
     public void disconnectDevice() {
-    
+        bluetoothConnectionService.disconnect();
+        setDeviceDisconnect();
     }
 
+    //This function gets the device attribut connected
     public boolean getconnection() {
         return currentDevice.getConnected();
     }
@@ -196,7 +192,7 @@ public class MyViewModel extends ViewModel {
         numItems.setValue(items);
     }
 
-    //TODO: to find the old logs
+    // //This function finds the old logs in the database
     public void seachForOldData(Context context, String searchString) {
         Date mightBe = LogData.sdf.parse(searchString, new ParsePosition(0));
         if (mightBe != null) {
@@ -220,6 +216,19 @@ public class MyViewModel extends ViewModel {
         currentDevice.setSave(true);
     }
 
+    //This function close the bluetooth
+    public void closeBluetooth() {
+        bluetoothConnectionService.close();
+    }
+
+    //TODO:
+    // This function will return the terminal output from the bluetooth device
+    public String broadcastCharcteristic() {
+        String hej = "hej";
+        return hej;
+    }
+
+    //This function makes oure Toaste
     public static void showToast(Context context, int stringId) {
         Toast t = Toast.makeText(context, context.getString(stringId), Toast.LENGTH_SHORT);
         View toastView = t.getView();
