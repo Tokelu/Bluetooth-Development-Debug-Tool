@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.content.BroadcastReceiver;
 import android.content.BroadcastReceiver;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogData;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
@@ -50,6 +52,8 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentTerminalScr;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
+
+    private final static String TAG = MyViewModel.class.getSimpleName();
 
     private MutableLiveData<Device> devices;
     private ArrayList<Device> items;
@@ -76,7 +80,7 @@ public class MyViewModel extends ViewModel {
         return logs;
     }
 
-    // TODO: Mette will make this part of all fragments
+
     public LiveData<Device> getDevice() {
         if (devices == null) {
             devices = new MutableLiveData<Device>();
@@ -91,7 +95,7 @@ public class MyViewModel extends ViewModel {
             if (items == null) {
                 items = new ArrayList<>();
             }
-            numItems.setValue(items);
+            numItems.setValue(items);//setValue?
         }
         return numItems;
     }
@@ -100,10 +104,21 @@ public class MyViewModel extends ViewModel {
     // TODO: this function is meant to o an asynchronous operation to fetch devices.
     // Please make it return the list of devices
     public void loadDevicesConneced() {
+
+        BluetoothConnectionService bluetoothConnectionService = new BluetoothConnectionService();
+
         if (!isSearchingForDevices) {
+            if (!bluetoothConnectionService.initialize()) {
+                Log.i(TAG, "Initializing Bluetooth adapter");
+                bluetoothConnectionService.initialize();
+            }
+
+            //NOTE: Not done yet
+
 
             isSearchingForDevices = !isSearchingForDevices;
         }
+
 
     }
 
@@ -118,11 +133,6 @@ public class MyViewModel extends ViewModel {
         // file = terminalData;
         currentDevice.setData(terminalData);
 
-    }
-
-    //TODO: get the file
-    public String getTerminalDataInformation() {
-        return file;
     }
 
     // TODO: save the data to the database
@@ -150,8 +160,8 @@ public class MyViewModel extends ViewModel {
     }
 
     // TODO: connect the device
-    public String getDeviceThatIsConnect() {
-        return currentDevice.getName();
+    public Device getDeviceThatIsConnect() {
+        return currentDevice;
     }
 
     // TODO: connect the device
@@ -194,6 +204,10 @@ public class MyViewModel extends ViewModel {
 
     public Boolean chechIfDataIsSaved() {
         return currentDevice.getSave();
+    }
+
+    public void SetDeviceSaved() {
+        currentDevice.setSave(true);
     }
 
     public static void showToast(Context context, int stringId) {
