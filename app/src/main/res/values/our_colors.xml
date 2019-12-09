@@ -3,5 +3,6 @@
     <color name="forgorund">#0ECEB5</color>
     <color name="backgorund">#09FFE0</color>
     <color name="text">#073F35</color>
-
+    <color name="toast">#9C27B0</color>
+    <color name="textOrange">#F14512</color>
 </resources>

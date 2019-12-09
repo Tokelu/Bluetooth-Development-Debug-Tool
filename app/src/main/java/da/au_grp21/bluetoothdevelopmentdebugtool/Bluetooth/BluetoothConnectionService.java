@@ -117,6 +117,13 @@ public class BluetoothConnectionService extends Service { //IntentService {
             deviceList.clear();
             bluetoothAdapter.startLeScan(btScanCallback);
         }
+    public MutableLiveData<List<Device>> getDevices() {
+        return devices;
+    }
+
+    public void startLeScanWrapper() {
+        deviceList.clear();
+        bluetoothAdapter.startLeScan(btScanCallback);
     }
 
     // inspiration: https://bit.ly/2OOVepH
@@ -248,12 +255,12 @@ public class BluetoothConnectionService extends Service { //IntentService {
         return super.onUnbind(intent);
     }
 
-        //  the binder for the bluetooth service
-        public class LocalBinder extends Binder {
-            public BluetoothConnectionService getService() {
-                return BluetoothConnectionService.this;
-            }
+    //  the binder for the bluetooth service
+    public class LocalBinder extends Binder {
+        public BluetoothConnectionService getService() {
+            return BluetoothConnectionService.this;
         }
+    }
 
 //    public class LocalBinder extends Binder {
 //        BluetoothConnectionService getService() {return BluetoothConnectionService.this;}

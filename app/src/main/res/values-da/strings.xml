@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Bluetooth Development Debug Tool</string>
-    <string name="notSupported_Bluetooth">Bluetooth is not supported on this device.</string>
+    <string name="notSupported_Bluetooth">Bluetooth er ikke understøttet på denne enhed.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="buttonExit">Afslut</string>
     <string name="buttonHelp">Hjælp</string>
@@ -16,20 +16,20 @@
     <string name="buttonScan">Søg efter enheder</string>
     <string name="buttonBack">Tilbage</string>
     <string name="buttonSaveOutput">Gemt Output</string>
-    <string name="CmdInputText">Input command</string>
+    <string name="CmdInputText">Input kommando</string>
     <string name="buttonSave">Gem</string>
     <string name="saveOutputTextViewSaveScr">Indtast filenavn:</string>
     <string name="editTextFilename">Filenavn her</string>
     <string name="extension">.log</string>
-    <string name="textViewChooseSaveLocation">Choose save location:</string>
+    <string name="textViewChooseSaveLocation">Vælg lokation til at gemme:</string>
     <string name="deviceListElementTextViewMac_address">MAC Adresse:</string>
     <string name="deviceListElementTextViewDeviceName">Enheds navn:</string>
-    <string name="deviceListElementTextViewSignalStrength">Signal Strength:</string>
-    <string name="deviceListElementTextViewIsBonded">Not Bonded</string>
-    <string name="deviceListElementTextViewSignalDelay">Signal Delay:</string>
+    <string name="deviceListElementTextViewSignalStrength">Signal Styrke:</string>
+    <string name="deviceListElementTextViewIsBonded">Ikke Paret</string>
+    <string name="deviceListElementTextViewSignalDelay">Signal Forsinkelse:</string>
     <string name="deviesIsConneted">Enhed er forbundet</string>
     <string name="deviesIsNotConneted">Enhed er ikke forbundet</string>
-    <string name="min_sdk_req">MIN. SDK level: 18 (To support BLE)</string>
+    <string name="min_sdk_req">MIN. SDK level: 18 (for at understøtte BLE)</string>
     <string name="seekButton">SØG</string>
     <string name="Load">Hent</string>
 
@@ -46,7 +46,7 @@
     <!-- pop up -->
     <string name="notSavedDataFromTer"> Du er ved at gå tilbage til hovde vinduet uden at gemme. Er du sikker på at du ønsker dette? Klik OK for dette. Dataen bliver ikke gemt </string>
     <!-- Help view-->
-    <string name="Help">Help</string>
-    <string name="HelpTxt">Help</string>
+    <string name="Help">Hjælp</string>
+    <string name="HelpTxt">Hjælp</string>
 
 </resources>

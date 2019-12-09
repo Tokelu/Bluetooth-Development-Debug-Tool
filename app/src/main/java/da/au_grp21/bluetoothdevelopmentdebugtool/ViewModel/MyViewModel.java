@@ -71,7 +71,6 @@ public class MyViewModel extends ViewModel {
     private ArrayList<Device> items;
     private MutableLiveData<List<Device>> numItems;
     private Device currentDevice;
-    BluetoothConnectionService bluetoothConnectionService;
 
     //Fields for the list of logs used in FragmentLoad
     private ArrayList<LogData> logList;
@@ -110,7 +109,7 @@ public class MyViewModel extends ViewModel {
 
     public LiveData<List<Device>> getAllDevices() {
         numItems = MainActivity.service.getDevices();
-        if(numItems == null){
+        if (numItems == null) {
             numItems = new MutableLiveData<>();
         }
         return numItems;
@@ -158,13 +157,10 @@ public class MyViewModel extends ViewModel {
     public void ConnectToDevice(Device device) {
         currentDevice = device;
         setDeviceConnect();
-        bluetoothConnectionService.connect(device.getMac());
     }
 
-    //This function disconnects the bluetooth device
     public void disconnectDevice() {
-        bluetoothConnectionService.disconnect();
-        setDeviceDisconnect();
+
     }
 
     //This function gets the device attribut connected
@@ -203,17 +199,12 @@ public class MyViewModel extends ViewModel {
         currentDevice.setSave(true);
     }
 
-    //This function close the bluetooth
-    public void closeBluetooth() {
-        bluetoothConnectionService.close();
-    }
 
     public void fetchData( /* Karakteristik fra BLE */ ){
 
-
     }
 
-    public void setConnectedStatus(/* Karakteristik fra BLE */){
+    public void setConnectedStatus(/* Karakteristik fra BLE */) {
 
 
     }

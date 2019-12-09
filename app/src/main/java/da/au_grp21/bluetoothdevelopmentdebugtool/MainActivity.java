@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
     {
 
         //  Checking if we have permission for loacation_fine:
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
         }
@@ -47,11 +47,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-
         CheckBluetoothPermissions();
         Intent intent = new Intent(this, BluetoothConnectionService.class);
         startService(intent);
-        if (!bound){
+        if (!bound) {
             bindToBackgroundService();
         }
 
@@ -64,19 +63,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         unbindService(bluetoothService);
         super.onDestroy();
     }
 
 
-
-    private ServiceConnection bluetoothService = new ServiceConnection()
-    {
+    private ServiceConnection bluetoothService = new ServiceConnection() {
         @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder)
-        {
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             BluetoothConnectionService.LocalBinder binder = (BluetoothConnectionService.LocalBinder) iBinder;
             service = binder.getService();
 
@@ -84,16 +79,15 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName componentName)
-        {
+        public void onServiceDisconnected(ComponentName componentName) {
             service.close();
 
 
         }
     };
 
-    void bindToBackgroundService(){
-        bindService(new Intent(this, BluetoothConnectionService.class ), bluetoothService, Context.BIND_AUTO_CREATE);
+    void bindToBackgroundService() {
+        bindService(new Intent(this, BluetoothConnectionService.class), bluetoothService, Context.BIND_AUTO_CREATE);
         bound = true;
     }
 
