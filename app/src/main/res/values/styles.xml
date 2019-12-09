@@ -6,10 +6,10 @@
         <item name="colorPrimary">@color/forgorund</item>
         <item name="colorPrimaryDark">@color/backgorund</item>
         <item name="colorAccent">@color/text</item>
-<!--        <item name="android:textColor">@color/text</item>-->
-<!--        <item name="android:colorBackground">@color/backgorund</item>-->
-<!--        <item name="android:foreground">@color/forgorund</item>-->
-<!--        <item name="android:button">@color/toast</item>-->
+        <!--        <item name="android:textColor">@color/text</item>-->
+        <!--        <item name="android:colorBackground">@color/backgorund</item>-->
+        <!--        <item name="android:foreground">@color/forgorund</item>-->
+        <!--        <item name="android:button">@color/toast</item>-->
     </style>
 
 </resources>
