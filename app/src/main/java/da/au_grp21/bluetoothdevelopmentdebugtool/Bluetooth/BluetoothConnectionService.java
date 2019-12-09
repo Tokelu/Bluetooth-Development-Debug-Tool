@@ -117,14 +117,13 @@ public class BluetoothConnectionService extends Service { //IntentService {
             deviceList.clear();
             bluetoothAdapter.startLeScan(btScanCallback);
         }
-    public MutableLiveData<List<Device>> getDevices() {
-        return devices;
+
     }
 
-    public void startLeScanWrapper() {
-        deviceList.clear();
-        bluetoothAdapter.startLeScan(btScanCallback);
-    }
+
+
+
+
 
     // inspiration: https://bit.ly/2OOVepH
     private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback() {
