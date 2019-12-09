@@ -71,16 +71,19 @@ public class FragmentNotSaved extends Fragment {
         bntYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testToast.showToast(FragmentNotSaved.this.getContext(), R.string.willNotSave);
-                Navigation.findNavController(v).navigate((R.id.fragmentMain));
+
+                testToast.showToast(FragmentNotSaved.this.getContext(), R.string.willSave);
+                Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
+
             }
         });
         bntCancle = v.findViewById(R.id.popUpBtnNo);
         bntCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testToast.showToast(FragmentNotSaved.this.getContext(), R.string.willSave);
-                Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
+                testToast.showToast(FragmentNotSaved.this.getContext(), R.string.willNotSave);
+                Navigation.findNavController(v).navigate((R.id.fragmentMain));
+
             }
         });
         return v;

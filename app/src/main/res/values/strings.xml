@@ -10,8 +10,8 @@
     <string name="buttonDisconnect">Disconnect</string>
     <string name="buttonConnectDevice">Connect to Device</string>
     <string name="textviewTitle">Bluetooth Development Debug Tool</string>
-    <string name="textviewConnected">Connected:</string>
-    <string name="textviewDeviceName">Device:</string>
+    <string name="textviewConnected">Connected: </string>
+    <string name="textviewDeviceName">Device: </string>
     <string name="textviewDeviceNameDisplay">Devicename</string>
     <string name="textviewConnectHead">Pick a device to connect</string>
     <string name="buttonScan">Scan for Device</string>
@@ -19,22 +19,22 @@
     <string name="buttonSaveOutput">Save Output</string>
     <string name="CmdInputText">Input command</string>
     <string name="buttonSave">Save</string>
-    <string name="saveOutputTextViewSaveScr">Enter filename:</string>
+    <string name="saveOutputTextViewSaveScr">Enter filename: </string>
     <string name="editTextFilename">filename here</string>
     <string name="extension">.log</string>
-    <string name="textViewChooseSaveLocation">Choose save location:</string>
-    <string name="deviceListElementTextViewMac_address">MAC Address:</string>
-    <string name="deviceListElementTextViewDeviceName">Device Name:</string>
+    <string name="textViewChooseSaveLocation">Choose save location: </string>
+    <string name="deviceListElementTextViewMac_address">MAC Address: </string>
+    <string name="deviceListElementTextViewDeviceName">Device Name: </string>
     <string name="deviceListElementTextViewSignalStrength">Signal Strength:</string>
-    <string name="deviceListElementTextViewIsBonded">Not Bonded</string>
+    <string name="deviceListElementTextViewIsBonded">Not Bonded </string>
     <string name="deviceListElementTextViewSignalDelay">Signal Delay:</string>
     <string name="deviesIsConneted">Conneted</string>
     <string name="deviesIsNotConneted">Not Conneted</string>
     <string name="min_sdk_req">MIN. SDK level: 18 (To support BLE)</string>
     <string name="seekButton">SEARCH</string>
     <string name="Load">Load</string>
-    <string name="logName">Log name:</string>
-    <string name="logTimestamp">Created at:</string>
+    <string name="logName">Log name: </string>
+    <string name="logTimestamp">Created at: </string>
     <!-- Toast call-->
     <string name="deviceConneted">There is a device connted, navigating to the Terminal view</string>
     <string name="noDeviceConneted">There is not a device connted, navigating to the Connetion view</string>
@@ -44,12 +44,13 @@
 
     <!-- Textboxes call-->
     <!-- pop up view-->
-    <string name="notSavedDataFromTer"> You are about to return to the main window without saving. Are you sure you want this? Check OK to confirm you do not want to save the data The data will not be saved </string>
+    <string name="notSavedDataFromTer"> You are about to return to the main window without saving. Are you sure you want this? The data will not be saved </string>
     <!-- Help view-->
     <string name="helpingText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+
     <!--  <string name="HelpTxt">Help</string>-->
 
     <!-- Button call-->
-
+    <string name="notSaveBnt">Not save</string>
 
 </resources>

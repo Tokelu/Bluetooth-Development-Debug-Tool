@@ -114,10 +114,10 @@ public class FragmentLoad extends Fragment {
         });
 
         //Setting up intent filter and using this to subscribe to the local broadcast manager
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(SINGLE_BROADCAST);
-        filter.addAction(LIST_BROADCAST);
-        LocalBroadcastManager.getInstance(FragmentLoad.this.getContext()).registerReceiver(vm.onDatabaseResponse, filter);
+        //  IntentFilter filter = new IntentFilter();
+        // filter.addAction(SINGLE_BROADCAST);
+        //filter.addAction(LIST_BROADCAST);
+        //  LocalBroadcastManager.getInstance(FragmentLoad.this.getContext()).registerReceiver(vm.onDatabaseResponse, filter);
 
         return v;
     }
@@ -142,6 +142,7 @@ public class FragmentLoad extends Fragment {
         });
     }
 
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);

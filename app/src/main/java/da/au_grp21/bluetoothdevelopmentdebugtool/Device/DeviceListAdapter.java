@@ -1,5 +1,6 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Device;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentConnection;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.MyViewHolder> {
     private ArrayList<Device> deviceArrayList = new ArrayList<>();
     private OnItemClickListener clickListener; //Click listner
     private OnItemLongClickListner longClickListner; //Long click listner
-
+    private Context context;
     public interface OnItemClickListener {
         void OnItemClick(int position);
     }
@@ -73,6 +75,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     }
 
     public DeviceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.device_list_element, parent, false);
         MyViewHolder vh = new MyViewHolder(v, clickListener, longClickListner);
         return vh;
@@ -81,9 +84,9 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Device current = GetItem(position);
-        holder.paired.setText(R.string.deviceListElementTextViewIsBonded + " " + current.getPaired());
-        holder.name.setText(R.string.deviceListElementTextViewDeviceName + " " + current.getName());
-        holder.MAC.setText(R.string.deviceListElementTextViewMac_address + " " + current.getMac());
+        holder.paired.setText(context.getResources().getString(R.string.deviceListElementTextViewIsBonded) + current.getPaired());
+        holder.name.setText(context.getResources().getString(R.string.deviceListElementTextViewDeviceName) + current.getName());
+        holder.MAC.setText(context.getResources().getString(R.string.deviceListElementTextViewMac_address) + current.getMac());
     }
 
     @Override
