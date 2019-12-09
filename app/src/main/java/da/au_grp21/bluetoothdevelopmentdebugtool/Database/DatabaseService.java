@@ -20,6 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Document;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class DatabaseService extends IntentService {
     public static final String DATE = "DATE";
 
     //Instance of the database
-    private static FirebaseFirestore db;
+    private FirebaseFirestore db;
 
     public DatabaseService() {
         super("DatabaseService");
@@ -131,6 +133,7 @@ public class DatabaseService extends IntentService {
                         message.putExtra(RETURN_LOG, documentSnapshot.toObject(LogData.class));
                         message.setAction(SINGLE_BROADCAST);
                         LocalBroadcastManager.getInstance(DatabaseService.this).sendBroadcast(message);
+                        //TODO: Find appropriate place to subscribe a broadcast listner to this
                     }
                     else{
                         Log.d(DATABASE_SERVICE, "logLoader: The searched for document does not exist.");
@@ -170,6 +173,7 @@ public class DatabaseService extends IntentService {
                         message.putExtra(RETURN_LOG, returnLog);
                         message.setAction(SINGLE_BROADCAST);
                         LocalBroadcastManager.getInstance(DatabaseService.this).sendBroadcast(message);
+                        //TODO: Find appropriate place to subscribe a broadcast listner to this
                     }
                     else {
                         Toast.makeText(DatabaseService.this, "There is no file with such a name", Toast.LENGTH_SHORT).show();
@@ -207,6 +211,7 @@ public class DatabaseService extends IntentService {
                         message.putExtra(RETURN_LOG_LIST, (Serializable) queryResult);
                         message.setAction(LIST_BROADCAST);
                         LocalBroadcastManager.getInstance(DatabaseService.this).sendBroadcast(message);
+                        //TODO: Find appropriate place to subscribe a broadcast listner to this
                     }
                 }
             });

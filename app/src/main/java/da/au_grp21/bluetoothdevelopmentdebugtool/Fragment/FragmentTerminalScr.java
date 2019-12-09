@@ -31,7 +31,7 @@ public class FragmentTerminalScr extends Fragment {
     Button terBtnSave;
     Button terBtnDisconnet;
     EditText terEditTxtSave;
-    TextView terminalTextView;
+    TextView txtview;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,13 +82,11 @@ public class FragmentTerminalScr extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_terminal_scr, container, false);
         terEditTxtSave = v.findViewById(R.id.fragTerminalLEditText);
-        terminalTextView = v.findViewById(R.id.fragTerminaltextView);
         terBtnBack = v.findViewById(R.id.fragTerminalButtonBack);
         terBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (vm.chechIfDataIsSaved() == false) {
-                    vm.saveTerminalDataInformation(terminalTextView.getText().toString());
                     Navigation.findNavController(v).navigate(R.id.fragmentNotSaved);
                 } else
                     Navigation.findNavController(v).navigate(R.id.fragmentMain);
@@ -106,10 +104,12 @@ public class FragmentTerminalScr extends Fragment {
         terBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vm.saveTerminalDataInformation(terminalTextView.getText().toString());
+                vm.saveTerminalDataInformation(terEditTxtSave.getText().toString());
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
             }
         });
+
+
         return v;
     }
 

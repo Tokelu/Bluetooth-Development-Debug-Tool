@@ -48,5 +48,10 @@ public class MainActivity extends AppCompatActivity
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             startActivityForResult(intent, Bluetooth_Enable_Request);
         }
+
+        
     }
+
+
+
 }
