@@ -84,11 +84,6 @@ public class FragmentLoad extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        //Setting up intent filter and using this to subscribe to the local broadcast manager
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(SINGLE_BROADCAST);
-        filter.addAction(LIST_BROADCAST);
-        LocalBroadcastManager.getInstance(FragmentLoad.this.getActivity()).registerReceiver(vm.onDatabaseResponse, filter);
     }
 
     @Override
@@ -118,6 +113,12 @@ public class FragmentLoad extends Fragment {
             }
         });
 
+        //Setting up intent filter and using this to subscribe to the local broadcast manager
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(SINGLE_BROADCAST);
+        filter.addAction(LIST_BROADCAST);
+        LocalBroadcastManager.getInstance(FragmentLoad.this.getContext()).registerReceiver(vm.onDatabaseResponse, filter);
+
         return v;
     }
 
@@ -125,7 +126,7 @@ public class FragmentLoad extends Fragment {
         loadBtnBack = view.findViewById(R.id.fragLoadBtnBack);
         loadBtnSearch = view.findViewById(R.id.fragLoadBtnSearch);
         loadSeachtxt = view.findViewById(R.id.fragLoadSeachtxt);
-        recyclerView = this.getActivity().findViewById(R.id.fragLoadRecyclerView);
+        recyclerView = view.findViewById(R.id.fragLoadRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this.getActivity());
 
@@ -141,7 +142,6 @@ public class FragmentLoad extends Fragment {
         });
     }
 
-    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
