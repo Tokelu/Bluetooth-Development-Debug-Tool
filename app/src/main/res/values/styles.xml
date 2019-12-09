@@ -15,9 +15,6 @@
         <item name="android:colorControlHighlight" tools:targetApi="lollipop">@color/colorAccent</item>
     </style>
 
-    <style name="PrimaryButton" parent="Theme.AppCompat">
-        <item name="colorButtonNormal">@color/secondaryColor</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
-    </style>
+
 
 </resources>
