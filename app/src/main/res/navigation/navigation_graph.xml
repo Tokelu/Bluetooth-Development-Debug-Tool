@@ -53,7 +53,11 @@
         android:id="@+id/fragmentLoad"
         android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentLoad"
         android:label="fragment_fragment_load"
-        tools:layout="@layout/fragment_load_data" />
+        tools:layout="@layout/fragment_load_data" >
+        <action
+            android:id="@+id/action_fragmentLoad_to_fragmentTerminalScr"
+            app:destination="@id/fragmentTerminalScr" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentNotSaved"
         android:name="da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentNotSaved"
