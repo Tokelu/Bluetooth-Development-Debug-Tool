@@ -175,6 +175,10 @@ public class MyViewModel extends ViewModel {
         setDeviceConnect();
     }
 
+    public void disconnectDevice() {
+    
+    }
+
     public boolean getconnection() {
         return currentDevice.getConnected();
     }
