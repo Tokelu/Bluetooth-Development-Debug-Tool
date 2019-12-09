@@ -107,8 +107,7 @@ public class FragmentTerminalScr extends Fragment {
         terBtnDisconnet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigation.findNavController(v).navigate(R.id.fragmentConnection);
-                vm.disconnectDevice();
+                vm.setDeviceDisconnect();
             }
         });
         terBtnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);
@@ -135,6 +134,10 @@ public class FragmentTerminalScr extends Fragment {
         });
         if (vm.getChosenLog() != null){
             terminalTextView.setText(vm.getChosenLog().getTerminalLog());
+        }
+        if (vm.getDeviceThatIsConnect() == null){
+            terBtnSave.setActivated(false);
+            terBtnDisconnet.setActivated(false);
         }
     }
 

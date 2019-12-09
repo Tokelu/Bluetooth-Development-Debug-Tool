@@ -1,16 +1,10 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Fragment;
 
-import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
+
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -21,9 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
@@ -62,24 +54,6 @@ public class FragmentConnection extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentConnection.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentConnection newInstance(String param1, String param2) {
-        FragmentConnection fragment = new FragmentConnection();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +72,6 @@ public class FragmentConnection extends Fragment {
         conBtnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: check for devices there can be conneted
                 MainActivity.service.startLeScanWrapper();
 
             }
@@ -107,7 +80,6 @@ public class FragmentConnection extends Fragment {
         conBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: how do we make the small pop ups?
                 Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });

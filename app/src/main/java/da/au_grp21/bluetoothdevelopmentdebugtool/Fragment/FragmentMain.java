@@ -108,7 +108,7 @@ public class FragmentMain extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: Disconnect device, not move to a frag
-                vm.disconnectDevice();
+                vm.setDeviceDisconnect();
 
             }
         });

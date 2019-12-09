@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="forgorund">#0ECEB5</color>
-    <color name="backgorund">#09FFE0</color>
-    <color name="text">#073F35</color>
+
+
+    <color name="backgorund">#546e7a</color>
+    <!--    <color name="backgorund">#09FFE0</color>-->
+    <!--    <color name="text">#073F35</color>-->
+    <color name="text">#ffffff</color>
     <color name="toast">#9C27B0</color>
     <color name="textOrange">#F14512</color>
+    <color name="primaryColor">#455a64</color>
+    <color name="secondaryColor">#AD1457</color>
+    <color name="buttonColor">#ad1457</color>
 </resources>

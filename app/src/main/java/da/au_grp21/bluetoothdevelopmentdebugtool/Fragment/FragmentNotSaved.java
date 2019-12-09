@@ -90,7 +90,6 @@ public class FragmentNotSaved extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(this).get(MyViewModel.class);
-        // TODO: Use the ViewModel
     }
 
 }

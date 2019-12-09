@@ -45,8 +45,8 @@
     <!-- Textboxes call-->
     <!-- pop up view-->
     <string name="notSavedDataFromTer"> You are about to return to the main window without saving. Are you sure you want this? Check OK to confirm you do not want to save the data The data will not be saved </string>
+    <string name="helpingText">When you return from this screen with the \"back\"-button, you\'ll get back to the main screen. From there, you can connect to a device by clicking \"Connect to device\". On this new screen, you\'ll be able to click \"Scan for Device\", which will create a list of available BLE devices nearby. Click one of these devices to connect to it, and be take onwards to the terminal screen. Here, you\'ll recieve live data from the connected device. You can save the contents of the terminal to a database by clicking the \"Save output button\". This will take you to a new screen, where you are able to choose the name for your log file. This name is for you to find it at a later time, through the \"Load\"-button on the main screen.</string>
     <!-- Help view-->
-    <string name="helpingText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <!--  <string name="HelpTxt">Help</string>-->
 
     <!-- Button call-->

@@ -15,7 +15,7 @@
     <string name="textviewConnectHead">Vælg en enhed at forbinde med</string>
     <string name="buttonScan">Søg efter enheder</string>
     <string name="buttonBack">Tilbage</string>
-    <string name="buttonSaveOutput">Gemt Output</string>
+    <string name="buttonSaveOutput">Gem Output</string>
     <string name="CmdInputText">Input kommando</string>
     <string name="buttonSave">Gem</string>
     <string name="saveOutputTextViewSaveScr">Indtast filenavn:</string>
@@ -48,5 +48,6 @@
     <!-- Help view-->
     <string name="Help">Hjælp</string>
     <string name="HelpTxt">Hjælp</string>
+    <string name="helpingText">Når du trykker på \"Tilbage\"-knappen, vil du blive taget tilbage til hovedskærmen. Herfra can du forbinde dig til en enhed ved at trykke på \"Forbind til Enhed\". På dennne nye skørm kan du trykke på \"Søg efter enheder\", som vil lave en liste over tilgængelige BLE enheder. Tryk på en af disse enheder for at forbinde til den og blive taget videre til terminalskærmen. Her vil du blive vist den direkte data strøm fra den tilknyttede enhed. Du kan gemme dataet fra terminalen i en database ved at trykke \"Gem Output\". Dette vil tage dig til en ny skærm, hvor du kan skrive navnet på din .log fil. Dette navn skal du bruge til at finde dataet senere gennem \"Load\"-knappen på hovedskærmen.</string>
 
 </resources>

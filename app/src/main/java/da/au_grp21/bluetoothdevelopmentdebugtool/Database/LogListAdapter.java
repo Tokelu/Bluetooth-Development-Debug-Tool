@@ -1,5 +1,6 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Database;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogViewH
     private ArrayList<LogData> logArrayList = new ArrayList<>();
     private LogListAdapter.OnItemClickListener clickListener; //Click listner
     private LogListAdapter.OnItemLongClickListner longClickListner; //Long click listner
+    private Context context;
 
     public interface OnItemClickListener {
         void OnItemClick(int position);
@@ -74,14 +76,15 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogViewH
     public LogListAdapter.LogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.log_list_element, parent, false);
         LogListAdapter.LogViewHolder vh = new LogListAdapter.LogViewHolder(v, clickListener, longClickListner);
+        context = parent.getContext();
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull LogViewHolder holder, int position) {
         LogData current = GetItem(position);
-        holder.timestamp.setText(R.string.logTimestamp + " " + current.getTimestamp());
-        holder.name.setText(R.string.logName + " " + current.getFilename());
+        holder.timestamp.setText(context.getResources().getString(R.string.logTimestamp) + " " + current.getTimestamp());
+        holder.name.setText(context.getResources().getString(R.string.logName) + " " + current.getFilename());
     }
 
     @Override

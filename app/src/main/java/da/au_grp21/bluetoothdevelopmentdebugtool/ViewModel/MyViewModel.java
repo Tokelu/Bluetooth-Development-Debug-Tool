@@ -1,40 +1,20 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 
-import android.app.Dialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.content.ComponentName;
-import android.content.ServiceConnection;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.IBinder;
-import android.util.Log;
-import android.view.View;
+
 import android.content.BroadcastReceiver;
-import android.content.BroadcastReceiver;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogData;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
@@ -49,7 +29,6 @@ import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.FIND_BY_DATE;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.FIND_BY_NAME;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LIST_BROADCAST;
-import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOAD;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_DATA;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.LOG_NAME;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.RETURN_LOG;
@@ -57,15 +36,10 @@ import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SAVE;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.SINGLE_BROADCAST;
 
-import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
-import da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentTerminalScr;
-
 import da.au_grp21.bluetoothdevelopmentdebugtool.MainActivity;
-import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
 
-    private final static String TAG = MyViewModel.class.getSimpleName();
 
     private MutableLiveData<Device> devices;
     private ArrayList<Device> items;
@@ -84,12 +58,6 @@ public class MyViewModel extends ViewModel {
     public void setChosenLog(LogData chosenLog) {
         this.chosenLog = chosenLog;
     }
-
-    private String file = null;
-    private boolean connect = false;
-    //   private boolean disconneted = true;
-
-    private boolean isSearchingForDevices = false;
 
 
     public LiveData<List<LogData>> getLogs() {
@@ -115,18 +83,8 @@ public class MyViewModel extends ViewModel {
         return numItems;
     }
 
-
-    //TODO: chose save location: This might(WILL) be redundant
-//    public void locationToSave(String locationToSave) { //
-//        String fileToSave = getFileToSave();
-//        saveToDatabase(fileToSave, locationToSave);
-//    }
-
-    //TODO: terminalData to member data
     public void saveTerminalDataInformation(String terminalData) {
-        // file = terminalData;
         currentDevice.setData(terminalData);
-
     }
 
     // Save the data to the database
@@ -157,10 +115,6 @@ public class MyViewModel extends ViewModel {
     public void ConnectToDevice(Device device) {
         currentDevice = device;
         setDeviceConnect();
-    }
-
-    public void disconnectDevice() {
-
     }
 
     //This function gets the device attribut connected
@@ -200,6 +154,8 @@ public class MyViewModel extends ViewModel {
     }
 
 
+
+    /********************** UNFINISHED DATABASE STUFF **********************/
     public void fetchData( /* Karakteristik fra BLE */) {
 
 
@@ -234,6 +190,7 @@ public class MyViewModel extends ViewModel {
 
         }
     };
+/********************** UNFINISHED DATABASE STUFF **********************/
 
     public BroadcastReceiver onDatabaseResponse = new BroadcastReceiver() {
         @Override

@@ -37,8 +37,6 @@ public class FragmentSaveOutput extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    TextView saveOutputTxt;
-    TextView saveOutputTxtExtension;
     EditText saveOutputEditTxt;
     Button saveOutputBtnBack;
     Button saveOutputBtnSave;
@@ -93,7 +91,6 @@ public class FragmentSaveOutput extends Fragment {
         saveOutputBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Where to go? how do we do this?
                 testToast.showToast(FragmentSaveOutput.this.getActivity(), R.string.dataSaveOnDatabase);
                 vm.saveToDatabase(FragmentSaveOutput.this.getActivity(), saveOutputEditTxt.getText().toString(), vm.getDeviceThatIsConnect().getData());
                 vm.SetDeviceSaved();
@@ -108,12 +105,6 @@ public class FragmentSaveOutput extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(getActivity()).get(MyViewModel.class);
-        vm.getDevice().observe(this, new Observer<Device>() {
-            @Override
-            public void onChanged(Device device) {
-                //TODO: This function should get what?
-            }
-        });
     }
 
     @Override

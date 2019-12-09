@@ -1,7 +1,5 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth;
 
-import android.Manifest;
-import android.app.IntentService;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -14,14 +12,10 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.ListView;
 
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -29,34 +23,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
-import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
-public class BluetoothConnectionService extends Service { //IntentService {
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //change for branching
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public class BluetoothConnectionService extends Service {
     private final static String TAG = BluetoothConnectionService.class.getSimpleName();
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothGatt bluetoothGatt;
     private BluetoothManager bluetoothManager;
 
     private ArrayList deviceList;
-    //    private LiveData mutableLiveData;
     private MutableLiveData<List<Device>> devices;
-    //    private String bluetoothDeviceAddress = "cc:42:32:9D:49:f6";
     private String bluetoothDeviceAddress;
 
     public static final UUID TX_CHAR_UUID = UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");    //  Nordic UART TX Characteristic: https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/include/bluetooth/services/nus.html
     public static final UUID RX_CHAR_UUID = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");    //  Nordic UART RX Characteristic
     public static final UUID RX_SERVICE_UUID = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e"); //  Nordic UART RX Service
     public static final UUID CCCD = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");            //  https://www.oreilly.com/library/view/getting-started-with/9781491900550/ch04.html
-
-//    public final static String ACTION_DATA_AVAILABLE = "da.au_grp21.bluetoothdevelopmentdebugtool.ACTION_DATA_AVAILABLE";
-//    public static String EXTRA_DATA = "da.au_grp21.bluetoothdevelopmentdebugtool.EXTRA_DATA";
 
     public final static String ACTION_GATT_CONNECTED = "com.nordicsemi.nrfUART.ACTION_GATT_CONNECTED"; // help and inspiration taken from https://github.com/NordicPlayground/Android-nRF-UART
     public final static String ACTION_GATT_DISCONNECTED = "com.nordicsemi.nrfUART.ACTION_GATT_DISCONNECTED";
@@ -72,20 +54,11 @@ public class BluetoothConnectionService extends Service { //IntentService {
     private static final int STATE_CONNECTED = 2;
 
 
-//    public BluetoothConnectionService(){super("BluetoothConnectionService");}
 
     @Override
     public void onCreate() {
         super.onCreate();
-        //  kindly borrowed from https://developer.android.com/training/permissions/requesting#java
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            //TODO: some kind of message to the user that we do not have bluetooth permissions.
 
-            //TODO: some method to ask user for permissions
-            // getPermissions() {}
-        }
         deviceList = new ArrayList();
         devices = new MutableLiveData<>();
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -117,20 +90,9 @@ public class BluetoothConnectionService extends Service { //IntentService {
                     devices.postValue(deviceList);
 
                 }
-                // if device is no longer in scanning range, remove device from list.
-//                else {
-//                    deviceList.remove(device.getMac());
-//                    deviceList.add(device.getMac());
-//                }
-//                arrayAdapter.notifyDataSetChanged();
             }
         }
     };
-
-//        //  This is the connection method
-//    public void Connect(){
-//        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
-//        bluetoothGatt = device.connectGatt(this, true, gattCallback);
 
 
         //  This is a callback method for gatt event that we're looking for (like services discovered, and connection change)
@@ -148,7 +110,6 @@ public class BluetoothConnectionService extends Service { //IntentService {
                     Log.i(TAG, "Connected to gatt server");
                     Log.i(TAG, "Trying to start discovery of available services: " + bluetoothGatt.discoverServices());
                 } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                    intentAction = ACTION_GATT_DISCONNECTED;
                     connectionState = STATE_DISCONNECTED;   //  setting our state to disconnected
                     //  Logging connection status and broadcasting
                     Log.i(TAG, "Disconnected from gatt server");
@@ -200,7 +161,6 @@ public class BluetoothConnectionService extends Service { //IntentService {
                 // logging received data to check if its the right data we get.
                 Log.d(TAG, String.format("Received TX: %d", characteristic.getValue()));
                 intent.putExtra(EXTRA_DATA, characteristic.getValue());
-            } else {
             }
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
@@ -223,7 +183,6 @@ public class BluetoothConnectionService extends Service { //IntentService {
 
     public boolean onUnbind(Intent intent) {
         // when we're done with a device we need to release resources.  close() is invoked when the UI is disconnected from the Service and tends to this
-        //TODO: close();
         close();
         return super.onUnbind(intent);
     }
@@ -234,10 +193,6 @@ public class BluetoothConnectionService extends Service { //IntentService {
             return BluetoothConnectionService.this;
         }
     }
-
-//    public class LocalBinder extends Binder {
-//        BluetoothConnectionService getService() {return BluetoothConnectionService.this;}
-//    }
 
         //  Method for Initialization of the Bluetooth adapter, returns false if either the service or the adapter fails, true if success.
         public boolean initialize() {
@@ -314,7 +269,6 @@ public class BluetoothConnectionService extends Service { //IntentService {
             bluetoothGatt = null;
         }
 
-
     //  Reading the characteristic
         public void readCharacteristic(BluetoothGattCharacteristic characteristic) {
             if (bluetoothAdapter == null || bluetoothGatt == null) {
@@ -347,7 +301,6 @@ public class BluetoothConnectionService extends Service { //IntentService {
 
     public void writeRXCharacteristic(byte[] value) {
 
-
         BluetoothGattService RxService = bluetoothGatt.getService(RX_SERVICE_UUID);
         Log.e(TAG, "BluetoothGatt null:" + bluetoothGatt);
         if (RxService == null) {
@@ -369,32 +322,3 @@ public class BluetoothConnectionService extends Service { //IntentService {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

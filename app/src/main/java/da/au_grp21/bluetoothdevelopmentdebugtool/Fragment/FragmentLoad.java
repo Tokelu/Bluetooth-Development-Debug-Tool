@@ -89,7 +89,6 @@ public class FragmentLoad extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-//        LocalBroadcastManager.getInstance(FragmentLoad.this.getActivity()).unregisterReceiver(vm.onDatabaseResponse);
     }
 
     @Override

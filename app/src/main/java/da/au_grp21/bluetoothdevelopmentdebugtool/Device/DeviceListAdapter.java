@@ -1,6 +1,5 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Device;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
