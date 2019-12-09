@@ -46,7 +46,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
 
     private ArrayList deviceList;
     //    private LiveData mutableLiveData;
-    private MutableLiveData<Device> devices;
+    private MutableLiveData<List<Device>> devices;
     //    private String bluetoothDeviceAddress = "cc:42:32:9D:49:f6";
     private String bluetoothDeviceAddress;
 
@@ -72,9 +72,6 @@ public class BluetoothConnectionService extends Service { //IntentService {
     private static final int STATE_CONNECTED = 2;
 
 
-    private Boolean started = false;
-
-
 //    public BluetoothConnectionService(){super("BluetoothConnectionService");}
 
     @Override
@@ -90,29 +87,18 @@ public class BluetoothConnectionService extends Service { //IntentService {
             // getPermissions() {}
         }
         deviceList = new ArrayList();
+        devices = new MutableLiveData<>();
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    }
+
+    public MutableLiveData<List<Device>> getDevices() {
+        return devices;
+    }
+
+    public void startLeScanWrapper() {
+        deviceList.clear();
         bluetoothAdapter.startLeScan(btScanCallback);
     }
-
-    @Override
-    public void onDestroy() {
-
-        close();
-        super.onDestroy();
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
-
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-
-    //    @Override
-//    public void onHandleIntent(@Nullable Intent intent){
-//
-//    }
 
     // inspiration: https://bit.ly/2OOVepH
     private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback() {
@@ -120,24 +106,22 @@ public class BluetoothConnectionService extends Service { //IntentService {
         public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
             Device device = new Device();
 
-
-
             if (bluetoothDevice != null) {
-
                 // When scanning, check if device list contains a device with a specific mac address and add it if it does not.
-                if (deviceList.contains((bluetoothDevice.getAddress())) == deviceList.contains(device.getMac())) {
+                if (!deviceList.contains((bluetoothDevice.getAddress()))) {
                     device.setMac(bluetoothDevice.getAddress());
                     device.setName(bluetoothDevice.getName());
                     device.setConnected(false);
 
-                    devices.postValue(device);
-//                    deviceList.add(device);
+                    deviceList.add(device);
+                    devices.postValue(deviceList);
+
                 }
                 // if device is no longer in scanning range, remove device from list.
-                else {
-                    deviceList.remove(device.getMac());
-                    deviceList.add(device.getMac());
-                }
+//                else {
+//                    deviceList.remove(device.getMac());
+//                    deviceList.add(device.getMac());
+//                }
 //                arrayAdapter.notifyDataSetChanged();
             }
         }
@@ -230,24 +214,26 @@ public class BluetoothConnectionService extends Service { //IntentService {
         }
 
 
-//    private final IBinder binder = new LocalBinder();
+    private final IBinder binder = new LocalBinder();
 
     public IBinder onBind(Intent intent) {
-        return null;
+        initialize();
+        return binder;
     }
 
-//    public boolean onUnbind(Intent intent) {
-//        // when we're done with a device we need to release resources.  close() is invoked when the UI is disconnected from the Service and tends to this
-//        close();
-//        return super.onUnbind(intent);
-//    }
+    public boolean onUnbind(Intent intent) {
+        // when we're done with a device we need to release resources.  close() is invoked when the UI is disconnected from the Service and tends to this
+        //TODO: close();
+        close();
+        return super.onUnbind(intent);
+    }
 
-//        //  the binder for the bluetooth service
-//        public class LocalBinder extends Binder {
-//            public BluetoothConnectionService getService() {
-//                return BluetoothConnectionService.this;
-//            }
-//        }
+    //  the binder for the bluetooth service
+    public class LocalBinder extends Binder {
+        public BluetoothConnectionService getService() {
+            return BluetoothConnectionService.this;
+        }
+    }
 
 //    public class LocalBinder extends Binder {
 //        BluetoothConnectionService getService() {return BluetoothConnectionService.this;}

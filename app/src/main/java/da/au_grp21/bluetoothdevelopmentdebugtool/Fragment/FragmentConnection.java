@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
+import da.au_grp21.bluetoothdevelopmentdebugtool.MainActivity;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
@@ -97,7 +99,7 @@ public class FragmentConnection extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: check for devices there can be conneted
-                vm.loadDevicesConneced();
+                MainActivity.service.startLeScanWrapper();
 
             }
         });

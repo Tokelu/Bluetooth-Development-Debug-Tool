@@ -126,7 +126,7 @@ title __APP's Class Diagram__\n
   }
   
 
-  da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService -up-|> android.app.IntentService
+  da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService -up-|> android.app.Service
   da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService -up-|> android.app.IntentService
   da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogData .up.|> java.io.Serializable
   da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogListAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
@@ -154,6 +154,7 @@ title __APP's Class Diagram__\n
   da.au_grp21.bluetoothdevelopmentdebugtool.MainActivity -up-|> androidx.appcompat.app.AppCompatActivity
   da.au_grp21.bluetoothdevelopmentdebugtool.MainActivity o-- da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel : vm
   da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel -up-|> androidx.lifecycle.ViewModel
+  da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel o-- da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService : service
   da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel o-- da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogData : chosenLog
   da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel o-- da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device : currentDevice
 
