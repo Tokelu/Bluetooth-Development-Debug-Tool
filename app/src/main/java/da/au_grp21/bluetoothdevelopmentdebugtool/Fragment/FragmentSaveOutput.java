@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
+import da.au_grp21.bluetoothdevelopmentdebugtool.Help.myToast;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
@@ -41,7 +42,7 @@ public class FragmentSaveOutput extends Fragment {
     EditText saveOutputEditTxt;
     Button saveOutputBtnBack;
     Button saveOutputBtnSave;
-
+    private myToast testToast;
     private MyViewModel vm;
 
     public FragmentSaveOutput() {
@@ -93,7 +94,7 @@ public class FragmentSaveOutput extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: Where to go? how do we do this?
-                vm.showToast(FragmentSaveOutput.this.getActivity(), R.string.dataSaveOnDatabase);
+                testToast.showToast(FragmentSaveOutput.this.getActivity(), R.string.dataSaveOnDatabase);
                 vm.saveToDatabase(FragmentSaveOutput.this.getActivity(), saveOutputEditTxt.getText().toString(), vm.getDeviceThatIsConnect().getData());
                 vm.SetDeviceSaved();
                 Navigation.findNavController(v).navigate(R.id.fragmentTerminalScr);

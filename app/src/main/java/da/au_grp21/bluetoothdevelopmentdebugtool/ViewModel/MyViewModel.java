@@ -3,8 +3,13 @@ package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.content.BroadcastReceiver;
 import android.content.BroadcastReceiver;
@@ -19,6 +24,7 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,10 +34,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogData;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_DATA_AVAILABLE;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_GATT_CONNECTED;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_GATT_DISCONNECTED;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_GATT_SERVICES_DISCOVERED;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.DEVICE_DOES_NOT_SUPPORT_UART;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.EXTRA_DATA;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.DATE;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.FIND_BY_DATE;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.FIND_BY_NAME;
@@ -47,9 +60,12 @@ import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentTerminalScr;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.MainActivity;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
+
+    private final static String TAG = MyViewModel.class.getSimpleName();
 
     private MutableLiveData<Device> devices;
     private ArrayList<Device> items;
@@ -60,14 +76,21 @@ public class MyViewModel extends ViewModel {
     private ArrayList<LogData> logList;
     private MutableLiveData<List<LogData>> logs;
     private LogData chosenLog;
-    public LogData getChosenLog() {return chosenLog;}
-    public void setChosenLog(LogData chosenLog) {this.chosenLog = chosenLog;}
+
+    public LogData getChosenLog() {
+        return chosenLog;
+    }
+
+    public void setChosenLog(LogData chosenLog) {
+        this.chosenLog = chosenLog;
+    }
 
     private String file = null;
     private boolean connect = false;
     //   private boolean disconneted = true;
 
     private boolean isSearchingForDevices = false;
+
 
     public LiveData<List<LogData>> getLogs() {
         if (logs == null) {
@@ -84,28 +107,14 @@ public class MyViewModel extends ViewModel {
         return devices;
     }
 
-    // TODO:
     public LiveData<List<Device>> getAllDevices() {
+        numItems = MainActivity.service.getDevices();
         if (numItems == null) {
-            numItems = new MutableLiveData<List<Device>>();
-            if (items == null) {
-                items = new ArrayList<>();
-            }
-            numItems.setValue(items);//setValue?
+            numItems = new MutableLiveData<>();
         }
         return numItems;
     }
 
-
-    // TODO: this function is meant to o an asynchronous operation to fetch devices.
-    // Please make it return the list of devices
-    public void loadDevicesConneced() {
-        if (!isSearchingForDevices) {
-
-            isSearchingForDevices = !isSearchingForDevices;
-        }
-
-    }
 
     //TODO: chose save location: This might(WILL) be redundant
 //    public void locationToSave(String locationToSave) { //
@@ -120,7 +129,7 @@ public class MyViewModel extends ViewModel {
 
     }
 
-    // TODO: save the data to the database
+    // Save the data to the database
     public void saveToDatabase(Context context, String fileName, String terminalData) {
         Intent log = new Intent(context, DatabaseService.class)
                 .setAction(SAVE)
@@ -129,27 +138,17 @@ public class MyViewModel extends ViewModel {
         context.startService(log);
     }
 
-    //TODO: get from database
-    public void getFromDatabase() {
-
-    }
-
-
-    //TODO: What should this do??
-    public void help() {
-    }
-
-    // TODO: disconnect the device
+    //This function sets the device attribut connected to false
     public void setDeviceDisconnect() {
         currentDevice.setConnected(false);
     }
 
-    // TODO: connect the device
+    //This function gets the device
     public Device getDeviceThatIsConnect() {
         return currentDevice;
     }
 
-    // TODO: connect the device
+    //This function sets the device attribut connected to true
     public void setDeviceConnect() {
         currentDevice.setConnected(true);
     }
@@ -160,6 +159,11 @@ public class MyViewModel extends ViewModel {
         setDeviceConnect();
     }
 
+    public void disconnectDevice() {
+
+    }
+
+    //This function gets the device attribut connected
     public boolean getconnection() {
         return currentDevice.getConnected();
     }
@@ -171,7 +175,7 @@ public class MyViewModel extends ViewModel {
         numItems.setValue(items);
     }
 
-    //TODO: to find the old logs
+    // //This function finds the old logs in the database
     public void seachForOldData(Context context, String searchString) {
         Date mightBe = LogData.sdf.parse(searchString, new ParsePosition(0));
         if (mightBe != null) {
@@ -195,18 +199,41 @@ public class MyViewModel extends ViewModel {
         currentDevice.setSave(true);
     }
 
-    public static void showToast(Context context, int stringId) {
-        Toast t = Toast.makeText(context, context.getString(stringId), Toast.LENGTH_SHORT);
-        View toastView = t.getView();
-        toastView.setBackground(context.getResources().getDrawable(R.drawable.toast));
 
-        TextView text = toastView.findViewById(android.R.id.message);
-        text.setTextColor(context.getResources().getColor(R.color.textOrange));
-        text.setBackgroundColor(context.getResources().getColor(R.color.toast));
+    public void fetchData( /* Karakteristik fra BLE */) {
 
-        t.setView(toastView);
-        t.show();
+
     }
+
+    public void setConnectedStatus(/* Karakteristik fra BLE */) {
+
+
+    }
+
+    public BroadcastReceiver onBluetoothChange = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
+
+
+                case ACTION_GATT_SERVICES_DISCOVERED:   //  informerer om at der er fundet BLE enheder
+
+                case ACTION_GATT_CONNECTED:     //  Denne her informerer blot om at vi er connected.
+
+                case ACTION_GATT_DISCONNECTED:  //  Denne her informerer blot om at vi er connected.
+
+                case ACTION_DATA_AVAILABLE:     //  Informerer om at data er klar fra BLE
+//                    fetchData(intent.getAction());
+
+                case EXTRA_DATA:                //  Indeholder data
+//                    readDataFromBle();
+
+                case DEVICE_DOES_NOT_SUPPORT_UART:  //  I tilfælde af at der forbindes til en enhed der har annonceret at den har uart men alligevel ikke har det.
+
+            }
+
+        }
+    };
 
     public BroadcastReceiver onDatabaseResponse = new BroadcastReceiver() {
         @Override

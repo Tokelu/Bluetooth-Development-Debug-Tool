@@ -99,7 +99,7 @@ public class FragmentTerminalScr extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigation.findNavController(v).navigate(R.id.fragmentConnection);
-                vm.setDeviceDisconnect();
+                vm.disconnectDevice();
             }
         });
         terBtnSave = v.findViewById(R.id.fragTerminalButtonSaveOutput);

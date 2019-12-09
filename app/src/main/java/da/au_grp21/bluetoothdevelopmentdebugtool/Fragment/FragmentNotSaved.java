@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.Help.myToast;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
@@ -22,7 +23,7 @@ public class FragmentNotSaved extends Fragment {
     TextView popUptxt;
     Button bntYes, bntCancle;//popUpBtnNo popUpBtnYes
     private MyViewModel vm;
-
+    private myToast testToast;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,7 +71,7 @@ public class FragmentNotSaved extends Fragment {
         bntYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vm.showToast(FragmentNotSaved.this.getContext(), R.string.willNotSave);
+                testToast.showToast(FragmentNotSaved.this.getContext(), R.string.willNotSave);
                 Navigation.findNavController(v).navigate((R.id.fragmentMain));
             }
         });
@@ -78,7 +79,7 @@ public class FragmentNotSaved extends Fragment {
         bntCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vm.showToast(FragmentNotSaved.this.getContext(), R.string.willSave);
+                testToast.showToast(FragmentNotSaved.this.getContext(), R.string.willSave);
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
             }
         });

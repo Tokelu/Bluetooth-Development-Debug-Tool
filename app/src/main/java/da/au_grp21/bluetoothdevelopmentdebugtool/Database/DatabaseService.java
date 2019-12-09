@@ -77,7 +77,6 @@ public class DatabaseService extends IntentService {
                 default:
                     Log.d(DATABASE_SERVICE, "onHandleIntent: The given action was not valid.");
             }
-
         }
     }
 
