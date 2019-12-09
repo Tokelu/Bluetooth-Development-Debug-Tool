@@ -91,6 +91,7 @@ public class BluetoothConnectionService extends IntentService{
         }
     };
 
+        //  This is the connection method
     public void Connect(){
         BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
         bluetoothGatt = device.connectGatt(this, true, gattCallback);
