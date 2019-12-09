@@ -5,7 +5,7 @@ public class Device {
     private String mac;
     private String name;
     private Boolean connected, paired;
-    private Boolean save;
+    private Boolean save = false;
     private String data;
 
     public String getMac() {
