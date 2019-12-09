@@ -110,7 +110,7 @@ public class FragmentConnection extends Fragment {
             }
         });
 
-        recyclerView = this.getActivity().findViewById(R.id.fragConnectRecyclerView);
+        recyclerView = v.findViewById(R.id.fragConnectRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this.getActivity());
 
