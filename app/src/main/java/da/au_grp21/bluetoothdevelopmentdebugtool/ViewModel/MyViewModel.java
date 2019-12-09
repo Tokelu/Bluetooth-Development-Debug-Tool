@@ -76,7 +76,7 @@ public class MyViewModel extends ViewModel {
         return logs;
     }
 
-    // TODO: Mette will make this part of all fragments
+
     public LiveData<Device> getDevice() {
         if (devices == null) {
             devices = new MutableLiveData<Device>();
@@ -91,7 +91,7 @@ public class MyViewModel extends ViewModel {
             if (items == null) {
                 items = new ArrayList<>();
             }
-            numItems.setValue(items);
+            numItems.setValue(items);//setValue?
         }
         return numItems;
     }
@@ -191,7 +191,7 @@ public class MyViewModel extends ViewModel {
         return currentDevice.getSave();
     }
 
-    public void SetDeviceSaved(){
+    public void SetDeviceSaved() {
         currentDevice.setSave(true);
     }
 
