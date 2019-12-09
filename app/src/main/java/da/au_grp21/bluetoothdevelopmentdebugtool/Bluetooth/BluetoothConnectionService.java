@@ -92,11 +92,13 @@ public class BluetoothConnectionService extends Service { //IntentService {
     }
 
     @Override
-    public void onDestroy() {
-
+    public void onDestroy()
+    {
         close();
         super.onDestroy();
-    public MutableLiveData<List<Device>> getDevices(){
+    }
+
+    public MutableLiveData<List<Device>> getDevices () {
         return devices;
     }
 
@@ -105,9 +107,16 @@ public class BluetoothConnectionService extends Service { //IntentService {
 
 
         return super.onStartCommand(intent, flags, startId);
+    }
+
     public void startLeScanWrapper(){
-        deviceList.clear();
-        bluetoothAdapter.startLeScan(btScanCallback);
+
+
+        if (!(bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON))
+        {
+            deviceList.clear();
+            bluetoothAdapter.startLeScan(btScanCallback);
+        }
     }
 
     // inspiration: https://bit.ly/2OOVepH
@@ -115,7 +124,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
         @Override
         public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
             Device device = new Device();
-
+            Log.d(TAG, "onLeScan: State " + bluetoothAdapter.getState());
             if (bluetoothDevice != null) {
                 // When scanning, check if device list contains a device with a specific mac address and add it if it does not.
                 if (!deviceList.contains((bluetoothDevice.getAddress()))) {
@@ -199,11 +208,11 @@ public class BluetoothConnectionService extends Service { //IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
-        //  Broardcaster for data from BLE device
-        //  https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Characteristics/org.bluetooth.characteristic.string.xml
-        private void broadcastUpdate(final String action,
+    //  Broardcaster for data from BLE device
+    //  https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Characteristics/org.bluetooth.characteristic.string.xml
+    private void broadcastUpdate(final String action,
                                      final BluetoothGattCharacteristic characteristic) {
-            final Intent intent = new Intent(action);
+        final Intent intent = new Intent(action);
 
             if (TX_CHAR_UUID.equals(characteristic.getUuid())) {
 
@@ -222,6 +231,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
             }   //  If we have no Bluetooth gatt server, there is no service either.
             return bluetoothGatt.getServices();
         }
+
 
 
     private final IBinder binder = new LocalBinder();
