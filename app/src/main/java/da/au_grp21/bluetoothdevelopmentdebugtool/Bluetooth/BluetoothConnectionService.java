@@ -58,7 +58,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
 //    public final static String ACTION_DATA_AVAILABLE = "da.au_grp21.bluetoothdevelopmentdebugtool.ACTION_DATA_AVAILABLE";
 //    public static String EXTRA_DATA = "da.au_grp21.bluetoothdevelopmentdebugtool.EXTRA_DATA";
 
-    public final String ACTION_GATT_CONNECTED = "com.nordicsemi.nrfUART.ACTION_GATT_CONNECTED"; // help and inspiration taken from https://github.com/NordicPlayground/Android-nRF-UART
+    public final static String ACTION_GATT_CONNECTED = "com.nordicsemi.nrfUART.ACTION_GATT_CONNECTED"; // help and inspiration taken from https://github.com/NordicPlayground/Android-nRF-UART
     public final static String ACTION_GATT_DISCONNECTED = "com.nordicsemi.nrfUART.ACTION_GATT_DISCONNECTED";
     public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.nordicsemi.nrfUART.ACTION_GATT_SERVICES_DISCOVERED";
     public final static String ACTION_DATA_AVAILABLE = "com.nordicsemi.nrfUART.ACTION_DATA_AVAILABLE";
@@ -70,6 +70,9 @@ public class BluetoothConnectionService extends Service { //IntentService {
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
     private static final int STATE_CONNECTED = 2;
+
+
+    private Boolean started = false;
 
 
 //    public BluetoothConnectionService(){super("BluetoothConnectionService");}
@@ -91,7 +94,22 @@ public class BluetoothConnectionService extends Service { //IntentService {
         bluetoothAdapter.startLeScan(btScanCallback);
     }
 
-//    @Override
+    @Override
+    public void onDestroy() {
+
+        close();
+        super.onDestroy();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+
+    //    @Override
 //    public void onHandleIntent(@Nullable Intent intent){
 //
 //    }
@@ -169,6 +187,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
             public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
                 if (status == BluetoothGatt.GATT_SUCCESS) {
                     broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic); //  broadcasting the data
+
                 }
             }
 
@@ -211,25 +230,24 @@ public class BluetoothConnectionService extends Service { //IntentService {
         }
 
 
-    private final IBinder binder = new LocalBinder();
+//    private final IBinder binder = new LocalBinder();
 
     public IBinder onBind(Intent intent) {
-        return binder;
+        return null;
     }
 
-    public boolean onUnbind(Intent intent) {
-        // when we're done with a device we need to release resources.  close() is invoked when the UI is disconnected from the Service and tends to this
-        //TODO: close();
+//    public boolean onUnbind(Intent intent) {
+//        // when we're done with a device we need to release resources.  close() is invoked when the UI is disconnected from the Service and tends to this
 //        close();
-        return super.onUnbind(intent);
-    }
+//        return super.onUnbind(intent);
+//    }
 
-        //  the binder for the bluetooth service
-        public class LocalBinder extends Binder {
-            BluetoothConnectionService getService() {
-                return BluetoothConnectionService.this;
-            }
-        }
+//        //  the binder for the bluetooth service
+//        public class LocalBinder extends Binder {
+//            public BluetoothConnectionService getService() {
+//                return BluetoothConnectionService.this;
+//            }
+//        }
 
 //    public class LocalBinder extends Binder {
 //        BluetoothConnectionService getService() {return BluetoothConnectionService.this;}
@@ -309,7 +327,9 @@ public class BluetoothConnectionService extends Service { //IntentService {
             bluetoothGatt.close();
             bluetoothGatt = null;
         }
-        //  Reading the characteristic
+
+
+    //  Reading the characteristic
         public void readCharacteristic(BluetoothGattCharacteristic characteristic) {
             if (bluetoothAdapter == null || bluetoothGatt == null) {
                 Log.w(TAG, "Nothing to read: BluetoothAdapter is not initialized");

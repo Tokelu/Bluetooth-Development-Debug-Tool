@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel.MyViewModel;
 
 import static android.content.Intent.CATEGORY_DEFAULT;
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         CheckBluetoothPermissions();
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        Intent intent = new Intent(this, BluetoothConnectionService.class);
+        startService(intent);
 
 
         vm = ViewModelProviders.of(this).get(MyViewModel.class);

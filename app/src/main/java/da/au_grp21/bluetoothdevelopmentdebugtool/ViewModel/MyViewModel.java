@@ -3,8 +3,12 @@ package da.au_grp21.bluetoothdevelopmentdebugtool.ViewModel;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.content.BroadcastReceiver;
@@ -20,6 +24,7 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +39,12 @@ import da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Database.LogData;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.Device;
 
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_DATA_AVAILABLE;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_GATT_CONNECTED;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_GATT_DISCONNECTED;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.ACTION_GATT_SERVICES_DISCOVERED;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.DEVICE_DOES_NOT_SUPPORT_UART;
+import static da.au_grp21.bluetoothdevelopmentdebugtool.Bluetooth.BluetoothConnectionService.EXTRA_DATA;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.DATE;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.FIND_BY_DATE;
 import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService.FIND_BY_NAME;
@@ -220,14 +231,36 @@ public class MyViewModel extends ViewModel {
         bluetoothConnectionService.close();
     }
 
-    //TODO:
-    // This function will return the terminal output from the bluetooth device
-    public String broadcastCharcteristic() {
-        String hej = "hej";
-        return hej;
-    }
+
+//    public void fetchData(Intent intent){
+//        bluetoothService.readCharacteristic(intent);
+//
+//    }
+
+    public BroadcastReceiver onBluetoothChange = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
 
 
+                case ACTION_GATT_SERVICES_DISCOVERED:   //  informerer om at der er fundet BLE enheder
+
+                case ACTION_GATT_CONNECTED:     //  Denne her informerer blot om at vi er connected.
+
+                case ACTION_GATT_DISCONNECTED:  //  Denne her informerer blot om at vi er connected.
+
+                case ACTION_DATA_AVAILABLE:     //  Informerer om at data er klar fra BLE
+//                    fetchData(intent.getAction());
+
+                case EXTRA_DATA:                //  Indeholder data
+//                    readDataFromBle();
+
+                case DEVICE_DOES_NOT_SUPPORT_UART:  //  I tilfælde af at der forbindes til en enhed der har annonceret at den har uart men alligevel ikke har det.
+
+            }
+
+        }
+    };
 
     public BroadcastReceiver onDatabaseResponse = new BroadcastReceiver() {
         @Override
