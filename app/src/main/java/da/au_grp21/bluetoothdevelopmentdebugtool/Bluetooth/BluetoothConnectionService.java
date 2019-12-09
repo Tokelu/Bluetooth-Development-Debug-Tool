@@ -125,10 +125,10 @@ public class BluetoothConnectionService extends Service{ //IntentService {
         }
     };
 
-        //  This is the connection method
-    public void Connect(){
-        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
-        bluetoothGatt = device.connectGatt(this, true, gattCallback);
+//        //  This is the connection method
+//    public void Connect(){
+//        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+//        bluetoothGatt = device.connectGatt(this, true, gattCallback);
 
 
         //  This is a callback method for gatt event that we're looking for (like services discovered, and connection change)
