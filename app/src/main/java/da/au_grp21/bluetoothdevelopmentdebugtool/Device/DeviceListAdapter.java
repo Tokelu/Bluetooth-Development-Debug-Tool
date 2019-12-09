@@ -1,5 +1,6 @@
 package da.au_grp21.bluetoothdevelopmentdebugtool.Device;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +82,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Device current = GetItem(position);
-        holder.paired.setText(R.string.deviceListElementTextViewIsBonded + " " + current.getPaired());
+        holder.paired.setText( R.string.deviceListElementTextViewIsBonded + " " + current.getPaired());
         holder.name.setText(R.string.deviceListElementTextViewDeviceName + " " + current.getName());
         holder.MAC.setText(R.string.deviceListElementTextViewMac_address + " " + current.getMac());
     }

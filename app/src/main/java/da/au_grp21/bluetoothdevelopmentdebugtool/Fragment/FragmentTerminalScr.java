@@ -77,6 +77,12 @@ public class FragmentTerminalScr extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        terminalTextView.setText("");
+        super.onStop();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -87,11 +93,14 @@ public class FragmentTerminalScr extends Fragment {
         terBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (vm.chechIfDataIsSaved() == false) {
-                    vm.saveTerminalDataInformation(terminalTextView.getText().toString());
-                    Navigation.findNavController(v).navigate(R.id.fragmentNotSaved);
-                } else
-                    Navigation.findNavController(v).navigate(R.id.fragmentMain);
+                if(vm.getDeviceThatIsConnect() != null){
+                    if (vm.chechIfDataIsSaved() == false) {
+                        vm.saveTerminalDataInformation(terminalTextView.getText().toString());
+                        Navigation.findNavController(v).navigate(R.id.fragmentNotSaved);
+                    } else
+                        Navigation.findNavController(v).navigate(R.id.fragmentMain);
+                }
+                else Navigation.findNavController(v).navigate(R.id.fragmentMain);
             }
         });
         terBtnDisconnet = v.findViewById(R.id.fragTerminalButtonDisconnect);
@@ -110,6 +119,7 @@ public class FragmentTerminalScr extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.fragmentSaveOutput);
             }
         });
+
         return v;
     }
 
@@ -123,6 +133,9 @@ public class FragmentTerminalScr extends Fragment {
                 //TODO: This function should get what?
             }
         });
+        if (vm.getChosenLog() != null){
+            terminalTextView.setText(vm.getChosenLog().getTerminalLog());
+        }
     }
 
     @Override

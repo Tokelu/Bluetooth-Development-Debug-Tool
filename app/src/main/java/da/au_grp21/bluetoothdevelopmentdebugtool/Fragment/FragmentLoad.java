@@ -89,7 +89,7 @@ public class FragmentLoad extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        LocalBroadcastManager.getInstance(FragmentLoad.this.getActivity()).unregisterReceiver(vm.onDatabaseResponse);
+//        LocalBroadcastManager.getInstance(FragmentLoad.this.getActivity()).unregisterReceiver(vm.onDatabaseResponse);
     }
 
     @Override
@@ -113,12 +113,6 @@ public class FragmentLoad extends Fragment {
             }
         });
 
-        //Setting up intent filter and using this to subscribe to the local broadcast manager
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(SINGLE_BROADCAST);
-        filter.addAction(LIST_BROADCAST);
-        LocalBroadcastManager.getInstance(FragmentLoad.this.getContext()).registerReceiver(vm.onDatabaseResponse, filter);
-
         return v;
     }
 
@@ -130,7 +124,7 @@ public class FragmentLoad extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this.getActivity());
 
-        myAdapter = new LogListAdapter(); //TODO: Steen will find out how to do this mutable live data in recycler view shit
+        myAdapter = new LogListAdapter();
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(layoutManager);
         myAdapter.setClickListener(new LogListAdapter.OnItemClickListener() {
@@ -151,6 +145,12 @@ public class FragmentLoad extends Fragment {
                 myAdapter.SetLogList(logData);
             }
         });
+
+        //Setting up intent filter and using this to subscribe to the local broadcast manager
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(SINGLE_BROADCAST);
+        filter.addAction(LIST_BROADCAST);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(vm.onDatabaseResponse, filter);
     }
 
     @Override
