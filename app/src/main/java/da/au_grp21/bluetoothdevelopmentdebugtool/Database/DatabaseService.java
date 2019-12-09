@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
@@ -157,18 +158,19 @@ public class DatabaseService extends IntentService {
         @Override
         protected Void doInBackground(String... strings) {
             CollectionReference collref = db.collection(COLLECTION_PATH);
-            Query query = collref.whereEqualTo("name", strings[0]);
+            Query query = collref.whereEqualTo("filename", strings[0]);
             query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()){
-                        QuerySnapshot document = task.getResult();
-                        List<LogData> queryResult = document.toObjects(LogData.class);
-                        LogData returnLog = queryResult.get(1);
-                        Intent message = new Intent();
-                        message.putExtra(RETURN_LOG, returnLog);
-                        message.setAction(SINGLE_BROADCAST);
-                        LocalBroadcastManager.getInstance(DatabaseService.this).sendBroadcast(message);
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            LogData returnLog = document.toObject(LogData.class);
+                            Intent message = new Intent();
+                            message.putExtra(RETURN_LOG, returnLog);
+                            message.setAction(SINGLE_BROADCAST);
+                            LocalBroadcastManager.getInstance(DatabaseService.this).sendBroadcast(message);
+                        }
+
                     }
                     else {
                         Toast.makeText(DatabaseService.this, "There is no file with such a name", Toast.LENGTH_SHORT).show();

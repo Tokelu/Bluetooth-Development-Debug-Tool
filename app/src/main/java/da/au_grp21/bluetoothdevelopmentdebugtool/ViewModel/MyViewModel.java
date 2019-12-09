@@ -73,9 +73,9 @@ public class MyViewModel extends ViewModel {
     private Device currentDevice;
 
     //Fields for the list of logs used in FragmentLoad
-    private ArrayList<LogData> logList;
+    private ArrayList<LogData> logList = new ArrayList<>();
     private MutableLiveData<List<LogData>> logs;
-    private LogData chosenLog;
+    private LogData chosenLog = null;
 
     public LogData getChosenLog() {
         return chosenLog;
@@ -240,7 +240,8 @@ public class MyViewModel extends ViewModel {
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case SINGLE_BROADCAST:
-                    logList.add((LogData) intent.getSerializableExtra(RETURN_LOG));
+                    LogData extractData = (LogData) intent.getSerializableExtra(RETURN_LOG);
+                    logList.add(extractData);
                     logs.setValue(logList);
                     break;
                 case LIST_BROADCAST:
