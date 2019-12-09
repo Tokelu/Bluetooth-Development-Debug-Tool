@@ -60,6 +60,7 @@ import static da.au_grp21.bluetoothdevelopmentdebugtool.Database.DatabaseService
 import da.au_grp21.bluetoothdevelopmentdebugtool.Device.DeviceListAdapter;
 import da.au_grp21.bluetoothdevelopmentdebugtool.Fragment.FragmentTerminalScr;
 
+import da.au_grp21.bluetoothdevelopmentdebugtool.MainActivity;
 import da.au_grp21.bluetoothdevelopmentdebugtool.R;
 
 public class MyViewModel extends ViewModel {
@@ -91,7 +92,6 @@ public class MyViewModel extends ViewModel {
     private boolean isSearchingForDevices = false;
 
 
-
     public LiveData<List<LogData>> getLogs() {
         if (logs == null) {
             logs = new MutableLiveData<>();
@@ -107,39 +107,14 @@ public class MyViewModel extends ViewModel {
         return devices;
     }
 
-    // TODO:
     public LiveData<List<Device>> getAllDevices() {
-        if (numItems == null) {
-            numItems = new MutableLiveData<List<Device>>();
-            if (items == null) {
-                items = new ArrayList<>();
-            }
-            numItems.setValue(items);//setValue?
+        numItems = MainActivity.service.getDevices();
+        if(numItems == null){
+            numItems = new MutableLiveData<>();
         }
         return numItems;
     }
 
-
-    // TODO: this function is meant to o an asynchronous operation to fetch devices.
-    // Please make it return the list of devices
-    public void loadDevicesConneced() {
-
-        BluetoothConnectionService bluetoothConnectionService = new BluetoothConnectionService();
-
-        if (!isSearchingForDevices) {
-            if (!bluetoothConnectionService.initialize()) {
-                Log.i(TAG, "Initializing Bluetooth adapter");
-                bluetoothConnectionService.initialize();
-            }
-
-            //NOTE: Not done yet
-
-
-            isSearchingForDevices = !isSearchingForDevices;
-        }
-
-
-    }
 
     //TODO: chose save location: This might(WILL) be redundant
 //    public void locationToSave(String locationToSave) { //
@@ -246,10 +221,15 @@ public class MyViewModel extends ViewModel {
         t.show();
     }
 
-//    public void fetchData(Intent intent){
-//        bluetoothService.readCharacteristic(intent);
-//
-//    }
+    public void fetchData( /* Karakteristik fra BLE */ ){
+
+
+    }
+
+    public void setConnectedStatus(/* Karakteristik fra BLE */){
+
+
+    }
 
     public BroadcastReceiver onBluetoothChange = new BroadcastReceiver()
     {
