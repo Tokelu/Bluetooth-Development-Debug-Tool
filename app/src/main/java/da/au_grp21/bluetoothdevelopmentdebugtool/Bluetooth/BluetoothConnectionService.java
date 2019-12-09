@@ -25,6 +25,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.common.util.concurrent.Runnables;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -91,21 +93,52 @@ public class BluetoothConnectionService extends Service { //IntentService {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
-    public MutableLiveData<List<Device>> getDevices() {
+    @Override
+    public void onDestroy()
+    {
+        close();
+        super.onDestroy();
+    }
+
+    public MutableLiveData<List<Device>> getDevices () {
         return devices;
     }
 
-    public void startLeScanWrapper() {
-        deviceList.clear();
-        bluetoothAdapter.startLeScan(btScanCallback);
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+
+        return super.onStartCommand(intent, flags, startId);
     }
+
+    public void startLeScanWrapper(){
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (!(bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON))
+                {
+                    deviceList.clear();
+                    bluetoothAdapter.startLeScan(btScanCallback);
+                }
+            }
+        }).start();
+    }
+
+
+
+
+
+
+
 
     // inspiration: https://bit.ly/2OOVepH
     private BluetoothAdapter.LeScanCallback btScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
             Device device = new Device();
-
+            Log.d(TAG, "onLeScan: State " + bluetoothAdapter.getState());
             if (bluetoothDevice != null) {
                 // When scanning, check if device list contains a device with a specific mac address and add it if it does not.
                 if (!deviceList.contains((bluetoothDevice.getAddress()))) {
@@ -189,11 +222,11 @@ public class BluetoothConnectionService extends Service { //IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
-        //  Broardcaster for data from BLE device
-        //  https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Characteristics/org.bluetooth.characteristic.string.xml
-        private void broadcastUpdate(final String action,
+    //  Broardcaster for data from BLE device
+    //  https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Characteristics/org.bluetooth.characteristic.string.xml
+    private void broadcastUpdate(final String action,
                                      final BluetoothGattCharacteristic characteristic) {
-            final Intent intent = new Intent(action);
+        final Intent intent = new Intent(action);
 
             if (TX_CHAR_UUID.equals(characteristic.getUuid())) {
 
@@ -212,6 +245,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
             }   //  If we have no Bluetooth gatt server, there is no service either.
             return bluetoothGatt.getServices();
         }
+
 
 
     private final IBinder binder = new LocalBinder();

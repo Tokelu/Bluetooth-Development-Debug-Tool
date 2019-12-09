@@ -200,8 +200,7 @@ public class MyViewModel extends ViewModel {
     }
 
 
-    public void fetchData( /* Karakteristik fra BLE */) {
-
+    public void fetchData( /* Karakteristik fra BLE */ ){
 
     }
 
@@ -210,7 +209,8 @@ public class MyViewModel extends ViewModel {
 
     }
 
-    public BroadcastReceiver onBluetoothChange = new BroadcastReceiver() {
+    public BroadcastReceiver onBluetoothChange = new BroadcastReceiver()
+    {
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
