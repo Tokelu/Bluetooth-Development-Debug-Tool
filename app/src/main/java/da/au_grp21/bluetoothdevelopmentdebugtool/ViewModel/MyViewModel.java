@@ -64,8 +64,14 @@ public class MyViewModel extends ViewModel {
     private ArrayList<LogData> logList;
     private MutableLiveData<List<LogData>> logs;
     private LogData chosenLog;
-    public LogData getChosenLog() {return chosenLog;}
-    public void setChosenLog(LogData chosenLog) {this.chosenLog = chosenLog;}
+
+    public LogData getChosenLog() {
+        return chosenLog;
+    }
+
+    public void setChosenLog(LogData chosenLog) {
+        this.chosenLog = chosenLog;
+    }
 
     private String file = null;
     private boolean connect = false;
