@@ -103,6 +103,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
             Device device = new Device();
 
 
+
             if (bluetoothDevice != null) {
 
                 // When scanning, check if device list contains a device with a specific mac address and add it if it does not.
@@ -124,10 +125,10 @@ public class BluetoothConnectionService extends Service { //IntentService {
         }
     };
 
-    //  This is the connection method
-    public void Connect() {
-        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
-        bluetoothGatt = device.connectGatt(this, true, gattCallback);
+//        //  This is the connection method
+//    public void Connect(){
+//        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+//        bluetoothGatt = device.connectGatt(this, true, gattCallback);
 
 
         //  This is a callback method for gatt event that we're looking for (like services discovered, and connection change)
@@ -179,16 +180,16 @@ public class BluetoothConnectionService extends Service { //IntentService {
         };
 
 
-        //  Broadcaster for intent actions like connected / disconnected etc.
-        private void broadcastUpdate ( final String action){
-            final Intent intent = new Intent(action);
-            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-        }
+    //  Broadcaster for intent actions like connected / disconnected etc.
+    private void broadcastUpdate(final String action) {
+        final Intent intent = new Intent(action);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
 
         //  Broardcaster for data from BLE device
         //  https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Characteristics/org.bluetooth.characteristic.string.xml
-        private void broadcastUpdate ( final String action,
-        final BluetoothGattCharacteristic characteristic){
+        private void broadcastUpdate(final String action,
+                                     final BluetoothGattCharacteristic characteristic) {
             final Intent intent = new Intent(action);
 
             if (TX_CHAR_UUID.equals(characteristic.getUuid())) {
@@ -202,7 +203,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
         }
 
         //  Returns List of services provided by the gatt server (the device) we're connected to.
-        public List<BluetoothGattService> getGattServices () {
+        public List<BluetoothGattService> getGattServices() {
             if (bluetoothGatt == null) {
                 return null;
             }   //  If we have no Bluetooth gatt server, there is no service either.
@@ -210,18 +211,18 @@ public class BluetoothConnectionService extends Service { //IntentService {
         }
 
 
-        private final IBinder binder = new LocalBinder();
+    private final IBinder binder = new LocalBinder();
 
-        public IBinder onBind (Intent intent){
-            return binder;
-        }
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }
 
-        public boolean onUnbind (Intent intent){
-            // when we're done with a device we need to release resources.  close() is invoked when the UI is disconnected from the Service and tends to this
-            //TODO: close();
+    public boolean onUnbind(Intent intent) {
+        // when we're done with a device we need to release resources.  close() is invoked when the UI is disconnected from the Service and tends to this
+        //TODO: close();
 //        close();
-            return super.onUnbind(intent);
-        }
+        return super.onUnbind(intent);
+    }
 
         //  the binder for the bluetooth service
         public class LocalBinder extends Binder {
@@ -235,7 +236,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
 //    }
 
         //  Method for Initialization of the Bluetooth adapter, returns false if either the service or the adapter fails, true if success.
-        public boolean initialize () {
+        public boolean initialize() {
             if (bluetoothManager == null) {
                 bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
                 if (bluetoothManager == null) {
@@ -253,7 +254,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
         }
 
         //  This is the method for connecting to a device - deviceAddress is a string containing a MAC address
-        public boolean connect ( final String deviceAddress){
+        public boolean connect(final String deviceAddress) {
             if (bluetoothAdapter == null) {  //  Checking if we have an initialized adapter to connect through
                 Log.i(TAG, "BluetoothAdapter is not initialized.");
                 return false;
@@ -274,7 +275,6 @@ public class BluetoothConnectionService extends Service { //IntentService {
                 }
             }
 
-
             //  Checking if a given device can be found.
             final BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
             if (device == null) {
@@ -291,7 +291,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
         }
 
         //  Method to disconnect from connected device.
-        public void disconnect () {
+        public void disconnect() {
             if (bluetoothGatt == null || bluetoothAdapter == null) {
                 Log.i(TAG, "No Bluetooth adapter, nothing to disconnect");
                 return;
@@ -300,7 +300,7 @@ public class BluetoothConnectionService extends Service { //IntentService {
         }
 
         //  Resource cleanup when device connection is no longer needed.
-        public void close () {
+        public void close() {
             if (bluetoothGatt == null) {
                 return;
             }    //  if we have no Bluetooth gatt there's nothing to clean
@@ -309,7 +309,6 @@ public class BluetoothConnectionService extends Service { //IntentService {
             bluetoothGatt.close();
             bluetoothGatt = null;
         }
-
         //  Reading the characteristic
         public void readCharacteristic(BluetoothGattCharacteristic characteristic) {
             if (bluetoothAdapter == null || bluetoothGatt == null) {
@@ -319,51 +318,51 @@ public class BluetoothConnectionService extends Service { //IntentService {
             bluetoothGatt.readCharacteristic(characteristic);
         }
 
-        public void enableTXNotification() {
+    public void enableTXNotification() {
 
-            BluetoothGattService RxService = bluetoothGatt.getService(RX_SERVICE_UUID);
-            if (RxService == null) {
-                Log.e(TAG, "Did not find Tx Service.");
-                broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
-                return;
-            }
-            BluetoothGattCharacteristic TxChar = RxService.getCharacteristic(TX_CHAR_UUID);
-            if (TxChar == null) {
-                Log.e(TAG, "Did not find Tx Characteristic.");
-                broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
-                return;
-            }
-            bluetoothGatt.setCharacteristicNotification(TxChar, true);
+        BluetoothGattService RxService = bluetoothGatt.getService(RX_SERVICE_UUID);
+        if (RxService == null) {
+            Log.e(TAG, "Did not find Tx Service.");
+            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            return;
+        }
+        BluetoothGattCharacteristic TxChar = RxService.getCharacteristic(TX_CHAR_UUID);
+        if (TxChar == null) {
+            Log.e(TAG, "Did not find Tx Characteristic.");
+            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            return;
+        }
+        bluetoothGatt.setCharacteristicNotification(TxChar, true);
             //  I'm not entirely sure as to why we need the CCCD UUID, but several tutorials and helpsites prescribe its necessity: https://www.oreilly.com/library/view/getting-started-with/9781491900550/ch04.html
-            BluetoothGattDescriptor descriptor = TxChar.getDescriptor(CCCD);
-            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-            bluetoothGatt.writeDescriptor(descriptor);
-        }
-
-        public void writeRXCharacteristic(byte[] value) {
-
-
-            BluetoothGattService RxService = bluetoothGatt.getService(RX_SERVICE_UUID);
-            Log.e(TAG, "BluetoothGatt null:" + bluetoothGatt);
-            if (RxService == null) {
-                Log.e(TAG, "Did not find Rx Service.");
-                broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
-                return;
-            }
-            BluetoothGattCharacteristic RxChar = RxService.getCharacteristic(RX_CHAR_UUID);
-            if (RxChar == null) {
-                Log.e(TAG, "Did not find Rx Characteristic.");
-                broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
-                return;
-            }
-            RxChar.setValue(value);
-            boolean status = bluetoothGatt.writeCharacteristic(RxChar);
-
-            Log.d(TAG, "write TXchar - status = " + status);
-        }
-
-
+        BluetoothGattDescriptor descriptor = TxChar.getDescriptor(CCCD);
+        descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+        bluetoothGatt.writeDescriptor(descriptor);
     }
+
+    public void writeRXCharacteristic(byte[] value) {
+
+
+        BluetoothGattService RxService = bluetoothGatt.getService(RX_SERVICE_UUID);
+        Log.e(TAG, "BluetoothGatt null:" + bluetoothGatt);
+        if (RxService == null) {
+            Log.e(TAG, "Did not find Rx Service.");
+            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            return;
+        }
+        BluetoothGattCharacteristic RxChar = RxService.getCharacteristic(RX_CHAR_UUID);
+        if (RxChar == null) {
+            Log.e(TAG, "Did not find Rx Characteristic.");
+            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            return;
+        }
+        RxChar.setValue(value);
+        boolean status = bluetoothGatt.writeCharacteristic(RxChar);
+
+        Log.d(TAG, "write TXchar - status = " + status);
+    }
+
+
+}
 
 
 
